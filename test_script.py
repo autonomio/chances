@@ -1,4 +1,4 @@
-import randomizer
+import chances
 
 r = randomizer.Randomizer(100, 10)
 
