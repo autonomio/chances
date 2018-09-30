@@ -17,3 +17,11 @@ Package that implements several pseudo, quasi, and true, including quantum rando
 
 - 1d plot
 - 2d plot
+
+## todo
+
+- test degree of randomness for each method
+- add degree of randomness test methods
+- add more random methods
+- add shuffle function
+- add support for strings
