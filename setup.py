@@ -2,14 +2,14 @@
 #
 # Copyright (C) 2018 Mikko Kotila
 
-DESCRIPTION = "Randomizer"
+DESCRIPTION = "Chances"
 LONG_DESCRIPTION = """\
-Randomizer provides a simple utility to access random methods in a unified
+Chances provides a simple utility to access random methods in a unified
 manner. The package implements pseudo, quasi, and true random methods, including
 an actual quantum random method and ambience sound based true random method.
 """
 
-DISTNAME = 'randomizer'
+DISTNAME = 'chances'
 MAINTAINER = 'Mikko Kotila'
 MAINTAINER_EMAIL = 'mailme@mikkokotila.com'
 URL = 'http://autonom.io'
@@ -36,7 +36,7 @@ def check_dependencies():
     try:
         import matplotlib
     except ImportError:
-        install_requires.append('matplotlib')
+        install_requires.append('matplotlib==2.2.3')
 
     return install_requires
 
@@ -57,12 +57,12 @@ if __name__ == "__main__":
           version=VERSION,
           download_url=DOWNLOAD_URL,
           install_requires=install_requires,
-          packages=['randomizer',
-                    'randomizer.lhs_sudoku',
-                    'randomizer.hypercube',
-                    'randomizer.sobol',
-                    'randomizer.quantum',
-                    'randomizer.ambient'],
+          packages=['chances',
+                    'chances.lhs_sudoku',
+                    'chances.hypercube',
+                    'chances.sobol',
+                    'chances.quantum',
+                    'chances.ambient'],
 
           classifiers=[
                  'Intended Audience :: Science/Research',
