@@ -31,7 +31,8 @@ class Randomizer:
             from secrets import randbelow
         except ImportError:
             print('Python3.6 is required >> mersenne returned instead')
-            return uniform_mersenne(self)
+            r = Randomizer(self.len, self.n)
+            return r.uniform_mersenne()
 
         out = []
         i = 0
