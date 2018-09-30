@@ -25,9 +25,13 @@ class Randomizer:
 
     def uniform_crypto(self):
 
-        from secrets import randbelow
-
         '''Cryptographically sound pseudorandom sequence'''
+
+        try:
+            from secrets import randbelow
+        except ImportError:
+            print('Python3.6 is required >> mersenne returned instead')
+            return uniform_mersenne(self)
 
         out = []
         i = 0
