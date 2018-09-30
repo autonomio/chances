@@ -5,22 +5,29 @@ language: python
 notifications:
   email:
     recipients:
-      - mailme@mikkokotila.com
+    - mailme@mikkokotila.com
     on_success: never
     on_failure: always
 python:
- - '2.7'
- - '3.4'
- - '3.5'
- - '3.6'
+- '2.7'
+- '3.4'
+- '3.5'
+- '3.6'
 install:
- - pip install -r requirements.txt
- - python setup.py install
- - pip install coveralls
+- pip install -r requirements.txt
+- python setup.py install
+- pip install coveralls
 before_script:
- - export DISPLAY=:99.0
- - sh -e /etc/init.d/xvfb start
- - sleep 3
+- export DISPLAY=:99.0
+- sh -e /etc/init.d/xvfb start
+- sleep 3
 script:
- - coverage run --source=chances ./test_script.py
+- coverage run --source=chances ./test_script.py
 after_success: coveralls
+deploy:
+  provider: pypi
+  user: mikkokotila
+  password:
+    secure: qtI5ZoiAlx0qGnd0w366+PgdO52jghwijpexSILd891UA59Ckm0ySePBuqHx8Hsz2P4XuRuL3Rn4xJZEKwHfk0JJm9zVj+H09hAeu0/I/Gc2jcSebHXDqtn0bEA9U+WcoZjBo2o0Ir7oIHJ8BRyisXDi90Zq22MNhTD30tYkjAMMvOnOJv3oiOjxUA4I2UXSJZyyzowC1tCTZlbsWRgtx1gdG0HDFDU/PigNZ9YGbUZV1rjH8YhpXQFuEMKzwNMGJ6YarCT8llKMbnMl8OuDsgM1XBtx8eXkY8xOO/RmERgssB75CRay0W8WzQjba2wi0l29dr29aX0JhaKeCU+eMM1iqhhykc7DFGeLUAb2XHNxGUWXSI/5eKlgrEUIKsg1y1YPzSR1wf2auhYBvA5M+LJQPqnAGSiPiPGoNLU/sb11hMv9OfqsUiaGAicxMPs4JjDzXFC4BwIDnhKj2iJEVYr5oWDdohxA1oRK0yE8KaYhtYGOzdN4vbMLLjPiBXE4nsLNzj6TL90q1d8ItXhhvsli+hfQyVDYiYLabgz5o9otCFraYE5ZRDEoO7DFMfqW3kIXkG3TFLfZ0gZnMcdHOI8VdovQUPEj1nh0eZFZh9D7x0fsBg8FmhyksnYXrN122vzGaQWeRqkg42vJIYIgDXBb7LUwrmPe+c8kRynV1xo=
+  on:
+    branch: production

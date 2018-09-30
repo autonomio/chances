@@ -24,5 +24,8 @@ nums = r.uniform_mersenne()
 print('Mersenne passed')
 
 chances.oned(nums)
+print('1d plot passed')
 chances.twod(nums)
+print('2d plot part 1/2 passed')
 chances.twod(nums, nums)
+print('2d plot part 2/2 passed')
