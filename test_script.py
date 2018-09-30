@@ -1,6 +1,6 @@
 import chances
 
-r = randomizer.Randomizer(100, 10)
+r = chances.Randomizer(100, 10)
 
 nums = r.ambience()
 nums = r.halton()
@@ -12,6 +12,6 @@ nums = r.quantum()
 nums = r.sobol()
 nums = r.uniform_crypto()
 nums = r.uniform_mersenne()
-randomizer.oned(nums)
-randomizer.twod(nums)
-randomizer.twod(nums, nums)
+chances.oned(nums)
+chances.twod(nums)
+chances.twod(nums, nums)
