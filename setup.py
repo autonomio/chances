@@ -33,6 +33,11 @@ def check_dependencies():
     except ImportError:
         install_requires.append('numpy')
 
+    try:
+        import matplotlib
+    except ImportError:
+        install_requires.append('matplotlib')
+
     return install_requires
 
 
