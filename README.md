@@ -1,6 +1,6 @@
-<img src=https://image.ibb.co/b1P0de/Screen_Shot_2018_09_30_at_4_36_27_PM.png align=left><br><br>
+<img src=https://image.ibb.co/b1P0de/Screen_Shot_2018_09_30_at_4_36_27_PM.png align=left><br>
 
-Package that implements several pseudo, quasi, and true, including quantum random methods into a unified single-line command interface.
+A python package that implements several pseudo, quasi, and true, including quantum random methods into a unified single-line command interface.
 
 ## methods
 
