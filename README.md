@@ -1,4 +1,5 @@
-# randomizer
+<img src=https://image.ibb.co/b1P0de/Screen_Shot_2018_09_30_at_4_36_27_PM.png align=left>
+
 Package that implements several pseudo, quasi, and true, including quantum random methods into a unified single-line command interface.
 
 ## methods
@@ -18,7 +19,7 @@ Package that implements several pseudo, quasi, and true, including quantum rando
 - 1d plot
 - 2d plot
 
-## todo 
+## todo
 
 - test degree of randomness for each method
 - add degree of randomness test methods
