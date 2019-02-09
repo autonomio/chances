@@ -36,7 +36,7 @@ def check_dependencies():
     try:
         import matplotlib
     except ImportError:
-        install_requires.append('matplotlib==2.2.3')
+        install_requires.append('matplotlib')
 
     return install_requires
 
