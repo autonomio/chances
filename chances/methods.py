@@ -10,9 +10,18 @@ from .ambient import RandomOrgClient
 
 class Randomizer:
 
-    def __init__(self, length, n):
+    '''Create various random sequences.'''
 
-        self.len = length
+    def __init__(self, max_value, n):
+
+        '''
+        max_value : int
+            maximum value in the sequence
+        n : int
+            number of samples to be drawn
+        '''
+
+        self.len = max_value
         self.n = n
 
     def uniform_mersenne(self):
