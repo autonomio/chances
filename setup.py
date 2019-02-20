@@ -26,19 +26,7 @@ except ImportError:
 
 def check_dependencies():
 
-    install_requires = []
-
-    try:
-        import numpy
-    except ImportError:
-        install_requires.append('numpy')
-
-    try:
-        import matplotlib
-    except ImportError:
-        install_requires.append('matplotlib==2.2.3')
-
-    return install_requires
+    return ['numpy', 'matplotlib==2.2.3', 'requests']
 
 
 if __name__ == "__main__":
