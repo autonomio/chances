@@ -1,4 +1,5 @@
 import numpy as np
+import random
 
 from .sobol.sobol_seq import i4_sobol_generate
 from .hypercube.hycusampling import halton, korobov_design_matrix
@@ -28,9 +29,7 @@ class Randomizer:
 
         '''Regular uniform / pseudorandom sequence'''
 
-        out = list(range(self.len))
-        np.random.shuffle(out)
-        return out[:self.n]
+        return random.sample(range(self.len), k=self.n)
 
     def uniform_crypto(self):
 
