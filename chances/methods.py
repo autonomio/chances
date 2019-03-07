@@ -1,5 +1,6 @@
 import numpy as np
 import random
+import sys
 
 from .sobol.sobol_seq import i4_sobol_generate
 from .hypercube.hycusampling import halton, korobov_design_matrix
@@ -29,7 +30,14 @@ class Randomizer:
 
         '''Regular uniform / pseudorandom sequence'''
 
-        return random.sample(range(self.len), k=self.n)
+        if self.len <= sys.maxsize:
+            return random.sample(range(self.len), k=self.n)
+        else:
+            out={}
+            while int(len(out)) < int(self.n):
+                r=random.randrange(self.len)
+                out[r]=r
+            return out.keys()
 
     def uniform_crypto(self):
 
