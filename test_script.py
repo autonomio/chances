@@ -23,6 +23,10 @@ print('Crypto passed')
 nums = r.uniform_mersenne()
 print('Mersenne passed')
 
+r2 = chances.Randomizer(100000000000000000000000000000000000000000, 10)
+nums = r2.uniform_mersenne()
+print('Mersenne for huge numbers passed')
+
 # chances.oned(nums)
 # print('1d plot passed')
 # chances.twod(nums)
