@@ -27,6 +27,7 @@ import binascii
 import math
 import sys
 import six
+import json
 
 VERSION = '1.9.0'
 URL = 'https://qrng.anu.edu.au/API/jsonI.php'
@@ -59,13 +60,7 @@ def get_data(data_type='uint16', array_length=1, block_size=1):
     assert data['length'] == array_length, data
     return data['data']
 
-
 if sys.version_info[0] == 2:
-
-    try:
-        import json
-    except ImportError:
-        import simplejson as json
 
     try:
         from urllib.request import urlopen
