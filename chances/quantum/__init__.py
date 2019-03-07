@@ -18,9 +18,8 @@
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 # SOFTWARE.
 """
-A Python interface to the ANU Quantum Random Numbers Server.
+API for ANU Quantum Random Number Server (http://qrng.anu.edu.au)
 
-http://qrng.anu.edu.au
 """
 
 import binascii
@@ -86,6 +85,11 @@ if sys.version_info[0] == 2:
                     raise
                 return default
 else:
+    try:
+        from urllib.request import urlopen
+    except ImportError:
+        from urllib2 import urlopen
+
     def get_json(url):
         return json.loads(urlopen(url).read().decode('ascii'))
 
