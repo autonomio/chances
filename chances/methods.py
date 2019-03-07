@@ -33,10 +33,10 @@ class Randomizer:
         if self.len <= sys.maxsize:
             return random.sample(range(self.len), k=self.n)
         else:
-            out={}
+            out = {}
             while int(len(out)) < int(self.n):
-                r=random.randrange(self.len)
-                out[r]=r
+                r = random.randrange(self.len)
+                out[r] = r
             return out.keys()
 
     def uniform_crypto(self):
