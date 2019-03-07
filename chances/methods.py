@@ -1,4 +1,5 @@
 import numpy as np
+import random
 
 from .sobol.sobol_seq import i4_sobol_generate
 from .hypercube.hycusampling import halton, korobov_design_matrix
@@ -10,18 +11,25 @@ from .ambient import RandomOrgClient
 
 class Randomizer:
 
-    def __init__(self, length, n):
+    '''Create various random sequences.'''
 
-        self.len = length
+    def __init__(self, max_value, n):
+
+        '''
+        max_value : int
+            maximum value in the sequence
+        n : int
+            number of samples to be drawn
+        '''
+
+        self.len = max_value
         self.n = n
 
     def uniform_mersenne(self):
 
         '''Regular uniform / pseudorandom sequence'''
 
-        out = list(range(self.len))
-        np.random.shuffle(out)
-        return out[:self.n]
+        return random.sample(range(self.len), k=self.n)
 
     def uniform_crypto(self):
 
