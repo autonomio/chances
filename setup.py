@@ -15,7 +15,7 @@ MAINTAINER_EMAIL = 'mailme@mikkokotila.com'
 URL = 'http://autonom.io'
 LICENSE = 'MIT'
 DOWNLOAD_URL = 'https://github.com/autonomio/randomizer/'
-VERSION = '0.1.5'
+VERSION = '0.1.6'
 
 try:
     from setuptools import setup
