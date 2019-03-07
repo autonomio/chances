@@ -27,16 +27,6 @@ import binascii
 import math
 import sys
 import six
-try:
-    from urllib.parse import urlencode
-    from urllib.request import urlopen
-except ImportError:
-    from urllib import urlencode
-    from urllib2 import urlopen
-try:
-    import json
-except ImportError:
-    import simplejson as json
 
 VERSION = '1.9.0'
 URL = 'https://qrng.anu.edu.au/API/jsonI.php'
@@ -46,6 +36,12 @@ INT_BITS = 16
 
 
 def get_data(data_type='uint16', array_length=1, block_size=1):
+
+    try:
+        from urllib.parse import urlencode
+    except ImportError:
+        from urllib import urlencode
+
     """Fetch data from the ANU Quantum Random Numbers JSON API"""
     if data_type not in DATA_TYPES:
         raise Exception("data_type must be one of %s" % DATA_TYPES)
@@ -65,6 +61,17 @@ def get_data(data_type='uint16', array_length=1, block_size=1):
 
 
 if sys.version_info[0] == 2:
+
+    try:
+        import json
+    except ImportError:
+        import simplejson as json
+
+    try:
+        from urllib.request import urlopen
+    except ImportError:
+        from urllib2 import urlopen
+
     def get_json(url):
         return json.loads(urlopen(url).read(), object_hook=_object_hook)
 

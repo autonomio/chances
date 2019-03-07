@@ -37,8 +37,6 @@ try:
 except ImportError:
     from Queue import Queue, Empty
 
-import requests
-
 # Basic RANDOM.ORG API functions https://api.random.org/json-rpc/1/
 _INTEGER_METHOD = 'generateIntegers'
 _DECIMAL_FRACTION_METHOD = 'generateDecimalFractions'
@@ -1571,6 +1569,8 @@ class RandomOrgClient(object):
             lock.release()
 
     def _send_request_core(self, request):
+
+        import requests
         # If a backoff is set, no more requests can be issued until the
         # required backoff time is up.
         if self._backoff is not None:
