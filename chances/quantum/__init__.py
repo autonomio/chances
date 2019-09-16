@@ -59,6 +59,7 @@ def get_data(data_type='uint16', array_length=1, block_size=1):
     assert data['length'] == array_length, data
     return data['data']
 
+
 if sys.version_info[0] == 2:
 
     try:
@@ -66,8 +67,11 @@ if sys.version_info[0] == 2:
     except ImportError:
         from urllib2 import urlopen
 
+    import ssl
+
     def get_json(url):
-        return json.loads(urlopen(url).read(), object_hook=_object_hook)
+        context = ssl._create_unverified_context()
+        return json.loads(urlopen(url, context=context).read(), object_hook=_object_hook)
 
     def _object_hook(obj):
         """We are only dealing with ASCII characters"""
@@ -90,8 +94,11 @@ else:
     except ImportError:
         from urllib2 import urlopen
 
+    import ssl
+
     def get_json(url):
-        return json.loads(urlopen(url).read().decode('ascii'))
+        context = ssl._create_unverified_context()
+        return json.loads(urlopen(url, context=context).read().decode('ascii'))
 
 
 def binary(array_length=100, block_size=100):
