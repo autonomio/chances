@@ -6,7 +6,6 @@ from .hypercube.hycusampling import halton, korobov_design_matrix
 from .hypercube.hycusampling import improved_lhd_matrix, lhd_matrix
 from .lhs_sudoku import sudoku
 from .quantum import cached_generator, randint
-from .ambient import RandomOrgClient
 
 
 class Randomizer:
@@ -107,8 +106,25 @@ class Randomizer:
 
         '''An ambient sound based TRNG using RANDOM.ORG API'''
 
-        out = RandomOrgClient('c7d1e0b0-e57c-4fb8-9d5b-382ec9de5a89')
-        return out.generate_integers(self.n, 0, self.len)
+        import time
+        import random
+        from .random_org.random_org import random_org
+
+        if self.len > 10000:
+            print("Due to API limitations, ambience method is for 10^4 range.")
+
+        out = []
+
+        while len(out) < self.n:
+
+            temp = random_org(self.n, 0, self.len)
+
+            out = list(set(out + temp))
+            time.sleep(.1)
+
+        random.shuffle(out)
+
+        return out[:self.len]
 
     def quantum(self):
 
