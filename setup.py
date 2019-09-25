@@ -26,7 +26,7 @@ except ImportError:
 
 def check_dependencies():
 
-    return ['numpy', 'scipy', 'matplotlib==2.2.3', 'requests']
+    return ['numpy', 'scipy', 'matplotlib>=2.2.3', 'requests']
 
 
 if __name__ == "__main__":
