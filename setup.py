@@ -15,7 +15,7 @@ MAINTAINER_EMAIL = 'mailme@mikkokotila.com'
 URL = 'http://autonom.io'
 LICENSE = 'MIT'
 DOWNLOAD_URL = 'https://github.com/autonomio/randomizer/'
-VERSION = '0.1.8'
+VERSION = '0.1.9'
 
 try:
     from setuptools import setup
@@ -26,7 +26,7 @@ except ImportError:
 
 def check_dependencies():
 
-    return ['numpy', 'scipy', 'matplotlib>=2.2.3', 'requests']
+    return ['numpy', 'scipy', 'requests']
 
 
 if __name__ == "__main__":
