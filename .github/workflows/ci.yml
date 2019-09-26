@@ -20,8 +20,8 @@ jobs:
         python-version: ${{ matrix.python-version }}
     - name: Dependencies
       run: |
-        export MPLBACKEND=agg
         python -m pip install --upgrade pip
+        pip install six
         pip install -r requirements.txt
     - name: Lint with flake8
       run: |
@@ -32,5 +32,4 @@ jobs:
         flake8 . --count --exit-zero --max-complexity=10 --max-line-length=127 --statistics
     - name: Tests
       run: |
-        export MPLBACKEND=agg
         python test_script.py
