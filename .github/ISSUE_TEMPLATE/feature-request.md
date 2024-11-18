@@ -4,7 +4,7 @@ about: I want to suggest a new feature
 
 ---
 
-Thanks a lot for suggesting a feature to Chances. Please take a moment to go through the below checklist to provide context in a way that makes it easy to take your request forward.
+Thanks a lot for suggesting a feature to Chances. Please take a moment to go through the below checklist to provide context in a way that makes it easy to take your request forward. 
 
 #### 1) I think Chances should add...
 
