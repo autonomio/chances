@@ -8,7 +8,7 @@ Thanks a lot for suggesting a feature to Chances. Please take a moment to go thr
 
 #### 1) I think Chances should add...
 
-*A description of the feature with as much detail as you believe is valuable*
+*Describe the feature with as much detail as you believe is valuable*
 
 #### 2) Once implemented, I can see how this feature will...
 
