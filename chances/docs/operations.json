@@ -1,0 +1,4156 @@
+{
+  "distributions": {
+    "alpha": {
+      "constraints": "Finite scalar parameters; SciPy public support validates the distribution domain. loc is an integer for discrete distributions.",
+      "example": {
+        "a": 2.0
+      },
+      "kind": "continuous",
+      "output": "size shape; float64 continuous or int64 discrete",
+      "parameters": {
+        "a": {
+          "required": true,
+          "type": "finite_number"
+        },
+        "loc": {
+          "default": 0.0
+        },
+        "scale": {
+          "constraint": "strictly positive",
+          "default": 1.0
+        },
+        "size": {
+          "default": 1,
+          "type": "integer_or_shape"
+        }
+      },
+      "shape_parameters": [
+        "a"
+      ]
+    },
+    "anglit": {
+      "constraints": "Finite scalar parameters; SciPy public support validates the distribution domain. loc is an integer for discrete distributions.",
+      "example": {},
+      "kind": "continuous",
+      "output": "size shape; float64 continuous or int64 discrete",
+      "parameters": {
+        "loc": {
+          "default": 0.0
+        },
+        "scale": {
+          "constraint": "strictly positive",
+          "default": 1.0
+        },
+        "size": {
+          "default": 1,
+          "type": "integer_or_shape"
+        }
+      },
+      "shape_parameters": []
+    },
+    "arcsine": {
+      "constraints": "Finite scalar parameters; SciPy public support validates the distribution domain. loc is an integer for discrete distributions.",
+      "example": {},
+      "kind": "continuous",
+      "output": "size shape; float64 continuous or int64 discrete",
+      "parameters": {
+        "loc": {
+          "default": 0.0
+        },
+        "scale": {
+          "constraint": "strictly positive",
+          "default": 1.0
+        },
+        "size": {
+          "default": 1,
+          "type": "integer_or_shape"
+        }
+      },
+      "shape_parameters": []
+    },
+    "argus": {
+      "constraints": "Finite scalar parameters; SciPy public support validates the distribution domain. loc is an integer for discrete distributions.",
+      "example": {
+        "chi": 1.0
+      },
+      "kind": "continuous",
+      "output": "size shape; float64 continuous or int64 discrete",
+      "parameters": {
+        "chi": {
+          "required": true,
+          "type": "finite_number"
+        },
+        "loc": {
+          "default": 0.0
+        },
+        "scale": {
+          "constraint": "strictly positive",
+          "default": 1.0
+        },
+        "size": {
+          "default": 1,
+          "type": "integer_or_shape"
+        }
+      },
+      "shape_parameters": [
+        "chi"
+      ]
+    },
+    "bernoulli": {
+      "constraints": "Finite scalar parameters; SciPy public support validates the distribution domain. loc is an integer for discrete distributions.",
+      "example": {
+        "p": 0.5
+      },
+      "kind": "discrete",
+      "output": "size shape; float64 continuous or int64 discrete",
+      "parameters": {
+        "loc": {
+          "default": 0
+        },
+        "p": {
+          "required": true,
+          "type": "finite_number"
+        },
+        "size": {
+          "default": 1,
+          "type": "integer_or_shape"
+        }
+      },
+      "shape_parameters": [
+        "p"
+      ]
+    },
+    "beta": {
+      "constraints": "Finite scalar parameters; SciPy public support validates the distribution domain. loc is an integer for discrete distributions.",
+      "example": {
+        "a": 2.0,
+        "b": 3.0
+      },
+      "kind": "continuous",
+      "output": "size shape; float64 continuous or int64 discrete",
+      "parameters": {
+        "a": {
+          "required": true,
+          "type": "finite_number"
+        },
+        "b": {
+          "required": true,
+          "type": "finite_number"
+        },
+        "loc": {
+          "default": 0.0
+        },
+        "scale": {
+          "constraint": "strictly positive",
+          "default": 1.0
+        },
+        "size": {
+          "default": 1,
+          "type": "integer_or_shape"
+        }
+      },
+      "shape_parameters": [
+        "a",
+        "b"
+      ]
+    },
+    "betabinom": {
+      "constraints": "Finite scalar parameters; SciPy public support validates the distribution domain. loc is an integer for discrete distributions.",
+      "example": {
+        "a": 2.0,
+        "b": 3.0,
+        "n": 10
+      },
+      "kind": "discrete",
+      "output": "size shape; float64 continuous or int64 discrete",
+      "parameters": {
+        "a": {
+          "required": true,
+          "type": "finite_number"
+        },
+        "b": {
+          "required": true,
+          "type": "finite_number"
+        },
+        "loc": {
+          "default": 0
+        },
+        "n": {
+          "required": true,
+          "type": "integer"
+        },
+        "size": {
+          "default": 1,
+          "type": "integer_or_shape"
+        }
+      },
+      "shape_parameters": [
+        "n",
+        "a",
+        "b"
+      ]
+    },
+    "betaprime": {
+      "constraints": "Finite scalar parameters; SciPy public support validates the distribution domain. loc is an integer for discrete distributions.",
+      "example": {
+        "a": 2.0,
+        "b": 3.0
+      },
+      "kind": "continuous",
+      "output": "size shape; float64 continuous or int64 discrete",
+      "parameters": {
+        "a": {
+          "required": true,
+          "type": "finite_number"
+        },
+        "b": {
+          "required": true,
+          "type": "finite_number"
+        },
+        "loc": {
+          "default": 0.0
+        },
+        "scale": {
+          "constraint": "strictly positive",
+          "default": 1.0
+        },
+        "size": {
+          "default": 1,
+          "type": "integer_or_shape"
+        }
+      },
+      "shape_parameters": [
+        "a",
+        "b"
+      ]
+    },
+    "binom": {
+      "constraints": "Finite scalar parameters; SciPy public support validates the distribution domain. loc is an integer for discrete distributions.",
+      "example": {
+        "n": 10,
+        "p": 0.5
+      },
+      "kind": "discrete",
+      "output": "size shape; float64 continuous or int64 discrete",
+      "parameters": {
+        "loc": {
+          "default": 0
+        },
+        "n": {
+          "required": true,
+          "type": "integer"
+        },
+        "p": {
+          "required": true,
+          "type": "finite_number"
+        },
+        "size": {
+          "default": 1,
+          "type": "integer_or_shape"
+        }
+      },
+      "shape_parameters": [
+        "n",
+        "p"
+      ]
+    },
+    "boltzmann": {
+      "constraints": "Finite scalar parameters; SciPy public support validates the distribution domain. loc is an integer for discrete distributions.",
+      "example": {
+        "N": 10,
+        "lambda_": 1.0
+      },
+      "kind": "discrete",
+      "output": "size shape; float64 continuous or int64 discrete",
+      "parameters": {
+        "N": {
+          "required": true,
+          "type": "integer"
+        },
+        "lambda_": {
+          "required": true,
+          "type": "finite_number"
+        },
+        "loc": {
+          "default": 0
+        },
+        "size": {
+          "default": 1,
+          "type": "integer_or_shape"
+        }
+      },
+      "shape_parameters": [
+        "lambda_",
+        "N"
+      ]
+    },
+    "bradford": {
+      "constraints": "Finite scalar parameters; SciPy public support validates the distribution domain. loc is an integer for discrete distributions.",
+      "example": {
+        "c": 1.0
+      },
+      "kind": "continuous",
+      "output": "size shape; float64 continuous or int64 discrete",
+      "parameters": {
+        "c": {
+          "required": true,
+          "type": "finite_number"
+        },
+        "loc": {
+          "default": 0.0
+        },
+        "scale": {
+          "constraint": "strictly positive",
+          "default": 1.0
+        },
+        "size": {
+          "default": 1,
+          "type": "integer_or_shape"
+        }
+      },
+      "shape_parameters": [
+        "c"
+      ]
+    },
+    "burr": {
+      "constraints": "Finite scalar parameters; SciPy public support validates the distribution domain. loc is an integer for discrete distributions.",
+      "example": {
+        "c": 2.0,
+        "d": 3.0
+      },
+      "kind": "continuous",
+      "output": "size shape; float64 continuous or int64 discrete",
+      "parameters": {
+        "c": {
+          "required": true,
+          "type": "finite_number"
+        },
+        "d": {
+          "required": true,
+          "type": "finite_number"
+        },
+        "loc": {
+          "default": 0.0
+        },
+        "scale": {
+          "constraint": "strictly positive",
+          "default": 1.0
+        },
+        "size": {
+          "default": 1,
+          "type": "integer_or_shape"
+        }
+      },
+      "shape_parameters": [
+        "c",
+        "d"
+      ]
+    },
+    "burr12": {
+      "constraints": "Finite scalar parameters; SciPy public support validates the distribution domain. loc is an integer for discrete distributions.",
+      "example": {
+        "c": 2.0,
+        "d": 3.0
+      },
+      "kind": "continuous",
+      "output": "size shape; float64 continuous or int64 discrete",
+      "parameters": {
+        "c": {
+          "required": true,
+          "type": "finite_number"
+        },
+        "d": {
+          "required": true,
+          "type": "finite_number"
+        },
+        "loc": {
+          "default": 0.0
+        },
+        "scale": {
+          "constraint": "strictly positive",
+          "default": 1.0
+        },
+        "size": {
+          "default": 1,
+          "type": "integer_or_shape"
+        }
+      },
+      "shape_parameters": [
+        "c",
+        "d"
+      ]
+    },
+    "cauchy": {
+      "constraints": "Finite scalar parameters; SciPy public support validates the distribution domain. loc is an integer for discrete distributions.",
+      "example": {},
+      "kind": "continuous",
+      "output": "size shape; float64 continuous or int64 discrete",
+      "parameters": {
+        "loc": {
+          "default": 0.0
+        },
+        "scale": {
+          "constraint": "strictly positive",
+          "default": 1.0
+        },
+        "size": {
+          "default": 1,
+          "type": "integer_or_shape"
+        }
+      },
+      "shape_parameters": []
+    },
+    "chi": {
+      "constraints": "Finite scalar parameters; SciPy public support validates the distribution domain. loc is an integer for discrete distributions.",
+      "example": {
+        "df": 3.0
+      },
+      "kind": "continuous",
+      "output": "size shape; float64 continuous or int64 discrete",
+      "parameters": {
+        "df": {
+          "required": true,
+          "type": "finite_number"
+        },
+        "loc": {
+          "default": 0.0
+        },
+        "scale": {
+          "constraint": "strictly positive",
+          "default": 1.0
+        },
+        "size": {
+          "default": 1,
+          "type": "integer_or_shape"
+        }
+      },
+      "shape_parameters": [
+        "df"
+      ]
+    },
+    "chi2": {
+      "constraints": "Finite scalar parameters; SciPy public support validates the distribution domain. loc is an integer for discrete distributions.",
+      "example": {
+        "df": 3.0
+      },
+      "kind": "continuous",
+      "output": "size shape; float64 continuous or int64 discrete",
+      "parameters": {
+        "df": {
+          "required": true,
+          "type": "finite_number"
+        },
+        "loc": {
+          "default": 0.0
+        },
+        "scale": {
+          "constraint": "strictly positive",
+          "default": 1.0
+        },
+        "size": {
+          "default": 1,
+          "type": "integer_or_shape"
+        }
+      },
+      "shape_parameters": [
+        "df"
+      ]
+    },
+    "cosine": {
+      "constraints": "Finite scalar parameters; SciPy public support validates the distribution domain. loc is an integer for discrete distributions.",
+      "example": {},
+      "kind": "continuous",
+      "output": "size shape; float64 continuous or int64 discrete",
+      "parameters": {
+        "loc": {
+          "default": 0.0
+        },
+        "scale": {
+          "constraint": "strictly positive",
+          "default": 1.0
+        },
+        "size": {
+          "default": 1,
+          "type": "integer_or_shape"
+        }
+      },
+      "shape_parameters": []
+    },
+    "crystalball": {
+      "constraints": "Finite scalar parameters; SciPy public support validates the distribution domain. loc is an integer for discrete distributions.",
+      "example": {
+        "beta": 2.0,
+        "m": 3.0
+      },
+      "kind": "continuous",
+      "output": "size shape; float64 continuous or int64 discrete",
+      "parameters": {
+        "beta": {
+          "required": true,
+          "type": "finite_number"
+        },
+        "loc": {
+          "default": 0.0
+        },
+        "m": {
+          "required": true,
+          "type": "finite_number"
+        },
+        "scale": {
+          "constraint": "strictly positive",
+          "default": 1.0
+        },
+        "size": {
+          "default": 1,
+          "type": "integer_or_shape"
+        }
+      },
+      "shape_parameters": [
+        "beta",
+        "m"
+      ]
+    },
+    "dgamma": {
+      "constraints": "Finite scalar parameters; SciPy public support validates the distribution domain. loc is an integer for discrete distributions.",
+      "example": {
+        "a": 2.0
+      },
+      "kind": "continuous",
+      "output": "size shape; float64 continuous or int64 discrete",
+      "parameters": {
+        "a": {
+          "required": true,
+          "type": "finite_number"
+        },
+        "loc": {
+          "default": 0.0
+        },
+        "scale": {
+          "constraint": "strictly positive",
+          "default": 1.0
+        },
+        "size": {
+          "default": 1,
+          "type": "integer_or_shape"
+        }
+      },
+      "shape_parameters": [
+        "a"
+      ]
+    },
+    "dirichlet": {
+      "constraints": "Finite arrays; probability vectors sum to one within 1e-15; covariance/scale matrices symmetric positive definite unless allow_singular explicitly permits semidefinite covariance.",
+      "example": {
+        "alpha": [
+          1.0,
+          2.0,
+          3.0
+        ]
+      },
+      "kind": "multivariate",
+      "output": "size shape followed by vector dimension or matrix dimensions (Wishart)",
+      "parameters": {
+        "alpha": {
+          "required": true
+        },
+        "size": {
+          "default": 1,
+          "type": "integer_or_shape"
+        }
+      },
+      "shape_parameters": [
+        "alpha"
+      ]
+    },
+    "dlaplace": {
+      "constraints": "Finite scalar parameters; SciPy public support validates the distribution domain. loc is an integer for discrete distributions.",
+      "example": {
+        "a": 1.0
+      },
+      "kind": "discrete",
+      "output": "size shape; float64 continuous or int64 discrete",
+      "parameters": {
+        "a": {
+          "required": true,
+          "type": "finite_number"
+        },
+        "loc": {
+          "default": 0
+        },
+        "size": {
+          "default": 1,
+          "type": "integer_or_shape"
+        }
+      },
+      "shape_parameters": [
+        "a"
+      ]
+    },
+    "dweibull": {
+      "constraints": "Finite scalar parameters; SciPy public support validates the distribution domain. loc is an integer for discrete distributions.",
+      "example": {
+        "c": 2.0
+      },
+      "kind": "continuous",
+      "output": "size shape; float64 continuous or int64 discrete",
+      "parameters": {
+        "c": {
+          "required": true,
+          "type": "finite_number"
+        },
+        "loc": {
+          "default": 0.0
+        },
+        "scale": {
+          "constraint": "strictly positive",
+          "default": 1.0
+        },
+        "size": {
+          "default": 1,
+          "type": "integer_or_shape"
+        }
+      },
+      "shape_parameters": [
+        "c"
+      ]
+    },
+    "empirical": {
+      "constraints": "Finite arrays; probability vectors sum to one within 1e-15; covariance/scale matrices symmetric positive definite unless allow_singular explicitly permits semidefinite covariance.",
+      "example": {
+        "values": [
+          1.0,
+          2.0,
+          3.0
+        ]
+      },
+      "kind": "empirical",
+      "output": "size shape",
+      "parameters": {
+        "p": {
+          "default": null
+        },
+        "size": {
+          "default": 1,
+          "type": "integer_or_shape"
+        },
+        "values": {
+          "required": true
+        }
+      },
+      "shape_parameters": [
+        "values"
+      ]
+    },
+    "erlang": {
+      "constraints": "Finite scalar parameters; SciPy public support validates the distribution domain. loc is an integer for discrete distributions.",
+      "example": {
+        "a": 2
+      },
+      "kind": "continuous",
+      "output": "size shape; float64 continuous or int64 discrete",
+      "parameters": {
+        "a": {
+          "required": true,
+          "type": "integer"
+        },
+        "loc": {
+          "default": 0.0
+        },
+        "scale": {
+          "constraint": "strictly positive",
+          "default": 1.0
+        },
+        "size": {
+          "default": 1,
+          "type": "integer_or_shape"
+        }
+      },
+      "shape_parameters": [
+        "a"
+      ]
+    },
+    "expon": {
+      "constraints": "Finite scalar parameters; SciPy public support validates the distribution domain. loc is an integer for discrete distributions.",
+      "example": {},
+      "kind": "continuous",
+      "output": "size shape; float64 continuous or int64 discrete",
+      "parameters": {
+        "loc": {
+          "default": 0.0
+        },
+        "scale": {
+          "constraint": "strictly positive",
+          "default": 1.0
+        },
+        "size": {
+          "default": 1,
+          "type": "integer_or_shape"
+        }
+      },
+      "shape_parameters": []
+    },
+    "exponnorm": {
+      "constraints": "Finite scalar parameters; SciPy public support validates the distribution domain. loc is an integer for discrete distributions.",
+      "example": {
+        "K": 1.0
+      },
+      "kind": "continuous",
+      "output": "size shape; float64 continuous or int64 discrete",
+      "parameters": {
+        "K": {
+          "required": true,
+          "type": "finite_number"
+        },
+        "loc": {
+          "default": 0.0
+        },
+        "scale": {
+          "constraint": "strictly positive",
+          "default": 1.0
+        },
+        "size": {
+          "default": 1,
+          "type": "integer_or_shape"
+        }
+      },
+      "shape_parameters": [
+        "K"
+      ]
+    },
+    "exponpow": {
+      "constraints": "Finite scalar parameters; SciPy public support validates the distribution domain. loc is an integer for discrete distributions.",
+      "example": {
+        "b": 2.0
+      },
+      "kind": "continuous",
+      "output": "size shape; float64 continuous or int64 discrete",
+      "parameters": {
+        "b": {
+          "required": true,
+          "type": "finite_number"
+        },
+        "loc": {
+          "default": 0.0
+        },
+        "scale": {
+          "constraint": "strictly positive",
+          "default": 1.0
+        },
+        "size": {
+          "default": 1,
+          "type": "integer_or_shape"
+        }
+      },
+      "shape_parameters": [
+        "b"
+      ]
+    },
+    "exponweib": {
+      "constraints": "Finite scalar parameters; SciPy public support validates the distribution domain. loc is an integer for discrete distributions.",
+      "example": {
+        "a": 2.0,
+        "c": 2.0
+      },
+      "kind": "continuous",
+      "output": "size shape; float64 continuous or int64 discrete",
+      "parameters": {
+        "a": {
+          "required": true,
+          "type": "finite_number"
+        },
+        "c": {
+          "required": true,
+          "type": "finite_number"
+        },
+        "loc": {
+          "default": 0.0
+        },
+        "scale": {
+          "constraint": "strictly positive",
+          "default": 1.0
+        },
+        "size": {
+          "default": 1,
+          "type": "integer_or_shape"
+        }
+      },
+      "shape_parameters": [
+        "a",
+        "c"
+      ]
+    },
+    "f": {
+      "constraints": "Finite scalar parameters; SciPy public support validates the distribution domain. loc is an integer for discrete distributions.",
+      "example": {
+        "dfd": 10.0,
+        "dfn": 5.0
+      },
+      "kind": "continuous",
+      "output": "size shape; float64 continuous or int64 discrete",
+      "parameters": {
+        "dfd": {
+          "required": true,
+          "type": "finite_number"
+        },
+        "dfn": {
+          "required": true,
+          "type": "finite_number"
+        },
+        "loc": {
+          "default": 0.0
+        },
+        "scale": {
+          "constraint": "strictly positive",
+          "default": 1.0
+        },
+        "size": {
+          "default": 1,
+          "type": "integer_or_shape"
+        }
+      },
+      "shape_parameters": [
+        "dfn",
+        "dfd"
+      ]
+    },
+    "fatiguelife": {
+      "constraints": "Finite scalar parameters; SciPy public support validates the distribution domain. loc is an integer for discrete distributions.",
+      "example": {
+        "c": 1.0
+      },
+      "kind": "continuous",
+      "output": "size shape; float64 continuous or int64 discrete",
+      "parameters": {
+        "c": {
+          "required": true,
+          "type": "finite_number"
+        },
+        "loc": {
+          "default": 0.0
+        },
+        "scale": {
+          "constraint": "strictly positive",
+          "default": 1.0
+        },
+        "size": {
+          "default": 1,
+          "type": "integer_or_shape"
+        }
+      },
+      "shape_parameters": [
+        "c"
+      ]
+    },
+    "fisk": {
+      "constraints": "Finite scalar parameters; SciPy public support validates the distribution domain. loc is an integer for discrete distributions.",
+      "example": {
+        "c": 3.0
+      },
+      "kind": "continuous",
+      "output": "size shape; float64 continuous or int64 discrete",
+      "parameters": {
+        "c": {
+          "required": true,
+          "type": "finite_number"
+        },
+        "loc": {
+          "default": 0.0
+        },
+        "scale": {
+          "constraint": "strictly positive",
+          "default": 1.0
+        },
+        "size": {
+          "default": 1,
+          "type": "integer_or_shape"
+        }
+      },
+      "shape_parameters": [
+        "c"
+      ]
+    },
+    "foldcauchy": {
+      "constraints": "Finite scalar parameters; SciPy public support validates the distribution domain. loc is an integer for discrete distributions.",
+      "example": {
+        "c": 1.0
+      },
+      "kind": "continuous",
+      "output": "size shape; float64 continuous or int64 discrete",
+      "parameters": {
+        "c": {
+          "required": true,
+          "type": "finite_number"
+        },
+        "loc": {
+          "default": 0.0
+        },
+        "scale": {
+          "constraint": "strictly positive",
+          "default": 1.0
+        },
+        "size": {
+          "default": 1,
+          "type": "integer_or_shape"
+        }
+      },
+      "shape_parameters": [
+        "c"
+      ]
+    },
+    "foldnorm": {
+      "constraints": "Finite scalar parameters; SciPy public support validates the distribution domain. loc is an integer for discrete distributions.",
+      "example": {
+        "c": 1.0
+      },
+      "kind": "continuous",
+      "output": "size shape; float64 continuous or int64 discrete",
+      "parameters": {
+        "c": {
+          "required": true,
+          "type": "finite_number"
+        },
+        "loc": {
+          "default": 0.0
+        },
+        "scale": {
+          "constraint": "strictly positive",
+          "default": 1.0
+        },
+        "size": {
+          "default": 1,
+          "type": "integer_or_shape"
+        }
+      },
+      "shape_parameters": [
+        "c"
+      ]
+    },
+    "gamma": {
+      "constraints": "Finite scalar parameters; SciPy public support validates the distribution domain. loc is an integer for discrete distributions.",
+      "example": {
+        "a": 2.0
+      },
+      "kind": "continuous",
+      "output": "size shape; float64 continuous or int64 discrete",
+      "parameters": {
+        "a": {
+          "required": true,
+          "type": "finite_number"
+        },
+        "loc": {
+          "default": 0.0
+        },
+        "scale": {
+          "constraint": "strictly positive",
+          "default": 1.0
+        },
+        "size": {
+          "default": 1,
+          "type": "integer_or_shape"
+        }
+      },
+      "shape_parameters": [
+        "a"
+      ]
+    },
+    "gausshyper": {
+      "constraints": "Finite scalar parameters; SciPy public support validates the distribution domain. loc is an integer for discrete distributions.",
+      "example": {
+        "a": 2.0,
+        "b": 3.0,
+        "c": 1.0,
+        "z": 0.5
+      },
+      "kind": "continuous",
+      "output": "size shape; float64 continuous or int64 discrete",
+      "parameters": {
+        "a": {
+          "required": true,
+          "type": "finite_number"
+        },
+        "b": {
+          "required": true,
+          "type": "finite_number"
+        },
+        "c": {
+          "required": true,
+          "type": "finite_number"
+        },
+        "loc": {
+          "default": 0.0
+        },
+        "scale": {
+          "constraint": "strictly positive",
+          "default": 1.0
+        },
+        "size": {
+          "default": 1,
+          "type": "integer_or_shape"
+        },
+        "z": {
+          "required": true,
+          "type": "finite_number"
+        }
+      },
+      "shape_parameters": [
+        "a",
+        "b",
+        "c",
+        "z"
+      ]
+    },
+    "genexpon": {
+      "constraints": "Finite scalar parameters; SciPy public support validates the distribution domain. loc is an integer for discrete distributions.",
+      "example": {
+        "a": 1.0,
+        "b": 1.0,
+        "c": 1.0
+      },
+      "kind": "continuous",
+      "output": "size shape; float64 continuous or int64 discrete",
+      "parameters": {
+        "a": {
+          "required": true,
+          "type": "finite_number"
+        },
+        "b": {
+          "required": true,
+          "type": "finite_number"
+        },
+        "c": {
+          "required": true,
+          "type": "finite_number"
+        },
+        "loc": {
+          "default": 0.0
+        },
+        "scale": {
+          "constraint": "strictly positive",
+          "default": 1.0
+        },
+        "size": {
+          "default": 1,
+          "type": "integer_or_shape"
+        }
+      },
+      "shape_parameters": [
+        "a",
+        "b",
+        "c"
+      ]
+    },
+    "genextreme": {
+      "constraints": "Finite scalar parameters; SciPy public support validates the distribution domain. loc is an integer for discrete distributions.",
+      "example": {
+        "c": 0.1
+      },
+      "kind": "continuous",
+      "output": "size shape; float64 continuous or int64 discrete",
+      "parameters": {
+        "c": {
+          "required": true,
+          "type": "finite_number"
+        },
+        "loc": {
+          "default": 0.0
+        },
+        "scale": {
+          "constraint": "strictly positive",
+          "default": 1.0
+        },
+        "size": {
+          "default": 1,
+          "type": "integer_or_shape"
+        }
+      },
+      "shape_parameters": [
+        "c"
+      ]
+    },
+    "gengamma": {
+      "constraints": "Finite scalar parameters; SciPy public support validates the distribution domain. loc is an integer for discrete distributions.",
+      "example": {
+        "a": 2.0,
+        "c": 1.0
+      },
+      "kind": "continuous",
+      "output": "size shape; float64 continuous or int64 discrete",
+      "parameters": {
+        "a": {
+          "required": true,
+          "type": "finite_number"
+        },
+        "c": {
+          "required": true,
+          "type": "finite_number"
+        },
+        "loc": {
+          "default": 0.0
+        },
+        "scale": {
+          "constraint": "strictly positive",
+          "default": 1.0
+        },
+        "size": {
+          "default": 1,
+          "type": "integer_or_shape"
+        }
+      },
+      "shape_parameters": [
+        "a",
+        "c"
+      ]
+    },
+    "genhalflogistic": {
+      "constraints": "Finite scalar parameters; SciPy public support validates the distribution domain. loc is an integer for discrete distributions.",
+      "example": {
+        "c": 1.0
+      },
+      "kind": "continuous",
+      "output": "size shape; float64 continuous or int64 discrete",
+      "parameters": {
+        "c": {
+          "required": true,
+          "type": "finite_number"
+        },
+        "loc": {
+          "default": 0.0
+        },
+        "scale": {
+          "constraint": "strictly positive",
+          "default": 1.0
+        },
+        "size": {
+          "default": 1,
+          "type": "integer_or_shape"
+        }
+      },
+      "shape_parameters": [
+        "c"
+      ]
+    },
+    "genhyperbolic": {
+      "constraints": "Finite scalar parameters; SciPy public support validates the distribution domain. loc is an integer for discrete distributions.",
+      "example": {
+        "a": 2.0,
+        "b": 0.5,
+        "p": 1.0
+      },
+      "kind": "continuous",
+      "output": "size shape; float64 continuous or int64 discrete",
+      "parameters": {
+        "a": {
+          "required": true,
+          "type": "finite_number"
+        },
+        "b": {
+          "required": true,
+          "type": "finite_number"
+        },
+        "loc": {
+          "default": 0.0
+        },
+        "p": {
+          "required": true,
+          "type": "finite_number"
+        },
+        "scale": {
+          "constraint": "strictly positive",
+          "default": 1.0
+        },
+        "size": {
+          "default": 1,
+          "type": "integer_or_shape"
+        }
+      },
+      "shape_parameters": [
+        "p",
+        "a",
+        "b"
+      ]
+    },
+    "geninvgauss": {
+      "constraints": "Finite scalar parameters; SciPy public support validates the distribution domain. loc is an integer for discrete distributions.",
+      "example": {
+        "b": 2.0,
+        "p": 1.0
+      },
+      "kind": "continuous",
+      "output": "size shape; float64 continuous or int64 discrete",
+      "parameters": {
+        "b": {
+          "required": true,
+          "type": "finite_number"
+        },
+        "loc": {
+          "default": 0.0
+        },
+        "p": {
+          "required": true,
+          "type": "finite_number"
+        },
+        "scale": {
+          "constraint": "strictly positive",
+          "default": 1.0
+        },
+        "size": {
+          "default": 1,
+          "type": "integer_or_shape"
+        }
+      },
+      "shape_parameters": [
+        "p",
+        "b"
+      ]
+    },
+    "genlogistic": {
+      "constraints": "Finite scalar parameters; SciPy public support validates the distribution domain. loc is an integer for discrete distributions.",
+      "example": {
+        "c": 2.0
+      },
+      "kind": "continuous",
+      "output": "size shape; float64 continuous or int64 discrete",
+      "parameters": {
+        "c": {
+          "required": true,
+          "type": "finite_number"
+        },
+        "loc": {
+          "default": 0.0
+        },
+        "scale": {
+          "constraint": "strictly positive",
+          "default": 1.0
+        },
+        "size": {
+          "default": 1,
+          "type": "integer_or_shape"
+        }
+      },
+      "shape_parameters": [
+        "c"
+      ]
+    },
+    "gennorm": {
+      "constraints": "Finite scalar parameters; SciPy public support validates the distribution domain. loc is an integer for discrete distributions.",
+      "example": {
+        "beta": 2.0
+      },
+      "kind": "continuous",
+      "output": "size shape; float64 continuous or int64 discrete",
+      "parameters": {
+        "beta": {
+          "required": true,
+          "type": "finite_number"
+        },
+        "loc": {
+          "default": 0.0
+        },
+        "scale": {
+          "constraint": "strictly positive",
+          "default": 1.0
+        },
+        "size": {
+          "default": 1,
+          "type": "integer_or_shape"
+        }
+      },
+      "shape_parameters": [
+        "beta"
+      ]
+    },
+    "genpareto": {
+      "constraints": "Finite scalar parameters; SciPy public support validates the distribution domain. loc is an integer for discrete distributions.",
+      "example": {
+        "c": 0.1
+      },
+      "kind": "continuous",
+      "output": "size shape; float64 continuous or int64 discrete",
+      "parameters": {
+        "c": {
+          "required": true,
+          "type": "finite_number"
+        },
+        "loc": {
+          "default": 0.0
+        },
+        "scale": {
+          "constraint": "strictly positive",
+          "default": 1.0
+        },
+        "size": {
+          "default": 1,
+          "type": "integer_or_shape"
+        }
+      },
+      "shape_parameters": [
+        "c"
+      ]
+    },
+    "geom": {
+      "constraints": "Finite scalar parameters; SciPy public support validates the distribution domain. loc is an integer for discrete distributions.",
+      "example": {
+        "p": 0.5
+      },
+      "kind": "discrete",
+      "output": "size shape; float64 continuous or int64 discrete",
+      "parameters": {
+        "loc": {
+          "default": 0
+        },
+        "p": {
+          "required": true,
+          "type": "finite_number"
+        },
+        "size": {
+          "default": 1,
+          "type": "integer_or_shape"
+        }
+      },
+      "shape_parameters": [
+        "p"
+      ]
+    },
+    "gibrat": {
+      "constraints": "Finite scalar parameters; SciPy public support validates the distribution domain. loc is an integer for discrete distributions.",
+      "example": {},
+      "kind": "continuous",
+      "output": "size shape; float64 continuous or int64 discrete",
+      "parameters": {
+        "loc": {
+          "default": 0.0
+        },
+        "scale": {
+          "constraint": "strictly positive",
+          "default": 1.0
+        },
+        "size": {
+          "default": 1,
+          "type": "integer_or_shape"
+        }
+      },
+      "shape_parameters": []
+    },
+    "gompertz": {
+      "constraints": "Finite scalar parameters; SciPy public support validates the distribution domain. loc is an integer for discrete distributions.",
+      "example": {
+        "c": 1.0
+      },
+      "kind": "continuous",
+      "output": "size shape; float64 continuous or int64 discrete",
+      "parameters": {
+        "c": {
+          "required": true,
+          "type": "finite_number"
+        },
+        "loc": {
+          "default": 0.0
+        },
+        "scale": {
+          "constraint": "strictly positive",
+          "default": 1.0
+        },
+        "size": {
+          "default": 1,
+          "type": "integer_or_shape"
+        }
+      },
+      "shape_parameters": [
+        "c"
+      ]
+    },
+    "gumbel_l": {
+      "constraints": "Finite scalar parameters; SciPy public support validates the distribution domain. loc is an integer for discrete distributions.",
+      "example": {},
+      "kind": "continuous",
+      "output": "size shape; float64 continuous or int64 discrete",
+      "parameters": {
+        "loc": {
+          "default": 0.0
+        },
+        "scale": {
+          "constraint": "strictly positive",
+          "default": 1.0
+        },
+        "size": {
+          "default": 1,
+          "type": "integer_or_shape"
+        }
+      },
+      "shape_parameters": []
+    },
+    "gumbel_r": {
+      "constraints": "Finite scalar parameters; SciPy public support validates the distribution domain. loc is an integer for discrete distributions.",
+      "example": {},
+      "kind": "continuous",
+      "output": "size shape; float64 continuous or int64 discrete",
+      "parameters": {
+        "loc": {
+          "default": 0.0
+        },
+        "scale": {
+          "constraint": "strictly positive",
+          "default": 1.0
+        },
+        "size": {
+          "default": 1,
+          "type": "integer_or_shape"
+        }
+      },
+      "shape_parameters": []
+    },
+    "halfcauchy": {
+      "constraints": "Finite scalar parameters; SciPy public support validates the distribution domain. loc is an integer for discrete distributions.",
+      "example": {},
+      "kind": "continuous",
+      "output": "size shape; float64 continuous or int64 discrete",
+      "parameters": {
+        "loc": {
+          "default": 0.0
+        },
+        "scale": {
+          "constraint": "strictly positive",
+          "default": 1.0
+        },
+        "size": {
+          "default": 1,
+          "type": "integer_or_shape"
+        }
+      },
+      "shape_parameters": []
+    },
+    "halfgennorm": {
+      "constraints": "Finite scalar parameters; SciPy public support validates the distribution domain. loc is an integer for discrete distributions.",
+      "example": {
+        "beta": 2.0
+      },
+      "kind": "continuous",
+      "output": "size shape; float64 continuous or int64 discrete",
+      "parameters": {
+        "beta": {
+          "required": true,
+          "type": "finite_number"
+        },
+        "loc": {
+          "default": 0.0
+        },
+        "scale": {
+          "constraint": "strictly positive",
+          "default": 1.0
+        },
+        "size": {
+          "default": 1,
+          "type": "integer_or_shape"
+        }
+      },
+      "shape_parameters": [
+        "beta"
+      ]
+    },
+    "halflogistic": {
+      "constraints": "Finite scalar parameters; SciPy public support validates the distribution domain. loc is an integer for discrete distributions.",
+      "example": {},
+      "kind": "continuous",
+      "output": "size shape; float64 continuous or int64 discrete",
+      "parameters": {
+        "loc": {
+          "default": 0.0
+        },
+        "scale": {
+          "constraint": "strictly positive",
+          "default": 1.0
+        },
+        "size": {
+          "default": 1,
+          "type": "integer_or_shape"
+        }
+      },
+      "shape_parameters": []
+    },
+    "halfnorm": {
+      "constraints": "Finite scalar parameters; SciPy public support validates the distribution domain. loc is an integer for discrete distributions.",
+      "example": {},
+      "kind": "continuous",
+      "output": "size shape; float64 continuous or int64 discrete",
+      "parameters": {
+        "loc": {
+          "default": 0.0
+        },
+        "scale": {
+          "constraint": "strictly positive",
+          "default": 1.0
+        },
+        "size": {
+          "default": 1,
+          "type": "integer_or_shape"
+        }
+      },
+      "shape_parameters": []
+    },
+    "hypergeom": {
+      "constraints": "Finite scalar parameters; SciPy public support validates the distribution domain. loc is an integer for discrete distributions.",
+      "example": {
+        "M": 30,
+        "N": 5,
+        "n": 10
+      },
+      "kind": "discrete",
+      "output": "size shape; float64 continuous or int64 discrete",
+      "parameters": {
+        "M": {
+          "required": true,
+          "type": "integer"
+        },
+        "N": {
+          "required": true,
+          "type": "integer"
+        },
+        "loc": {
+          "default": 0
+        },
+        "n": {
+          "required": true,
+          "type": "integer"
+        },
+        "size": {
+          "default": 1,
+          "type": "integer_or_shape"
+        }
+      },
+      "shape_parameters": [
+        "M",
+        "n",
+        "N"
+      ]
+    },
+    "hypsecant": {
+      "constraints": "Finite scalar parameters; SciPy public support validates the distribution domain. loc is an integer for discrete distributions.",
+      "example": {},
+      "kind": "continuous",
+      "output": "size shape; float64 continuous or int64 discrete",
+      "parameters": {
+        "loc": {
+          "default": 0.0
+        },
+        "scale": {
+          "constraint": "strictly positive",
+          "default": 1.0
+        },
+        "size": {
+          "default": 1,
+          "type": "integer_or_shape"
+        }
+      },
+      "shape_parameters": []
+    },
+    "invgamma": {
+      "constraints": "Finite scalar parameters; SciPy public support validates the distribution domain. loc is an integer for discrete distributions.",
+      "example": {
+        "a": 3.0
+      },
+      "kind": "continuous",
+      "output": "size shape; float64 continuous or int64 discrete",
+      "parameters": {
+        "a": {
+          "required": true,
+          "type": "finite_number"
+        },
+        "loc": {
+          "default": 0.0
+        },
+        "scale": {
+          "constraint": "strictly positive",
+          "default": 1.0
+        },
+        "size": {
+          "default": 1,
+          "type": "integer_or_shape"
+        }
+      },
+      "shape_parameters": [
+        "a"
+      ]
+    },
+    "invgauss": {
+      "constraints": "Finite scalar parameters; SciPy public support validates the distribution domain. loc is an integer for discrete distributions.",
+      "example": {
+        "mu": 1.0
+      },
+      "kind": "continuous",
+      "output": "size shape; float64 continuous or int64 discrete",
+      "parameters": {
+        "loc": {
+          "default": 0.0
+        },
+        "mu": {
+          "required": true,
+          "type": "finite_number"
+        },
+        "scale": {
+          "constraint": "strictly positive",
+          "default": 1.0
+        },
+        "size": {
+          "default": 1,
+          "type": "integer_or_shape"
+        }
+      },
+      "shape_parameters": [
+        "mu"
+      ]
+    },
+    "invweibull": {
+      "constraints": "Finite scalar parameters; SciPy public support validates the distribution domain. loc is an integer for discrete distributions.",
+      "example": {
+        "c": 3.0
+      },
+      "kind": "continuous",
+      "output": "size shape; float64 continuous or int64 discrete",
+      "parameters": {
+        "c": {
+          "required": true,
+          "type": "finite_number"
+        },
+        "loc": {
+          "default": 0.0
+        },
+        "scale": {
+          "constraint": "strictly positive",
+          "default": 1.0
+        },
+        "size": {
+          "default": 1,
+          "type": "integer_or_shape"
+        }
+      },
+      "shape_parameters": [
+        "c"
+      ]
+    },
+    "invwishart": {
+      "constraints": "Finite arrays; probability vectors sum to one within 1e-15; covariance/scale matrices symmetric positive definite unless allow_singular explicitly permits semidefinite covariance.",
+      "example": {
+        "df": 5.0,
+        "scale": [
+          [
+            1.0,
+            0.0
+          ],
+          [
+            0.0,
+            1.0
+          ]
+        ]
+      },
+      "kind": "multivariate",
+      "output": "size shape followed by vector dimension or matrix dimensions (Wishart)",
+      "parameters": {
+        "df": {
+          "required": true
+        },
+        "scale": {
+          "required": true
+        },
+        "size": {
+          "default": 1,
+          "type": "integer_or_shape"
+        }
+      },
+      "shape_parameters": [
+        "df",
+        "scale"
+      ]
+    },
+    "johnsonsb": {
+      "constraints": "Finite scalar parameters; SciPy public support validates the distribution domain. loc is an integer for discrete distributions.",
+      "example": {
+        "a": 1.0,
+        "b": 2.0
+      },
+      "kind": "continuous",
+      "output": "size shape; float64 continuous or int64 discrete",
+      "parameters": {
+        "a": {
+          "required": true,
+          "type": "finite_number"
+        },
+        "b": {
+          "required": true,
+          "type": "finite_number"
+        },
+        "loc": {
+          "default": 0.0
+        },
+        "scale": {
+          "constraint": "strictly positive",
+          "default": 1.0
+        },
+        "size": {
+          "default": 1,
+          "type": "integer_or_shape"
+        }
+      },
+      "shape_parameters": [
+        "a",
+        "b"
+      ]
+    },
+    "johnsonsu": {
+      "constraints": "Finite scalar parameters; SciPy public support validates the distribution domain. loc is an integer for discrete distributions.",
+      "example": {
+        "a": 1.0,
+        "b": 2.0
+      },
+      "kind": "continuous",
+      "output": "size shape; float64 continuous or int64 discrete",
+      "parameters": {
+        "a": {
+          "required": true,
+          "type": "finite_number"
+        },
+        "b": {
+          "required": true,
+          "type": "finite_number"
+        },
+        "loc": {
+          "default": 0.0
+        },
+        "scale": {
+          "constraint": "strictly positive",
+          "default": 1.0
+        },
+        "size": {
+          "default": 1,
+          "type": "integer_or_shape"
+        }
+      },
+      "shape_parameters": [
+        "a",
+        "b"
+      ]
+    },
+    "kappa3": {
+      "constraints": "Finite scalar parameters; SciPy public support validates the distribution domain. loc is an integer for discrete distributions.",
+      "example": {
+        "a": 2.0
+      },
+      "kind": "continuous",
+      "output": "size shape; float64 continuous or int64 discrete",
+      "parameters": {
+        "a": {
+          "required": true,
+          "type": "finite_number"
+        },
+        "loc": {
+          "default": 0.0
+        },
+        "scale": {
+          "constraint": "strictly positive",
+          "default": 1.0
+        },
+        "size": {
+          "default": 1,
+          "type": "integer_or_shape"
+        }
+      },
+      "shape_parameters": [
+        "a"
+      ]
+    },
+    "kappa4": {
+      "constraints": "Finite scalar parameters; SciPy public support validates the distribution domain. loc is an integer for discrete distributions.",
+      "example": {
+        "h": 1.0,
+        "k": 1.0
+      },
+      "kind": "continuous",
+      "output": "size shape; float64 continuous or int64 discrete",
+      "parameters": {
+        "h": {
+          "required": true,
+          "type": "finite_number"
+        },
+        "k": {
+          "required": true,
+          "type": "finite_number"
+        },
+        "loc": {
+          "default": 0.0
+        },
+        "scale": {
+          "constraint": "strictly positive",
+          "default": 1.0
+        },
+        "size": {
+          "default": 1,
+          "type": "integer_or_shape"
+        }
+      },
+      "shape_parameters": [
+        "h",
+        "k"
+      ]
+    },
+    "ksone": {
+      "constraints": "Finite scalar parameters; SciPy public support validates the distribution domain. loc is an integer for discrete distributions.",
+      "example": {
+        "n": 10
+      },
+      "kind": "continuous",
+      "output": "size shape; float64 continuous or int64 discrete",
+      "parameters": {
+        "loc": {
+          "default": 0.0
+        },
+        "n": {
+          "required": true,
+          "type": "integer"
+        },
+        "scale": {
+          "constraint": "strictly positive",
+          "default": 1.0
+        },
+        "size": {
+          "default": 1,
+          "type": "integer_or_shape"
+        }
+      },
+      "shape_parameters": [
+        "n"
+      ]
+    },
+    "kstwo": {
+      "constraints": "Finite scalar parameters; SciPy public support validates the distribution domain. loc is an integer for discrete distributions.",
+      "example": {
+        "n": 10
+      },
+      "kind": "continuous",
+      "output": "size shape; float64 continuous or int64 discrete",
+      "parameters": {
+        "loc": {
+          "default": 0.0
+        },
+        "n": {
+          "required": true,
+          "type": "integer"
+        },
+        "scale": {
+          "constraint": "strictly positive",
+          "default": 1.0
+        },
+        "size": {
+          "default": 1,
+          "type": "integer_or_shape"
+        }
+      },
+      "shape_parameters": [
+        "n"
+      ]
+    },
+    "kstwobign": {
+      "constraints": "Finite scalar parameters; SciPy public support validates the distribution domain. loc is an integer for discrete distributions.",
+      "example": {},
+      "kind": "continuous",
+      "output": "size shape; float64 continuous or int64 discrete",
+      "parameters": {
+        "loc": {
+          "default": 0.0
+        },
+        "scale": {
+          "constraint": "strictly positive",
+          "default": 1.0
+        },
+        "size": {
+          "default": 1,
+          "type": "integer_or_shape"
+        }
+      },
+      "shape_parameters": []
+    },
+    "laplace": {
+      "constraints": "Finite scalar parameters; SciPy public support validates the distribution domain. loc is an integer for discrete distributions.",
+      "example": {},
+      "kind": "continuous",
+      "output": "size shape; float64 continuous or int64 discrete",
+      "parameters": {
+        "loc": {
+          "default": 0.0
+        },
+        "scale": {
+          "constraint": "strictly positive",
+          "default": 1.0
+        },
+        "size": {
+          "default": 1,
+          "type": "integer_or_shape"
+        }
+      },
+      "shape_parameters": []
+    },
+    "laplace_asymmetric": {
+      "constraints": "Finite scalar parameters; SciPy public support validates the distribution domain. loc is an integer for discrete distributions.",
+      "example": {
+        "kappa": 1.0
+      },
+      "kind": "continuous",
+      "output": "size shape; float64 continuous or int64 discrete",
+      "parameters": {
+        "kappa": {
+          "required": true,
+          "type": "finite_number"
+        },
+        "loc": {
+          "default": 0.0
+        },
+        "scale": {
+          "constraint": "strictly positive",
+          "default": 1.0
+        },
+        "size": {
+          "default": 1,
+          "type": "integer_or_shape"
+        }
+      },
+      "shape_parameters": [
+        "kappa"
+      ]
+    },
+    "levy": {
+      "constraints": "Finite scalar parameters; SciPy public support validates the distribution domain. loc is an integer for discrete distributions.",
+      "example": {},
+      "kind": "continuous",
+      "output": "size shape; float64 continuous or int64 discrete",
+      "parameters": {
+        "loc": {
+          "default": 0.0
+        },
+        "scale": {
+          "constraint": "strictly positive",
+          "default": 1.0
+        },
+        "size": {
+          "default": 1,
+          "type": "integer_or_shape"
+        }
+      },
+      "shape_parameters": []
+    },
+    "levy_l": {
+      "constraints": "Finite scalar parameters; SciPy public support validates the distribution domain. loc is an integer for discrete distributions.",
+      "example": {},
+      "kind": "continuous",
+      "output": "size shape; float64 continuous or int64 discrete",
+      "parameters": {
+        "loc": {
+          "default": 0.0
+        },
+        "scale": {
+          "constraint": "strictly positive",
+          "default": 1.0
+        },
+        "size": {
+          "default": 1,
+          "type": "integer_or_shape"
+        }
+      },
+      "shape_parameters": []
+    },
+    "loggamma": {
+      "constraints": "Finite scalar parameters; SciPy public support validates the distribution domain. loc is an integer for discrete distributions.",
+      "example": {
+        "c": 2.0
+      },
+      "kind": "continuous",
+      "output": "size shape; float64 continuous or int64 discrete",
+      "parameters": {
+        "c": {
+          "required": true,
+          "type": "finite_number"
+        },
+        "loc": {
+          "default": 0.0
+        },
+        "scale": {
+          "constraint": "strictly positive",
+          "default": 1.0
+        },
+        "size": {
+          "default": 1,
+          "type": "integer_or_shape"
+        }
+      },
+      "shape_parameters": [
+        "c"
+      ]
+    },
+    "logistic": {
+      "constraints": "Finite scalar parameters; SciPy public support validates the distribution domain. loc is an integer for discrete distributions.",
+      "example": {},
+      "kind": "continuous",
+      "output": "size shape; float64 continuous or int64 discrete",
+      "parameters": {
+        "loc": {
+          "default": 0.0
+        },
+        "scale": {
+          "constraint": "strictly positive",
+          "default": 1.0
+        },
+        "size": {
+          "default": 1,
+          "type": "integer_or_shape"
+        }
+      },
+      "shape_parameters": []
+    },
+    "loglaplace": {
+      "constraints": "Finite scalar parameters; SciPy public support validates the distribution domain. loc is an integer for discrete distributions.",
+      "example": {
+        "c": 2.0
+      },
+      "kind": "continuous",
+      "output": "size shape; float64 continuous or int64 discrete",
+      "parameters": {
+        "c": {
+          "required": true,
+          "type": "finite_number"
+        },
+        "loc": {
+          "default": 0.0
+        },
+        "scale": {
+          "constraint": "strictly positive",
+          "default": 1.0
+        },
+        "size": {
+          "default": 1,
+          "type": "integer_or_shape"
+        }
+      },
+      "shape_parameters": [
+        "c"
+      ]
+    },
+    "lognorm": {
+      "constraints": "Finite scalar parameters; SciPy public support validates the distribution domain. loc is an integer for discrete distributions.",
+      "example": {
+        "s": 1.0
+      },
+      "kind": "continuous",
+      "output": "size shape; float64 continuous or int64 discrete",
+      "parameters": {
+        "loc": {
+          "default": 0.0
+        },
+        "s": {
+          "required": true,
+          "type": "finite_number"
+        },
+        "scale": {
+          "constraint": "strictly positive",
+          "default": 1.0
+        },
+        "size": {
+          "default": 1,
+          "type": "integer_or_shape"
+        }
+      },
+      "shape_parameters": [
+        "s"
+      ]
+    },
+    "logser": {
+      "constraints": "Finite scalar parameters; SciPy public support validates the distribution domain. loc is an integer for discrete distributions.",
+      "example": {
+        "p": 0.5
+      },
+      "kind": "discrete",
+      "output": "size shape; float64 continuous or int64 discrete",
+      "parameters": {
+        "loc": {
+          "default": 0
+        },
+        "p": {
+          "required": true,
+          "type": "finite_number"
+        },
+        "size": {
+          "default": 1,
+          "type": "integer_or_shape"
+        }
+      },
+      "shape_parameters": [
+        "p"
+      ]
+    },
+    "loguniform": {
+      "constraints": "Finite scalar parameters; SciPy public support validates the distribution domain. loc is an integer for discrete distributions.",
+      "example": {
+        "a": 1.0,
+        "b": 10.0
+      },
+      "kind": "continuous",
+      "output": "size shape; float64 continuous or int64 discrete",
+      "parameters": {
+        "a": {
+          "required": true,
+          "type": "finite_number"
+        },
+        "b": {
+          "required": true,
+          "type": "finite_number"
+        },
+        "loc": {
+          "default": 0.0
+        },
+        "scale": {
+          "constraint": "strictly positive",
+          "default": 1.0
+        },
+        "size": {
+          "default": 1,
+          "type": "integer_or_shape"
+        }
+      },
+      "shape_parameters": [
+        "a",
+        "b"
+      ]
+    },
+    "lomax": {
+      "constraints": "Finite scalar parameters; SciPy public support validates the distribution domain. loc is an integer for discrete distributions.",
+      "example": {
+        "c": 3.0
+      },
+      "kind": "continuous",
+      "output": "size shape; float64 continuous or int64 discrete",
+      "parameters": {
+        "c": {
+          "required": true,
+          "type": "finite_number"
+        },
+        "loc": {
+          "default": 0.0
+        },
+        "scale": {
+          "constraint": "strictly positive",
+          "default": 1.0
+        },
+        "size": {
+          "default": 1,
+          "type": "integer_or_shape"
+        }
+      },
+      "shape_parameters": [
+        "c"
+      ]
+    },
+    "maxwell": {
+      "constraints": "Finite scalar parameters; SciPy public support validates the distribution domain. loc is an integer for discrete distributions.",
+      "example": {},
+      "kind": "continuous",
+      "output": "size shape; float64 continuous or int64 discrete",
+      "parameters": {
+        "loc": {
+          "default": 0.0
+        },
+        "scale": {
+          "constraint": "strictly positive",
+          "default": 1.0
+        },
+        "size": {
+          "default": 1,
+          "type": "integer_or_shape"
+        }
+      },
+      "shape_parameters": []
+    },
+    "mielke": {
+      "constraints": "Finite scalar parameters; SciPy public support validates the distribution domain. loc is an integer for discrete distributions.",
+      "example": {
+        "k": 2.0,
+        "s": 3.0
+      },
+      "kind": "continuous",
+      "output": "size shape; float64 continuous or int64 discrete",
+      "parameters": {
+        "k": {
+          "required": true,
+          "type": "finite_number"
+        },
+        "loc": {
+          "default": 0.0
+        },
+        "s": {
+          "required": true,
+          "type": "finite_number"
+        },
+        "scale": {
+          "constraint": "strictly positive",
+          "default": 1.0
+        },
+        "size": {
+          "default": 1,
+          "type": "integer_or_shape"
+        }
+      },
+      "shape_parameters": [
+        "k",
+        "s"
+      ]
+    },
+    "mixture": {
+      "constraints": "1..256 explicit registered univariate SciPy components; no component size, mixture recursion, vectors or callbacks. All components validate even when weight is zero. Weights sum to one within 1e-15. Discrete component draws must lie within [-2**53,2**53] for exact float64 conversion. Mixed observations are IID under the declared mixture law; the implementation draws assignments then batches component draws.",
+      "example": {
+        "components": [
+          {
+            "distribution": "norm",
+            "loc": -2.0
+          },
+          {
+            "distribution": "norm",
+            "loc": 2.0
+          }
+        ],
+        "weights": [
+          0.4,
+          0.6
+        ]
+      },
+      "kind": "mixture",
+      "output": "size shape; float64; component assignment order preserved",
+      "parameters": {
+        "components": {
+          "maximum_length": 256,
+          "required": true
+        },
+        "size": {
+          "default": 1
+        },
+        "weights": {
+          "required": true
+        }
+      },
+      "shape_parameters": [
+        "components",
+        "weights"
+      ]
+    },
+    "moyal": {
+      "constraints": "Finite scalar parameters; SciPy public support validates the distribution domain. loc is an integer for discrete distributions.",
+      "example": {},
+      "kind": "continuous",
+      "output": "size shape; float64 continuous or int64 discrete",
+      "parameters": {
+        "loc": {
+          "default": 0.0
+        },
+        "scale": {
+          "constraint": "strictly positive",
+          "default": 1.0
+        },
+        "size": {
+          "default": 1,
+          "type": "integer_or_shape"
+        }
+      },
+      "shape_parameters": []
+    },
+    "multinomial": {
+      "constraints": "Finite arrays; probability vectors sum to one within 1e-15; covariance/scale matrices symmetric positive definite unless allow_singular explicitly permits semidefinite covariance.",
+      "example": {
+        "n": 10,
+        "p": [
+          0.2,
+          0.3,
+          0.5
+        ]
+      },
+      "kind": "multivariate",
+      "output": "size shape followed by vector dimension or matrix dimensions (Wishart)",
+      "parameters": {
+        "n": {
+          "required": true
+        },
+        "p": {
+          "required": true
+        },
+        "size": {
+          "default": 1,
+          "type": "integer_or_shape"
+        }
+      },
+      "shape_parameters": [
+        "n",
+        "p"
+      ]
+    },
+    "multivariate_hypergeometric": {
+      "constraints": "Finite arrays; probability vectors sum to one within 1e-15; covariance/scale matrices symmetric positive definite unless allow_singular explicitly permits semidefinite covariance.",
+      "example": {
+        "m": [
+          10,
+          10,
+          10
+        ],
+        "n": 5
+      },
+      "kind": "multivariate",
+      "output": "size shape followed by vector dimension or matrix dimensions (Wishart)",
+      "parameters": {
+        "m": {
+          "required": true
+        },
+        "n": {
+          "required": true
+        },
+        "size": {
+          "default": 1,
+          "type": "integer_or_shape"
+        }
+      },
+      "shape_parameters": [
+        "m",
+        "n"
+      ]
+    },
+    "multivariate_normal": {
+      "constraints": "Finite arrays; probability vectors sum to one within 1e-15; covariance/scale matrices symmetric positive definite unless allow_singular explicitly permits semidefinite covariance.",
+      "example": {
+        "cov": [
+          [
+            1.0,
+            0.0
+          ],
+          [
+            0.0,
+            1.0
+          ]
+        ],
+        "mean": [
+          0.0,
+          0.0
+        ]
+      },
+      "kind": "multivariate",
+      "output": "size shape followed by vector dimension or matrix dimensions (Wishart)",
+      "parameters": {
+        "allow_singular": {
+          "default": false
+        },
+        "cov": {
+          "required": true
+        },
+        "mean": {
+          "required": true
+        },
+        "size": {
+          "default": 1,
+          "type": "integer_or_shape"
+        }
+      },
+      "shape_parameters": [
+        "mean",
+        "cov"
+      ]
+    },
+    "multivariate_t": {
+      "constraints": "Finite arrays; probability vectors sum to one within 1e-15; covariance/scale matrices symmetric positive definite unless allow_singular explicitly permits semidefinite covariance.",
+      "example": {
+        "df": 5.0,
+        "loc": [
+          0.0,
+          0.0
+        ],
+        "shape": [
+          [
+            1.0,
+            0.0
+          ],
+          [
+            0.0,
+            1.0
+          ]
+        ]
+      },
+      "kind": "multivariate",
+      "output": "size shape followed by vector dimension or matrix dimensions (Wishart)",
+      "parameters": {
+        "allow_singular": {
+          "default": false
+        },
+        "df": {
+          "constraint": "finite and strictly positive",
+          "required": true
+        },
+        "loc": {
+          "required": true
+        },
+        "shape": {
+          "required": true
+        },
+        "size": {
+          "default": 1,
+          "type": "integer_or_shape"
+        }
+      },
+      "shape_parameters": [
+        "loc",
+        "shape",
+        "df"
+      ]
+    },
+    "nakagami": {
+      "constraints": "Finite scalar parameters; SciPy public support validates the distribution domain. loc is an integer for discrete distributions.",
+      "example": {
+        "nu": 1.0
+      },
+      "kind": "continuous",
+      "output": "size shape; float64 continuous or int64 discrete",
+      "parameters": {
+        "loc": {
+          "default": 0.0
+        },
+        "nu": {
+          "required": true,
+          "type": "finite_number"
+        },
+        "scale": {
+          "constraint": "strictly positive",
+          "default": 1.0
+        },
+        "size": {
+          "default": 1,
+          "type": "integer_or_shape"
+        }
+      },
+      "shape_parameters": [
+        "nu"
+      ]
+    },
+    "nbinom": {
+      "constraints": "Finite scalar parameters; SciPy public support validates the distribution domain. loc is an integer for discrete distributions.",
+      "example": {
+        "n": 3.0,
+        "p": 0.5
+      },
+      "kind": "discrete",
+      "output": "size shape; float64 continuous or int64 discrete",
+      "parameters": {
+        "loc": {
+          "default": 0
+        },
+        "n": {
+          "required": true,
+          "type": "finite_number"
+        },
+        "p": {
+          "required": true,
+          "type": "finite_number"
+        },
+        "size": {
+          "default": 1,
+          "type": "integer_or_shape"
+        }
+      },
+      "shape_parameters": [
+        "n",
+        "p"
+      ]
+    },
+    "ncf": {
+      "constraints": "Finite scalar parameters; SciPy public support validates the distribution domain. loc is an integer for discrete distributions.",
+      "example": {
+        "dfd": 10.0,
+        "dfn": 5.0,
+        "nc": 1.0
+      },
+      "kind": "continuous",
+      "output": "size shape; float64 continuous or int64 discrete",
+      "parameters": {
+        "dfd": {
+          "required": true,
+          "type": "finite_number"
+        },
+        "dfn": {
+          "required": true,
+          "type": "finite_number"
+        },
+        "loc": {
+          "default": 0.0
+        },
+        "nc": {
+          "required": true,
+          "type": "finite_number"
+        },
+        "scale": {
+          "constraint": "strictly positive",
+          "default": 1.0
+        },
+        "size": {
+          "default": 1,
+          "type": "integer_or_shape"
+        }
+      },
+      "shape_parameters": [
+        "dfn",
+        "dfd",
+        "nc"
+      ]
+    },
+    "nchypergeom_fisher": {
+      "constraints": "Finite scalar parameters; SciPy public support validates the distribution domain. loc is an integer for discrete distributions.",
+      "example": {
+        "M": 30,
+        "N": 5,
+        "n": 10,
+        "odds": 1.0
+      },
+      "kind": "discrete",
+      "output": "size shape; float64 continuous or int64 discrete",
+      "parameters": {
+        "M": {
+          "required": true,
+          "type": "integer"
+        },
+        "N": {
+          "required": true,
+          "type": "integer"
+        },
+        "loc": {
+          "default": 0
+        },
+        "n": {
+          "required": true,
+          "type": "integer"
+        },
+        "odds": {
+          "required": true,
+          "type": "finite_number"
+        },
+        "size": {
+          "default": 1,
+          "type": "integer_or_shape"
+        }
+      },
+      "shape_parameters": [
+        "M",
+        "n",
+        "N",
+        "odds"
+      ]
+    },
+    "nchypergeom_wallenius": {
+      "constraints": "Finite scalar parameters; SciPy public support validates the distribution domain. loc is an integer for discrete distributions.",
+      "example": {
+        "M": 30,
+        "N": 5,
+        "n": 10,
+        "odds": 1.0
+      },
+      "kind": "discrete",
+      "output": "size shape; float64 continuous or int64 discrete",
+      "parameters": {
+        "M": {
+          "required": true,
+          "type": "integer"
+        },
+        "N": {
+          "required": true,
+          "type": "integer"
+        },
+        "loc": {
+          "default": 0
+        },
+        "n": {
+          "required": true,
+          "type": "integer"
+        },
+        "odds": {
+          "required": true,
+          "type": "finite_number"
+        },
+        "size": {
+          "default": 1,
+          "type": "integer_or_shape"
+        }
+      },
+      "shape_parameters": [
+        "M",
+        "n",
+        "N",
+        "odds"
+      ]
+    },
+    "nct": {
+      "constraints": "Finite scalar parameters; SciPy public support validates the distribution domain. loc is an integer for discrete distributions.",
+      "example": {
+        "df": 5.0,
+        "nc": 1.0
+      },
+      "kind": "continuous",
+      "output": "size shape; float64 continuous or int64 discrete",
+      "parameters": {
+        "df": {
+          "required": true,
+          "type": "finite_number"
+        },
+        "loc": {
+          "default": 0.0
+        },
+        "nc": {
+          "required": true,
+          "type": "finite_number"
+        },
+        "scale": {
+          "constraint": "strictly positive",
+          "default": 1.0
+        },
+        "size": {
+          "default": 1,
+          "type": "integer_or_shape"
+        }
+      },
+      "shape_parameters": [
+        "df",
+        "nc"
+      ]
+    },
+    "ncx2": {
+      "constraints": "Finite scalar parameters; SciPy public support validates the distribution domain. loc is an integer for discrete distributions.",
+      "example": {
+        "df": 5.0,
+        "nc": 1.0
+      },
+      "kind": "continuous",
+      "output": "size shape; float64 continuous or int64 discrete",
+      "parameters": {
+        "df": {
+          "required": true,
+          "type": "finite_number"
+        },
+        "loc": {
+          "default": 0.0
+        },
+        "nc": {
+          "required": true,
+          "type": "finite_number"
+        },
+        "scale": {
+          "constraint": "strictly positive",
+          "default": 1.0
+        },
+        "size": {
+          "default": 1,
+          "type": "integer_or_shape"
+        }
+      },
+      "shape_parameters": [
+        "df",
+        "nc"
+      ]
+    },
+    "nhypergeom": {
+      "constraints": "Finite scalar parameters; SciPy public support validates the distribution domain. loc is an integer for discrete distributions.",
+      "example": {
+        "M": 30,
+        "n": 10,
+        "r": 5
+      },
+      "kind": "discrete",
+      "output": "size shape; float64 continuous or int64 discrete",
+      "parameters": {
+        "M": {
+          "required": true,
+          "type": "integer"
+        },
+        "loc": {
+          "default": 0
+        },
+        "n": {
+          "required": true,
+          "type": "integer"
+        },
+        "r": {
+          "required": true,
+          "type": "integer"
+        },
+        "size": {
+          "default": 1,
+          "type": "integer_or_shape"
+        }
+      },
+      "shape_parameters": [
+        "M",
+        "n",
+        "r"
+      ]
+    },
+    "norm": {
+      "constraints": "Finite scalar parameters; SciPy public support validates the distribution domain. loc is an integer for discrete distributions.",
+      "example": {},
+      "kind": "continuous",
+      "output": "size shape; float64 continuous or int64 discrete",
+      "parameters": {
+        "loc": {
+          "default": 0.0
+        },
+        "scale": {
+          "constraint": "strictly positive",
+          "default": 1.0
+        },
+        "size": {
+          "default": 1,
+          "type": "integer_or_shape"
+        }
+      },
+      "shape_parameters": []
+    },
+    "norminvgauss": {
+      "constraints": "Finite scalar parameters; SciPy public support validates the distribution domain. loc is an integer for discrete distributions.",
+      "example": {
+        "a": 2.0,
+        "b": 0.5
+      },
+      "kind": "continuous",
+      "output": "size shape; float64 continuous or int64 discrete",
+      "parameters": {
+        "a": {
+          "required": true,
+          "type": "finite_number"
+        },
+        "b": {
+          "required": true,
+          "type": "finite_number"
+        },
+        "loc": {
+          "default": 0.0
+        },
+        "scale": {
+          "constraint": "strictly positive",
+          "default": 1.0
+        },
+        "size": {
+          "default": 1,
+          "type": "integer_or_shape"
+        }
+      },
+      "shape_parameters": [
+        "a",
+        "b"
+      ]
+    },
+    "pareto": {
+      "constraints": "Finite scalar parameters; SciPy public support validates the distribution domain. loc is an integer for discrete distributions.",
+      "example": {
+        "b": 3.0
+      },
+      "kind": "continuous",
+      "output": "size shape; float64 continuous or int64 discrete",
+      "parameters": {
+        "b": {
+          "required": true,
+          "type": "finite_number"
+        },
+        "loc": {
+          "default": 0.0
+        },
+        "scale": {
+          "constraint": "strictly positive",
+          "default": 1.0
+        },
+        "size": {
+          "default": 1,
+          "type": "integer_or_shape"
+        }
+      },
+      "shape_parameters": [
+        "b"
+      ]
+    },
+    "pearson3": {
+      "constraints": "Finite scalar parameters; SciPy public support validates the distribution domain. loc is an integer for discrete distributions.",
+      "example": {
+        "skew": 1.0
+      },
+      "kind": "continuous",
+      "output": "size shape; float64 continuous or int64 discrete",
+      "parameters": {
+        "loc": {
+          "default": 0.0
+        },
+        "scale": {
+          "constraint": "strictly positive",
+          "default": 1.0
+        },
+        "size": {
+          "default": 1,
+          "type": "integer_or_shape"
+        },
+        "skew": {
+          "required": true,
+          "type": "finite_number"
+        }
+      },
+      "shape_parameters": [
+        "skew"
+      ]
+    },
+    "planck": {
+      "constraints": "Finite scalar parameters; SciPy public support validates the distribution domain. loc is an integer for discrete distributions.",
+      "example": {
+        "lambda_": 1.0
+      },
+      "kind": "discrete",
+      "output": "size shape; float64 continuous or int64 discrete",
+      "parameters": {
+        "lambda_": {
+          "required": true,
+          "type": "finite_number"
+        },
+        "loc": {
+          "default": 0
+        },
+        "size": {
+          "default": 1,
+          "type": "integer_or_shape"
+        }
+      },
+      "shape_parameters": [
+        "lambda_"
+      ]
+    },
+    "poisson": {
+      "constraints": "Finite scalar parameters; SciPy public support validates the distribution domain. loc is an integer for discrete distributions.",
+      "example": {
+        "mu": 3.0
+      },
+      "kind": "discrete",
+      "output": "size shape; float64 continuous or int64 discrete",
+      "parameters": {
+        "loc": {
+          "default": 0
+        },
+        "mu": {
+          "required": true,
+          "type": "finite_number"
+        },
+        "size": {
+          "default": 1,
+          "type": "integer_or_shape"
+        }
+      },
+      "shape_parameters": [
+        "mu"
+      ]
+    },
+    "powerlaw": {
+      "constraints": "Finite scalar parameters; SciPy public support validates the distribution domain. loc is an integer for discrete distributions.",
+      "example": {
+        "a": 2.0
+      },
+      "kind": "continuous",
+      "output": "size shape; float64 continuous or int64 discrete",
+      "parameters": {
+        "a": {
+          "required": true,
+          "type": "finite_number"
+        },
+        "loc": {
+          "default": 0.0
+        },
+        "scale": {
+          "constraint": "strictly positive",
+          "default": 1.0
+        },
+        "size": {
+          "default": 1,
+          "type": "integer_or_shape"
+        }
+      },
+      "shape_parameters": [
+        "a"
+      ]
+    },
+    "powerlognorm": {
+      "constraints": "Finite scalar parameters; SciPy public support validates the distribution domain. loc is an integer for discrete distributions.",
+      "example": {
+        "c": 2.0,
+        "s": 1.0
+      },
+      "kind": "continuous",
+      "output": "size shape; float64 continuous or int64 discrete",
+      "parameters": {
+        "c": {
+          "required": true,
+          "type": "finite_number"
+        },
+        "loc": {
+          "default": 0.0
+        },
+        "s": {
+          "required": true,
+          "type": "finite_number"
+        },
+        "scale": {
+          "constraint": "strictly positive",
+          "default": 1.0
+        },
+        "size": {
+          "default": 1,
+          "type": "integer_or_shape"
+        }
+      },
+      "shape_parameters": [
+        "c",
+        "s"
+      ]
+    },
+    "powernorm": {
+      "constraints": "Finite scalar parameters; SciPy public support validates the distribution domain. loc is an integer for discrete distributions.",
+      "example": {
+        "c": 2.0
+      },
+      "kind": "continuous",
+      "output": "size shape; float64 continuous or int64 discrete",
+      "parameters": {
+        "c": {
+          "required": true,
+          "type": "finite_number"
+        },
+        "loc": {
+          "default": 0.0
+        },
+        "scale": {
+          "constraint": "strictly positive",
+          "default": 1.0
+        },
+        "size": {
+          "default": 1,
+          "type": "integer_or_shape"
+        }
+      },
+      "shape_parameters": [
+        "c"
+      ]
+    },
+    "randint": {
+      "constraints": "Finite scalar parameters; SciPy public support validates the distribution domain. loc is an integer for discrete distributions.",
+      "example": {
+        "high": 10,
+        "low": 0
+      },
+      "kind": "discrete",
+      "output": "size shape; float64 continuous or int64 discrete",
+      "parameters": {
+        "high": {
+          "required": true,
+          "type": "integer"
+        },
+        "loc": {
+          "default": 0
+        },
+        "low": {
+          "required": true,
+          "type": "integer"
+        },
+        "size": {
+          "default": 1,
+          "type": "integer_or_shape"
+        }
+      },
+      "shape_parameters": [
+        "low",
+        "high"
+      ]
+    },
+    "rayleigh": {
+      "constraints": "Finite scalar parameters; SciPy public support validates the distribution domain. loc is an integer for discrete distributions.",
+      "example": {},
+      "kind": "continuous",
+      "output": "size shape; float64 continuous or int64 discrete",
+      "parameters": {
+        "loc": {
+          "default": 0.0
+        },
+        "scale": {
+          "constraint": "strictly positive",
+          "default": 1.0
+        },
+        "size": {
+          "default": 1,
+          "type": "integer_or_shape"
+        }
+      },
+      "shape_parameters": []
+    },
+    "rdist": {
+      "constraints": "Finite scalar parameters; SciPy public support validates the distribution domain. loc is an integer for discrete distributions.",
+      "example": {
+        "c": 3.0
+      },
+      "kind": "continuous",
+      "output": "size shape; float64 continuous or int64 discrete",
+      "parameters": {
+        "c": {
+          "required": true,
+          "type": "finite_number"
+        },
+        "loc": {
+          "default": 0.0
+        },
+        "scale": {
+          "constraint": "strictly positive",
+          "default": 1.0
+        },
+        "size": {
+          "default": 1,
+          "type": "integer_or_shape"
+        }
+      },
+      "shape_parameters": [
+        "c"
+      ]
+    },
+    "recipinvgauss": {
+      "constraints": "Finite scalar parameters; SciPy public support validates the distribution domain. loc is an integer for discrete distributions.",
+      "example": {
+        "mu": 1.0
+      },
+      "kind": "continuous",
+      "output": "size shape; float64 continuous or int64 discrete",
+      "parameters": {
+        "loc": {
+          "default": 0.0
+        },
+        "mu": {
+          "required": true,
+          "type": "finite_number"
+        },
+        "scale": {
+          "constraint": "strictly positive",
+          "default": 1.0
+        },
+        "size": {
+          "default": 1,
+          "type": "integer_or_shape"
+        }
+      },
+      "shape_parameters": [
+        "mu"
+      ]
+    },
+    "reciprocal": {
+      "constraints": "Finite scalar parameters; SciPy public support validates the distribution domain. loc is an integer for discrete distributions.",
+      "example": {
+        "a": 1.0,
+        "b": 10.0
+      },
+      "kind": "continuous",
+      "output": "size shape; float64 continuous or int64 discrete",
+      "parameters": {
+        "a": {
+          "required": true,
+          "type": "finite_number"
+        },
+        "b": {
+          "required": true,
+          "type": "finite_number"
+        },
+        "loc": {
+          "default": 0.0
+        },
+        "scale": {
+          "constraint": "strictly positive",
+          "default": 1.0
+        },
+        "size": {
+          "default": 1,
+          "type": "integer_or_shape"
+        }
+      },
+      "shape_parameters": [
+        "a",
+        "b"
+      ]
+    },
+    "rice": {
+      "constraints": "Finite scalar parameters; SciPy public support validates the distribution domain. loc is an integer for discrete distributions.",
+      "example": {
+        "b": 1.0
+      },
+      "kind": "continuous",
+      "output": "size shape; float64 continuous or int64 discrete",
+      "parameters": {
+        "b": {
+          "required": true,
+          "type": "finite_number"
+        },
+        "loc": {
+          "default": 0.0
+        },
+        "scale": {
+          "constraint": "strictly positive",
+          "default": 1.0
+        },
+        "size": {
+          "default": 1,
+          "type": "integer_or_shape"
+        }
+      },
+      "shape_parameters": [
+        "b"
+      ]
+    },
+    "semicircular": {
+      "constraints": "Finite scalar parameters; SciPy public support validates the distribution domain. loc is an integer for discrete distributions.",
+      "example": {},
+      "kind": "continuous",
+      "output": "size shape; float64 continuous or int64 discrete",
+      "parameters": {
+        "loc": {
+          "default": 0.0
+        },
+        "scale": {
+          "constraint": "strictly positive",
+          "default": 1.0
+        },
+        "size": {
+          "default": 1,
+          "type": "integer_or_shape"
+        }
+      },
+      "shape_parameters": []
+    },
+    "skellam": {
+      "constraints": "Finite scalar parameters; SciPy public support validates the distribution domain. loc is an integer for discrete distributions.",
+      "example": {
+        "mu1": 3.0,
+        "mu2": 2.0
+      },
+      "kind": "discrete",
+      "output": "size shape; float64 continuous or int64 discrete",
+      "parameters": {
+        "loc": {
+          "default": 0
+        },
+        "mu1": {
+          "required": true,
+          "type": "finite_number"
+        },
+        "mu2": {
+          "required": true,
+          "type": "finite_number"
+        },
+        "size": {
+          "default": 1,
+          "type": "integer_or_shape"
+        }
+      },
+      "shape_parameters": [
+        "mu1",
+        "mu2"
+      ]
+    },
+    "skewcauchy": {
+      "constraints": "Finite scalar parameters; SciPy public support validates the distribution domain. loc is an integer for discrete distributions.",
+      "example": {
+        "a": 0.5
+      },
+      "kind": "continuous",
+      "output": "size shape; float64 continuous or int64 discrete",
+      "parameters": {
+        "a": {
+          "required": true,
+          "type": "finite_number"
+        },
+        "loc": {
+          "default": 0.0
+        },
+        "scale": {
+          "constraint": "strictly positive",
+          "default": 1.0
+        },
+        "size": {
+          "default": 1,
+          "type": "integer_or_shape"
+        }
+      },
+      "shape_parameters": [
+        "a"
+      ]
+    },
+    "skewnorm": {
+      "constraints": "Finite scalar parameters; SciPy public support validates the distribution domain. loc is an integer for discrete distributions.",
+      "example": {
+        "a": 1.0
+      },
+      "kind": "continuous",
+      "output": "size shape; float64 continuous or int64 discrete",
+      "parameters": {
+        "a": {
+          "required": true,
+          "type": "finite_number"
+        },
+        "loc": {
+          "default": 0.0
+        },
+        "scale": {
+          "constraint": "strictly positive",
+          "default": 1.0
+        },
+        "size": {
+          "default": 1,
+          "type": "integer_or_shape"
+        }
+      },
+      "shape_parameters": [
+        "a"
+      ]
+    },
+    "studentized_range": {
+      "constraints": "Finite scalar parameters; SciPy public support validates the distribution domain. loc is an integer for discrete distributions.",
+      "example": {
+        "df": 10.0,
+        "k": 3.0
+      },
+      "kind": "continuous",
+      "output": "size shape; float64 continuous or int64 discrete",
+      "parameters": {
+        "df": {
+          "required": true,
+          "type": "finite_number"
+        },
+        "k": {
+          "required": true,
+          "type": "finite_number"
+        },
+        "loc": {
+          "default": 0.0
+        },
+        "scale": {
+          "constraint": "strictly positive",
+          "default": 1.0
+        },
+        "size": {
+          "default": 1,
+          "type": "integer_or_shape"
+        }
+      },
+      "shape_parameters": [
+        "k",
+        "df"
+      ]
+    },
+    "t": {
+      "constraints": "Finite scalar parameters; SciPy public support validates the distribution domain. loc is an integer for discrete distributions.",
+      "example": {
+        "df": 5.0
+      },
+      "kind": "continuous",
+      "output": "size shape; float64 continuous or int64 discrete",
+      "parameters": {
+        "df": {
+          "required": true,
+          "type": "finite_number"
+        },
+        "loc": {
+          "default": 0.0
+        },
+        "scale": {
+          "constraint": "strictly positive",
+          "default": 1.0
+        },
+        "size": {
+          "default": 1,
+          "type": "integer_or_shape"
+        }
+      },
+      "shape_parameters": [
+        "df"
+      ]
+    },
+    "trapezoid": {
+      "constraints": "Finite scalar parameters; SciPy public support validates the distribution domain. loc is an integer for discrete distributions.",
+      "example": {
+        "c": 0.25,
+        "d": 0.75
+      },
+      "kind": "continuous",
+      "output": "size shape; float64 continuous or int64 discrete",
+      "parameters": {
+        "c": {
+          "required": true,
+          "type": "finite_number"
+        },
+        "d": {
+          "required": true,
+          "type": "finite_number"
+        },
+        "loc": {
+          "default": 0.0
+        },
+        "scale": {
+          "constraint": "strictly positive",
+          "default": 1.0
+        },
+        "size": {
+          "default": 1,
+          "type": "integer_or_shape"
+        }
+      },
+      "shape_parameters": [
+        "c",
+        "d"
+      ]
+    },
+    "triang": {
+      "constraints": "Finite scalar parameters; SciPy public support validates the distribution domain. loc is an integer for discrete distributions.",
+      "example": {
+        "c": 0.5
+      },
+      "kind": "continuous",
+      "output": "size shape; float64 continuous or int64 discrete",
+      "parameters": {
+        "c": {
+          "required": true,
+          "type": "finite_number"
+        },
+        "loc": {
+          "default": 0.0
+        },
+        "scale": {
+          "constraint": "strictly positive",
+          "default": 1.0
+        },
+        "size": {
+          "default": 1,
+          "type": "integer_or_shape"
+        }
+      },
+      "shape_parameters": [
+        "c"
+      ]
+    },
+    "truncexpon": {
+      "constraints": "Finite scalar parameters; SciPy public support validates the distribution domain. loc is an integer for discrete distributions.",
+      "example": {
+        "b": 2.0
+      },
+      "kind": "continuous",
+      "output": "size shape; float64 continuous or int64 discrete",
+      "parameters": {
+        "b": {
+          "required": true,
+          "type": "finite_number"
+        },
+        "loc": {
+          "default": 0.0
+        },
+        "scale": {
+          "constraint": "strictly positive",
+          "default": 1.0
+        },
+        "size": {
+          "default": 1,
+          "type": "integer_or_shape"
+        }
+      },
+      "shape_parameters": [
+        "b"
+      ]
+    },
+    "truncnorm": {
+      "constraints": "Finite scalar parameters; SciPy public support validates the distribution domain. loc is an integer for discrete distributions. a and b are standardized bounds relative to loc and scale, not absolute endpoints.",
+      "example": {
+        "a": -1.0,
+        "b": 1.0
+      },
+      "kind": "continuous",
+      "output": "size shape; float64 continuous or int64 discrete",
+      "parameters": {
+        "a": {
+          "required": true,
+          "type": "finite_number"
+        },
+        "b": {
+          "required": true,
+          "type": "finite_number"
+        },
+        "loc": {
+          "default": 0.0
+        },
+        "scale": {
+          "constraint": "strictly positive",
+          "default": 1.0
+        },
+        "size": {
+          "default": 1,
+          "type": "integer_or_shape"
+        }
+      },
+      "shape_parameters": [
+        "a",
+        "b"
+      ]
+    },
+    "truncpareto": {
+      "constraints": "Finite scalar parameters; SciPy public support validates the distribution domain. loc is an integer for discrete distributions.",
+      "example": {
+        "b": 3.0,
+        "c": 10.0
+      },
+      "kind": "continuous",
+      "output": "size shape; float64 continuous or int64 discrete",
+      "parameters": {
+        "b": {
+          "required": true,
+          "type": "finite_number"
+        },
+        "c": {
+          "required": true,
+          "type": "finite_number"
+        },
+        "loc": {
+          "default": 0.0
+        },
+        "scale": {
+          "constraint": "strictly positive",
+          "default": 1.0
+        },
+        "size": {
+          "default": 1,
+          "type": "integer_or_shape"
+        }
+      },
+      "shape_parameters": [
+        "b",
+        "c"
+      ]
+    },
+    "truncweibull_min": {
+      "constraints": "Finite scalar parameters; SciPy public support validates the distribution domain. loc is an integer for discrete distributions.",
+      "example": {
+        "a": 0.1,
+        "b": 2.0,
+        "c": 2.0
+      },
+      "kind": "continuous",
+      "output": "size shape; float64 continuous or int64 discrete",
+      "parameters": {
+        "a": {
+          "required": true,
+          "type": "finite_number"
+        },
+        "b": {
+          "required": true,
+          "type": "finite_number"
+        },
+        "c": {
+          "required": true,
+          "type": "finite_number"
+        },
+        "loc": {
+          "default": 0.0
+        },
+        "scale": {
+          "constraint": "strictly positive",
+          "default": 1.0
+        },
+        "size": {
+          "default": 1,
+          "type": "integer_or_shape"
+        }
+      },
+      "shape_parameters": [
+        "c",
+        "a",
+        "b"
+      ]
+    },
+    "tukeylambda": {
+      "constraints": "Finite scalar parameters; SciPy public support validates the distribution domain. loc is an integer for discrete distributions.",
+      "example": {
+        "lam": 0.5
+      },
+      "kind": "continuous",
+      "output": "size shape; float64 continuous or int64 discrete",
+      "parameters": {
+        "lam": {
+          "required": true,
+          "type": "finite_number"
+        },
+        "loc": {
+          "default": 0.0
+        },
+        "scale": {
+          "constraint": "strictly positive",
+          "default": 1.0
+        },
+        "size": {
+          "default": 1,
+          "type": "integer_or_shape"
+        }
+      },
+      "shape_parameters": [
+        "lam"
+      ]
+    },
+    "uniform": {
+      "constraints": "Finite scalar parameters; SciPy public support validates the distribution domain. loc is an integer for discrete distributions.",
+      "example": {},
+      "kind": "continuous",
+      "output": "size shape; float64 continuous or int64 discrete",
+      "parameters": {
+        "loc": {
+          "default": 0.0
+        },
+        "scale": {
+          "constraint": "strictly positive",
+          "default": 1.0
+        },
+        "size": {
+          "default": 1,
+          "type": "integer_or_shape"
+        }
+      },
+      "shape_parameters": []
+    },
+    "vonmises": {
+      "constraints": "Finite scalar parameters; SciPy public support validates the distribution domain. loc is an integer for discrete distributions. Circular variates; this is not the bounded vonmises_line distribution.",
+      "example": {
+        "kappa": 1.0
+      },
+      "kind": "continuous",
+      "output": "size shape; float64 continuous or int64 discrete",
+      "parameters": {
+        "kappa": {
+          "required": true,
+          "type": "finite_number"
+        },
+        "loc": {
+          "default": 0.0
+        },
+        "scale": {
+          "constraint": "strictly positive",
+          "default": 1.0
+        },
+        "size": {
+          "default": 1,
+          "type": "integer_or_shape"
+        }
+      },
+      "shape_parameters": [
+        "kappa"
+      ]
+    },
+    "vonmises_line": {
+      "constraints": "Finite scalar parameters; SciPy public support validates the distribution domain. loc is an integer for discrete distributions.",
+      "example": {
+        "kappa": 1.0
+      },
+      "kind": "continuous",
+      "output": "size shape; float64 continuous or int64 discrete",
+      "parameters": {
+        "kappa": {
+          "required": true,
+          "type": "finite_number"
+        },
+        "loc": {
+          "default": 0.0
+        },
+        "scale": {
+          "constraint": "strictly positive",
+          "default": 1.0
+        },
+        "size": {
+          "default": 1,
+          "type": "integer_or_shape"
+        }
+      },
+      "shape_parameters": [
+        "kappa"
+      ]
+    },
+    "wald": {
+      "constraints": "Finite scalar parameters; SciPy public support validates the distribution domain. loc is an integer for discrete distributions.",
+      "example": {},
+      "kind": "continuous",
+      "output": "size shape; float64 continuous or int64 discrete",
+      "parameters": {
+        "loc": {
+          "default": 0.0
+        },
+        "scale": {
+          "constraint": "strictly positive",
+          "default": 1.0
+        },
+        "size": {
+          "default": 1,
+          "type": "integer_or_shape"
+        }
+      },
+      "shape_parameters": []
+    },
+    "weibull_max": {
+      "constraints": "Finite scalar parameters; SciPy public support validates the distribution domain. loc is an integer for discrete distributions.",
+      "example": {
+        "c": 2.0
+      },
+      "kind": "continuous",
+      "output": "size shape; float64 continuous or int64 discrete",
+      "parameters": {
+        "c": {
+          "required": true,
+          "type": "finite_number"
+        },
+        "loc": {
+          "default": 0.0
+        },
+        "scale": {
+          "constraint": "strictly positive",
+          "default": 1.0
+        },
+        "size": {
+          "default": 1,
+          "type": "integer_or_shape"
+        }
+      },
+      "shape_parameters": [
+        "c"
+      ]
+    },
+    "weibull_min": {
+      "constraints": "Finite scalar parameters; SciPy public support validates the distribution domain. loc is an integer for discrete distributions.",
+      "example": {
+        "c": 2.0
+      },
+      "kind": "continuous",
+      "output": "size shape; float64 continuous or int64 discrete",
+      "parameters": {
+        "c": {
+          "required": true,
+          "type": "finite_number"
+        },
+        "loc": {
+          "default": 0.0
+        },
+        "scale": {
+          "constraint": "strictly positive",
+          "default": 1.0
+        },
+        "size": {
+          "default": 1,
+          "type": "integer_or_shape"
+        }
+      },
+      "shape_parameters": [
+        "c"
+      ]
+    },
+    "wishart": {
+      "constraints": "Finite arrays; probability vectors sum to one within 1e-15; covariance/scale matrices symmetric positive definite unless allow_singular explicitly permits semidefinite covariance.",
+      "example": {
+        "df": 5.0,
+        "scale": [
+          [
+            1.0,
+            0.0
+          ],
+          [
+            0.0,
+            1.0
+          ]
+        ]
+      },
+      "kind": "multivariate",
+      "output": "size shape followed by vector dimension or matrix dimensions (Wishart)",
+      "parameters": {
+        "df": {
+          "required": true
+        },
+        "scale": {
+          "required": true
+        },
+        "size": {
+          "default": 1,
+          "type": "integer_or_shape"
+        }
+      },
+      "shape_parameters": [
+        "df",
+        "scale"
+      ]
+    },
+    "wrapcauchy": {
+      "constraints": "Finite scalar parameters; SciPy public support validates the distribution domain. loc is an integer for discrete distributions.",
+      "example": {
+        "c": 0.5
+      },
+      "kind": "continuous",
+      "output": "size shape; float64 continuous or int64 discrete",
+      "parameters": {
+        "c": {
+          "required": true,
+          "type": "finite_number"
+        },
+        "loc": {
+          "default": 0.0
+        },
+        "scale": {
+          "constraint": "strictly positive",
+          "default": 1.0
+        },
+        "size": {
+          "default": 1,
+          "type": "integer_or_shape"
+        }
+      },
+      "shape_parameters": [
+        "c"
+      ]
+    },
+    "yulesimon": {
+      "constraints": "Finite scalar parameters; SciPy public support validates the distribution domain. loc is an integer for discrete distributions.",
+      "example": {
+        "alpha": 3.0
+      },
+      "kind": "discrete",
+      "output": "size shape; float64 continuous or int64 discrete",
+      "parameters": {
+        "alpha": {
+          "required": true,
+          "type": "finite_number"
+        },
+        "loc": {
+          "default": 0
+        },
+        "size": {
+          "default": 1,
+          "type": "integer_or_shape"
+        }
+      },
+      "shape_parameters": [
+        "alpha"
+      ]
+    },
+    "zipf": {
+      "constraints": "Finite scalar parameters; SciPy public support validates the distribution domain. loc is an integer for discrete distributions.",
+      "example": {
+        "a": 3.0
+      },
+      "kind": "discrete",
+      "output": "size shape; float64 continuous or int64 discrete",
+      "parameters": {
+        "a": {
+          "required": true,
+          "type": "finite_number"
+        },
+        "loc": {
+          "default": 0
+        },
+        "size": {
+          "default": 1,
+          "type": "integer_or_shape"
+        }
+      },
+      "shape_parameters": [
+        "a"
+      ]
+    },
+    "zipfian": {
+      "constraints": "Finite scalar parameters; SciPy public support validates the distribution domain. loc is an integer for discrete distributions.",
+      "example": {
+        "a": 2.0,
+        "n": 10
+      },
+      "kind": "discrete",
+      "output": "size shape; float64 continuous or int64 discrete",
+      "parameters": {
+        "a": {
+          "required": true,
+          "type": "finite_number"
+        },
+        "loc": {
+          "default": 0
+        },
+        "n": {
+          "required": true,
+          "type": "integer"
+        },
+        "size": {
+          "default": 1,
+          "type": "integer_or_shape"
+        }
+      },
+      "shape_parameters": [
+        "a",
+        "n"
+      ]
+    }
+  },
+  "operations": {
+    "antithetic": {
+      "constraints": "Positive even n; normal scale nonnegative; uniform finite low<high and representable interior. First-half variates and reflected second-half variates are dependent with the declared marginal law, subject to float64 rounding. Uniform uses complementary unit variates and maps rounded endpoints to their nearest interior float; points lie strictly between bounds. Variance reduction depends on the integrand and is not guaranteed.",
+      "output": "(n, d) float64; paired rows i and i+n/2",
+      "parameters": {
+        "d": {
+          "required": true
+        },
+        "distribution": {
+          "choices": [
+            "normal",
+            "uniform"
+          ],
+          "default": "normal"
+        },
+        "high": {
+          "condition": "uniform only",
+          "default": 1.0
+        },
+        "loc": {
+          "condition": "normal only",
+          "default": 0.0
+        },
+        "low": {
+          "condition": "uniform only",
+          "default": 0.0
+        },
+        "n": {
+          "required": true
+        },
+        "scale": {
+          "condition": "normal only",
+          "default": 1.0
+        }
+      },
+      "source": "forbidden"
+    },
+    "balanced_allocation": {
+      "constraints": "Nonnegative integer counts with positive total; unique homogeneous numeric or string labels. Exact counts, randomized assignment, no covariate balancing or clinical randomization claim.",
+      "output": "(sum(counts),) treatment labels",
+      "parameters": {
+        "counts": {
+          "required": true
+        },
+        "labels": {
+          "default": "range(len(counts))"
+        }
+      },
+      "source": "forbidden"
+    },
+    "bootstrap": {
+      "constraints": "ordinary/paired draw IID indices with replacement; paired means one shared index per complete observation. cluster samples whole equal-size clusters, preserving within-cluster row order; sample_size must divide by cluster size. block draws circular blocks, truncating the final block to sample_size. No statistic or confidence interval is inferred.",
+      "output": "(resamples, sample_size) int64 observation indices",
+      "parameters": {
+        "block_length": {
+          "required": "block mode only"
+        },
+        "groups": {
+          "required": "cluster mode only"
+        },
+        "mode": {
+          "choices": [
+            "ordinary",
+            "paired",
+            "cluster",
+            "block"
+          ],
+          "default": "ordinary"
+        },
+        "n": {
+          "required": "when source is absent"
+        },
+        "resamples": {
+          "default": 1
+        },
+        "sample_size": {
+          "default": "n"
+        }
+      },
+      "source": "optional; determines n only; apply emitted indices to source yourself"
+    },
+    "choice": {
+      "constraints": "Nonnegative probabilities sum to one. Without replacement the full output has no repeated population indices; sufficient positive-probability outcomes are required.",
+      "output": "size shape of int64 indices when source absent; size shape followed by source row shape otherwise",
+      "parameters": {
+        "n": {
+          "required": "when source is absent"
+        },
+        "p": {
+          "default": null
+        },
+        "replace": {
+          "default": true
+        },
+        "size": {
+          "default": 1
+        }
+      },
+      "source": "optional; observations are rows along axis zero"
+    },
+    "distribution": {
+      "constraints": "Explicit SciPy registry, finite scalar/array parameters, strict domain validation, no arbitrary object lookup. Heavy-tailed draws may fail the finite-output contract. Distribution transforms are pinned by the recorded environment, not universally bit-stable.",
+      "output": "size shape followed by registered event dimensions",
+      "parameters": {
+        "distribution": {
+          "required": true
+        },
+        "named_parameters": {
+          "description": "exact registered distribution parameters only"
+        },
+        "size": {
+          "default": 1
+        }
+      },
+      "source": "forbidden"
+    },
+    "halton": {
+      "constraints": "Scrambled by default; no skipped first point or implicit optimization. High-dimensional striping is a scientific limitation, especially without scrambling; points are not IID.",
+      "output": "(n, d) float64 in [0,1)",
+      "parameters": {
+        "d": {
+          "required": true
+        },
+        "n": {
+          "required": true
+        },
+        "scramble": {
+          "default": true
+        }
+      },
+      "source": "forbidden"
+    },
+    "integers": {
+      "constraints": "low <= value < high, or <= high with endpoint=True. Bounds must fit dtype; booleans are not integers.",
+      "output": "size shape; declared integer dtype",
+      "parameters": {
+        "dtype": {
+          "choices": [
+            "int32",
+            "int64",
+            "uint32",
+            "uint64"
+          ],
+          "default": "int64"
+        },
+        "endpoint": {
+          "default": false
+        },
+        "high": {
+          "required": true
+        },
+        "low": {
+          "default": 0
+        },
+        "size": {
+          "default": 1
+        }
+      },
+      "source": "forbidden"
+    },
+    "korobov": {
+      "constraints": "Rank-one lattice with vector (1,g,g**2,...) modulo n; g coprime to n ensures Latin projections. Deterministic default is not a discrepancy-optimized generator. shift=True adds a random toroidal shift; points are not IID.",
+      "output": "(n, d) float64 in [0,1)",
+      "parameters": {
+        "d": {
+          "required": true
+        },
+        "generator": {
+          "default": "first coprime integer >=2; 1 when n<=2"
+        },
+        "n": {
+          "required": true
+        },
+        "shift": {
+          "default": false
+        }
+      },
+      "source": "forbidden"
+    },
+    "latin_hypercube": {
+      "constraints": "Strength-one Latin hypercube: one point per axis stratum. scramble=False centers points within bins but still randomizes bin permutations; no optimization is implicit.",
+      "output": "(n, d) float64 in [0,1)",
+      "parameters": {
+        "d": {
+          "required": true
+        },
+        "n": {
+          "required": true
+        },
+        "scramble": {
+          "default": true
+        }
+      },
+      "source": "forbidden"
+    },
+    "normal": {
+      "constraints": "Finite location and nonnegative scale. scale=0 produces a constant array.",
+      "output": "size shape; float64",
+      "parameters": {
+        "loc": {
+          "default": 0.0
+        },
+        "scale": {
+          "default": 1.0
+        },
+        "size": {
+          "default": 1
+        }
+      },
+      "source": "forbidden"
+    },
+    "permutation": {
+      "constraints": "Every population index occurs exactly once. Source is never modified.",
+      "output": "int64 permutation of range(n), or complete source rows in permuted order",
+      "parameters": {
+        "n": {
+          "required": "when source is absent"
+        }
+      },
+      "source": "optional; rows along axis zero"
+    },
+    "poisson_disk": {
+      "constraints": "Bounded sequential uniform dart-throwing with Euclidean minimum separation. Exact n or explicit failure; no partial result, relaxed radius, maximality or uniformity over feasible configurations. Trial budget and conservative n*d*max_trials work are preflighted.",
+      "output": "(n, d) float64 in [0,1), or sampling_exhausted error",
+      "parameters": {
+        "d": {
+          "required": true
+        },
+        "max_trials": {
+          "default": "max(1000, 100*n)"
+        },
+        "n": {
+          "required": true
+        },
+        "radius": {
+          "default": 0.05
+        }
+      },
+      "source": "forbidden"
+    },
+    "shuffle": {
+      "constraints": "Returns a shuffled copy; never mutates the source.",
+      "output": "int64 permutation of range(n), or complete source rows in permuted order",
+      "parameters": {
+        "n": {
+          "required": "when source is absent"
+        }
+      },
+      "source": "optional; rows along axis zero"
+    },
+    "sobol": {
+      "constraints": "n is a positive power of two; d <= 21201. SciPy random_base2 uses bits=30, no skipped first point and no post-optimization. Scrambling consumes only the owned RNG; points are not IID.",
+      "output": "(n, d) float64 in [0,1)",
+      "parameters": {
+        "d": {
+          "required": true
+        },
+        "n": {
+          "required": true
+        },
+        "scramble": {
+          "default": true
+        }
+      },
+      "source": "forbidden"
+    },
+    "split": {
+      "constraints": "Counts sum exactly to n; each observation occurs once. No stratification, grouping or time-series assumptions are inferred.",
+      "output": "(n,) int64 permutation; consecutive slices of lengths counts are the partitions",
+      "parameters": {
+        "counts": {
+          "required": true
+        },
+        "n": {
+          "required": "when source is absent"
+        }
+      },
+      "source": "optional; determines n only"
+    },
+    "stratified_sample": {
+      "constraints": "Homogeneous integer or string group labels; labels must cover every observed stratum exactly once. Nonnegative counts, including zero; without replacement every count must fit its stratum. Uniform sampling within each stratum, no implicit population weights.",
+      "output": "(sum(counts),) int64 indices, concatenated in resolved label order",
+      "parameters": {
+        "counts": {
+          "required": true
+        },
+        "groups": {
+          "required": true
+        },
+        "labels": {
+          "default": "first occurrence in groups"
+        },
+        "n": {
+          "default": "len(groups), matching source rows"
+        },
+        "replace": {
+          "default": false
+        }
+      },
+      "source": "optional; establishes observation count only"
+    },
+    "stratified_split": {
+      "constraints": "Counts matrix rows follow resolved label order and columns are partitions; each row sum must equal its stratum population. Exact per-stratum counts, disjoint partitions, exhaustive observation coverage. Observations randomized within each partition; no group/time constraints are inferred.",
+      "output": "(n,) int64 indices, consecutive partitions have counts-column totals",
+      "parameters": {
+        "counts": {
+          "required": true
+        },
+        "groups": {
+          "required": true
+        },
+        "labels": {
+          "default": "first occurrence in groups"
+        },
+        "n": {
+          "default": "len(groups), matching source rows"
+        }
+      },
+      "source": "optional; establishes observation count only"
+    },
+    "sudoku": {
+      "constraints": "n divisible by boxes**d; every coarse cell has n/boxes**d points and every axis fine bin has one point. scramble=False centers bins but still randomizes their permutations.",
+      "output": "(n, d) float64 in [0,1)",
+      "parameters": {
+        "boxes": {
+          "default": 1
+        },
+        "d": {
+          "required": true
+        },
+        "n": {
+          "required": true
+        },
+        "scramble": {
+          "default": true
+        }
+      },
+      "source": "forbidden"
+    },
+    "uniform": {
+      "constraints": "Finite low < high and finite width; output is clamped below high if floating rounding reaches the endpoint.",
+      "output": "size shape; float64",
+      "parameters": {
+        "high": {
+          "default": 1.0
+        },
+        "low": {
+          "default": 0.0
+        },
+        "size": {
+          "default": 1
+        }
+      },
+      "source": "forbidden"
+    }
+  },
+  "resource_limits": {
+    "max_bytes": 268435456,
+    "max_values": 10000000,
+    "max_work": 100000000
+  },
+  "resource_semantics": "Conservative output/scratch and work estimates are preflighted. max_work is an algorithmic planning bound, not a wall-clock timeout for SciPy numerical routines.",
+  "schema_version": "chances.operations.v1",
+  "size_semantics": "size is a nonnegative integer or list of nonnegative dimensions; [] means a scalar; zero-sized outputs are allowed for shape-based draws."
+}

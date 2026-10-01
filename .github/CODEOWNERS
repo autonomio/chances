@@ -1,0 +1,6 @@
+# bit-mis owns every path. Protect-Master requires code-owner review,
+# so every PR requires their approval after this file is merged.
+# A PR author cannot approve their own PR; the most recent reviewable
+# push also requires approval from someone other than its pusher.
+
+* @bit-mis

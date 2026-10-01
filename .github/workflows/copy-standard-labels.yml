@@ -1,0 +1,31 @@
+name: Adopt standard repository labels
+
+on:
+  workflow_dispatch:
+
+permissions:
+  issues: write
+  contents: read
+
+jobs:
+  setup:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Merge labels from configured template repository
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          TEMPLATE_REPOSITORY: ${{ vars.LABEL_TEMPLATE_REPOSITORY }}
+          NEW_REPOSITORY: ${{ github.repository }}
+        run: |
+          set -euo pipefail
+          template_repo="${TEMPLATE_REPOSITORY:-autonomio/chances}"
+
+          gh api --paginate -X GET "/repos/$template_repo/labels" \
+            | jq -c '.[]' \
+            | while IFS= read -r label; do
+                name="$(echo "$label" | jq -r '.name')"
+                color="$(echo "$label" | jq -r '.color')"
+                description="$(echo "$label" | jq -r '.description // empty')"
+                gh label create "$name" --repo "$NEW_REPOSITORY" \
+                  --color "$color" --description "$description" --force
+              done

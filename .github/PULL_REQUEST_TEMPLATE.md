@@ -1,19 +1,20 @@
-## You want to make a PR to Chances
+**NOTE:** The author must always **first review the PR themselves**, before requesting review from others, that means carefully having reviewed the full diff in GitHub.
 
-Thanks so much :) First, please take a moment to carefully check through
-the below items:
+## What does this PR change?
 
-#### Sanity
+_(Fill in at least a short description of the intent of the change.)_
 
-- [ ] I'm aware of the implications of the proposed changes
-- [ ] Code is [PEP8](https://www.python.org/dev/peps/pep-0008/)
-- [ ] I'm making the PR to `master`
+## Checklist
 
-
-#### Tests
-
-- [ ] Changes have gone through actual use testing
-- [ ] All local tests have passed (run `python test_script.py`)
-- [ ] Tests have been updated to reflect the changes
-
-<hr>
+- [ ] I have reviewed full diff in “Files changed”
+- [ ] I left no unnecessary files in the changes
+- [ ] I ran the project's test suite locally without errors (where applicable)
+- [ ] I updated any relevant documentation (if behavior/API/config/user/etc changed)
+- [ ] I added and/or updated docstrings for any changed public functions/classes (the docstring-conventions gate enforces the mechanizable rules)
+- [ ] I added a `CHANGELOG.md` entry under a new `# v<X.Y.Z>` header (every PR — the version gate requires it)
+- [ ] I bumped `[project].version` in `pyproject.toml` (every PR — the version gate requires it)
+- [ ] I added and/or updated tests (if behavior changed or new code paths added)
+- [ ] I validated that the change returns what it promised — not merely that it ran
+- [ ] I removed any extraneous examples/comments
+- [ ] I linked exactly one OPEN slice-labelled issue to close on merge (e.g., “Closes #123”), unless this is a configured dependency-bot exemption
+- [ ] If this PR delivers a PRD's **last** remaining sub-issue, I also linked the parent PRD to close with it (e.g. "Closes #120"), so the PRD closes on merge instead of by hand — law 1 requires the closing set to be exactly `{slice, parent PRD}` in that case

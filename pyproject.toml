@@ -1,42 +1,197 @@
 [build-system]
-requires = ["hatchling"]
+requires = ["hatchling>=1.27,<2"]
 build-backend = "hatchling.build"
 
 [project]
 name = "chances"
-dynamic = ["version"]
-description = "Chances"
+version = "2.0.0"
+description = "Reproducible scientific randomness with explicit streams and verified receipts"
+keywords = ["randomness", "reproducibility", "scientific", "sampling", "receipts"]
 readme = "README.md"
 license = "MIT"
-authors = [
-    { name = "Mikko Kotila", email = "mailme@mikkokotila.com" },
-]
-maintainers = [
-    { name = "Mikko Kotila", email = "mailme@mikkokotila.com" },
-]
+requires-python = ">=3.10"
+authors = [{ name = "Mikko Kotila", email = "mailme@mikkokotila.com" }]
 classifiers = [
+    "Development Status :: 4 - Beta",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.12",
+    "Programming Language :: Python :: 3.14",
     "Intended Audience :: Science/Research",
-    "License :: OSI Approved :: MIT License",
-    "Operating System :: MacOS",
-    "Operating System :: POSIX",
-    "Operating System :: Unix",
-    "Programming Language :: Python :: 3.6",
+    "Operating System :: OS Independent",
+    "Programming Language :: Python :: 3",
     "Topic :: Scientific/Engineering :: Mathematics",
 ]
-dependencies = [
-    "numpy",
-    "requests",
-    "scipy",
+dependencies = ["numpy>=2.0,<3", "scipy>=1.15,<2"]
+
+[project.optional-dependencies]
+test = ["pytest>=8,<10", "hypothesis>=6.100,<7", "build>=1,<2", "hatchling>=1.27,<2", "editables>=0.5,<1"]
+dev = [
+    "pytest>=8,<10", "hypothesis>=6.100,<7", "ruff==0.16.1", "pyright==1.1.408",
+    "vulture>=2.14,<3", "coverage[toml]>=7.6,<8", "pyyaml>=6.0,<7",
+    "pip-audit>=2.7,<3", "build>=1,<2", "hatchling>=1.27,<2", "editables>=0.5,<1",
+    "tomli>=2.0,<3; python_version < '3.11'",
 ]
 
 [project.urls]
-Download = "https://github.com/autonomio/randomizer/"
-Homepage = "http://autonom.io"
+Repository = "https://github.com/autonomio/chances"
+Issues = "https://github.com/autonomio/chances/issues"
 
-[tool.hatch.version]
-path = "chances/__init__.py"
+[project.scripts]
+chances = "chances.__main__:main"
+
+[tool.hatch.build]
+reproducible = true
+
+[tool.hatch.build.targets.wheel]
+core-metadata-version = "2.4"
+packages = ["chances"]
+# Repository-relative package prose is shipped through its portable docs mirror.
+exclude = ["/chances/README.md"]
 
 [tool.hatch.build.targets.sdist]
+core-metadata-version = "2.4"
+# Consumer source: package, scientific tests and reproducible documentation.
+# Repository-only enforcement remains in the canonical Git checkout.
 include = [
-    "/chances",
+    "/chances", "/tests/package", "/scripts/build_catalog.py", "/scripts/benchmark.py",
+    "/docs", "/docs-site", "/README.md", "/CHANGELOG.md", "/.markdownlint.json",
+    "/LICENSE", "/pyproject.toml", "/requirements.txt", "/test_script.py",
+    "/CONTRIBUTING.md", "/SECURITY.md", "/CITATION.cff", "/GOVERNANCE.md",
+    "/MAINTAINERS.md", "/SUPPORT.md", "/THIRD_PARTY.md", "/CODE_OF_CONDUCT.md",
+    "/NOTICE", "/AUTHORS",
 ]
+exclude = [
+    "/docs-site/node_modules/**", "/docs-site/.generated/**",
+    "/docs-site/.docusaurus/**", "/docs-site/build/**",
+    "/docs-site/playwright-report/**", "/docs-site/test-results/**",
+]
+
+[tool.pytest.ini_options]
+testpaths = ["tests/package"]
+
+[tool.check-manifest]
+# Enforcement plane is inspected in Git, never installed with the product.
+ignore = [
+    "governance/*", "governance/**", ".github/*", ".github/**",
+    "requirements/*", "requirements/**", "governance.yml", "CLAUDE.md", "AGENTS.md",
+    "SETUP.md", "AUTONOMIO_PR_GUIDELINE.md", "AUTONOMIO_REPO_SPECIFICS.md",
+    "scripts/create_release.py", "scripts/package_audit.py", "fuzz/*", "fuzz/**",
+    "DEVELOPER.md", ".gitignore", ".gitattributes", "setup.py",
+]
+
+[tool.pyright]
+pythonVersion = "3.10"
+typeCheckingMode = "strict"
+include = ["chances"]
+exclude = [
+  "**/__pycache__",
+  "build",
+  "dist",
+  "tests",
+  "demo",
+]
+# governance/ is not type-checked in CI (include is the package), but listing it
+# here lets the editor resolve the gates' bare `import _common` sibling import.
+extraPaths = ["governance"]
+stubPath = "stubs"
+reportMissingImports = "error"
+reportMissingTypeStubs = "error"
+reportUnknownArgumentType = "error"
+reportUnknownMemberType = "error"
+reportUnknownVariableType = "error"
+reportUnknownLambdaType = "error"
+reportUnknownParameterType = "error"
+reportMissingParameterType = "error"
+reportConstantRedefinition = "error"
+reportImportCycles = "error"
+
+[tool.ruff]
+target-version = "py310"
+line-length = 100
+exclude = [
+  ".git",
+  "__pycache__",
+  "build",
+  "dist",
+  "demo",
+  "governance/tests/fixtures",
+]
+
+[tool.ruff.format]
+quote-style = "single"
+
+[tool.ruff.lint]
+select = [
+  "E",
+  "F",
+  "I",
+  "UP",
+  "RUF",
+  "BLE",
+  "ANN",
+  "C901",
+  "PLR0912",
+  "PLR0913",
+  "PLR0915",
+  "T201",
+  "FIX001",
+  "FIX002",
+  "FIX003",
+  "FIX004",
+  "ERA001",
+  "D200",
+  "D205",
+  "D415",
+  "PIE790",
+]
+ignore = [
+  "E501",
+]
+
+[tool.ruff.lint.mccabe]
+max-complexity = 10
+
+[tool.ruff.lint.pylint]
+max-args = 6
+max-branches = 12
+max-statements = 50
+
+[tool.ruff.lint.per-file-ignores]
+"tests/**/*.py" = [
+  "S101", "ANN", "BLE001",
+  "PLR0912", "PLR0913", "PLR0915",
+  "D200", "D205", "D415",
+]
+"governance/*.py" = [
+  "C901", "PLR0912", "PLR0913", "PLR0915",
+  "T201",
+  "FIX001", "FIX002", "FIX003", "FIX004",
+  "ERA001", "D200", "D205", "D415",
+]
+"scripts/*.py" = [
+  "C901", "PLR0912", "PLR0913", "PLR0915",
+  "T201",
+  "D200", "D205", "D415",
+]
+"governance/tests/**/*.py" = [
+  "S101", "ANN", "BLE001",
+  "PLR0912", "PLR0913", "PLR0915",
+  "D200", "D205", "D415",
+]
+
+[tool.ruff.lint.isort]
+known-first-party = ["governance", "chances"]
+
+[tool.vulture]
+paths = ["chances"]
+min_confidence = 80
+
+[tool.coverage.run]
+branch = true
+source = ["chances"]
+
+[tool.coverage.report]
+show_missing = true
+
+[tool.coverage.json]
+output = "coverage.json"

@@ -1,0 +1,168 @@
+name: Publish Package to PyPI
+
+# Publishing is a separate manual approval. No release event or workflow_run
+# can upload a package. The existing organization PYPI_API_TOKEN is available
+# only to the protected pypi upload job, after approval.
+on:
+  workflow_dispatch:
+    inputs:
+      tag:
+        description: Existing approved vMAJOR.MINOR.PATCH release tag reachable from master.
+        required: true
+        type: string
+
+permissions:
+  contents: read
+
+concurrency:
+  group: approved-pypi-publication
+  cancel-in-progress: false
+
+jobs:
+  build_distribution:
+    name: build_distribution
+    runs-on: ubuntu-latest
+    environment: release
+    permissions:
+      contents: read
+      id-token: write
+      attestations: write
+    steps:
+      - name: Validate explicit publication request
+        env:
+          RELEASE_TAG: ${{ inputs.tag }}
+          PUBLISH_REF: ${{ github.ref }}
+          PUBLISH_ENABLED: ${{ vars.PYPI_PUBLISH_ENABLED }}
+        run: |
+          set -euo pipefail
+          test "$PUBLISH_REF" = 'refs/heads/master' || { echo '::error::Publish dispatch requires master.'; exit 1; }
+          test "$PUBLISH_ENABLED" = 'true' || { echo '::error::Configure the protected pypi environment and organization PYPI_API_TOKEN; set PYPI_PUBLISH_ENABLED=true.'; exit 1; }
+          [[ "$RELEASE_TAG" =~ ^v[0-9]+\.[0-9]+\.[0-9]+$ ]] || { echo '::error::Use an approved vMAJOR.MINOR.PATCH tag.'; exit 1; }
+
+      - name: Checkout the approved release tag
+        uses: actions/checkout@93cb6efe18208431cddfb8368fd83d5badbf9bfd  # v5.0.1
+        with:
+          ref: ${{ inputs.tag }}
+          fetch-depth: 0
+          persist-credentials: false
+
+      - name: Set up Python
+        uses: actions/setup-python@ece7cb06caefa5fff74198d8649806c4678c61a1  # v6.3.0
+        with:
+          python-version: '3.12'
+
+      - name: Validate released version and protected history
+        env:
+          RELEASE_TAG: ${{ inputs.tag }}
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          set -euo pipefail
+          python - <<'PY'
+          import os
+          from pathlib import Path
+          import tomllib
+
+          project = tomllib.loads(Path('pyproject.toml').read_text())['project']
+          if project['name'] != 'chances' or os.environ['RELEASE_TAG'] != f"v{project['version']}":
+              raise SystemExit('The approved tag must identify this Chances project version.')
+          PY
+          git merge-base --is-ancestor HEAD origin/master || { echo '::error::Release tag is outside protected master history.'; exit 1; }
+          gh release view "$RELEASE_TAG" --repo "$GITHUB_REPOSITORY" --json isDraft,isPrerelease,tagName,targetCommitish > release.json
+          python - <<'PY'
+          import json
+          import os
+          from pathlib import Path
+
+          release = json.loads(Path('release.json').read_text())
+          if release['tagName'] != os.environ['RELEASE_TAG'] or release['isDraft'] or release['isPrerelease']:
+              raise SystemExit('Publish requires an existing final approved GitHub release.')
+          PY
+
+      - name: Install locked packaging toolchain
+        run: |
+          python -m pip install --require-hashes -r requirements/ci/build-tools.txt
+          python -m pip install --require-hashes -r requirements/ci/packaging-tools.txt
+          python -m pip install --require-hashes -r requirements/ci/gate-tools.txt
+
+      - name: Guard previously published version
+        run: |
+          python - <<'PY'
+          import json
+          import sys
+          import tomllib
+          import urllib.error
+          import urllib.request
+          from pathlib import Path
+
+          project = tomllib.loads(Path('pyproject.toml').read_text())['project']
+          name, version = project['name'], project['version']
+          try:
+              with urllib.request.urlopen(f'https://pypi.org/pypi/{name}/json', timeout=30) as response:
+                  payload = json.load(response)
+          except urllib.error.HTTPError as error:
+              if error.code == 404:
+                  print(f'{name}: no published project')
+                  sys.exit(0)
+              raise
+          if version in payload.get('releases', {}):
+              raise SystemExit(f'{name} {version} already exists on PyPI; choose a new project version.')
+          print(f'{name} {version}: no currently recorded PyPI release')
+          PY
+
+      - name: Build and audit distributions
+        env:
+          SOURCE_DATE_EPOCH: '1704067200'
+        run: |
+          python -m build --no-isolation
+          python scripts/package_audit.py
+          python -m twine check dist/*
+
+      - name: Attest build provenance
+        uses: actions/attest-build-provenance@977bb373ede98d70efdf65b84cb5f73e068dcc2a  # v3.0.0
+        with:
+          subject-path: dist/*
+
+      - name: Record artifact digests
+        run: |
+          {
+            echo '### Artifact SHA-256'
+            echo
+            echo '```'
+            (cd dist && sha256sum ./*)
+            echo '```'
+          } >> "$GITHUB_STEP_SUMMARY"
+
+      - name: Upload distributions
+        uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a  # v7.0.1
+        with:
+          name: pypi-distributions
+          path: dist
+          if-no-files-found: error
+
+  publish_to_pypi:
+    name: publish_to_pypi
+    needs: build_distribution
+    runs-on: ubuntu-latest
+    environment: pypi
+    permissions: {}
+    steps:
+      - name: Validate the configured PyPI API token
+        env:
+          PYPI_API_TOKEN: ${{ secrets.PYPI_API_TOKEN }}
+        run: |
+          set -euo pipefail
+          test -n "$PYPI_API_TOKEN" || { echo '::error::The organization PYPI_API_TOKEN must be available to this repository.'; exit 1; }
+          [[ "$PYPI_API_TOKEN" == pypi-* ]] || { echo '::error::PYPI_API_TOKEN must contain a PyPI API token.'; exit 1; }
+
+      - name: Download approved distributions
+        uses: actions/download-artifact@018cc2cf5baa6db3ef3c5f8a56943fffe632ef53  # v6.0.0
+        with:
+          name: pypi-distributions
+          path: dist
+
+      - name: Publish with the organization PyPI API token
+        uses: pypa/gh-action-pypi-publish@ed0c53931b1dc9bd32cbe73a98c7f6766f8a527e  # v1.13.0
+        with:
+          user: __token__
+          password: ${{ secrets.PYPI_API_TOKEN }}
+          attestations: false

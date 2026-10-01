@@ -1,0 +1,235 @@
+{
+  "schema_version": 1,
+  "date": "2026-10-01",
+  "kind": "local governance adoption validation; not release or live CI approval",
+  "branch": "codex/chances-2",
+  "checkout_head": "432f9e94d5e7532d522cfd1d60a1817e64efb60a",
+  "template_commit": "fa7bf92caab5bb8d7f73120d4dc3526fd86c0348",
+  "candidate_content": {
+    "sha256": "97b241ac6d0a23c230ffad33691bfee876baa58bd12bc58186ebe9a985474df7",
+    "files": 272,
+    "algorithm": "Sorted non-ignored Git-listed regular worktree files; UTF-8 path + NUL + content SHA256 + newline. Excludes this evidence file. Pending local changes are included; checkout_head is not an adoption commit."
+  },
+  "environment": {
+    "python": "3.12.12",
+    "platform": "Darwin",
+    "numpy": "2.5.3",
+    "scipy": "1.18.1"
+  },
+  "product_tests": {
+    "passed": 726,
+    "runtime_seconds": 55.40781166701345,
+    "runtime_ceiling_seconds": 60,
+    "concurrent_docs_governance_static_checks": true
+  },
+  "minimum_dependency_tests": {
+    "passed": 726,
+    "python": "3.10.16",
+    "numpy": "2.0.0",
+    "scipy": "1.15.0",
+    "elapsed_seconds": 62.75,
+    "note": "The required runtime ceiling applies to the configured Python3.12 gate; this separate compatibility-floor run is not a ceiling measurement."
+  },
+  "governance_tests": {
+    "passed": 402,
+    "elapsed_seconds": 21.36,
+    "afterward_targeted_policy_digest_runtime_config_tests_passed": 23,
+    "note": "The final policy EOF normalization and measured runtime note were verified by the targeted follow-up; no governance behavior was changed afterward."
+  },
+  "coverage": {
+    "line_percent": 94.49378330373001,
+    "branch_percent": 89.30412371134021,
+    "line_floor": 92,
+    "branch_floor": 87
+  },
+  "static_checks": [
+    {
+      "check": "ruff",
+      "returncode": 0
+    },
+    {
+      "check": "module-budgets",
+      "returncode": 0
+    },
+    {
+      "check": "module-docstrings",
+      "returncode": 0
+    },
+    {
+      "check": "docstrings",
+      "returncode": 0
+    },
+    {
+      "check": "file-size",
+      "returncode": 0
+    },
+    {
+      "check": "test-code",
+      "returncode": 0
+    },
+    {
+      "check": "dead-code",
+      "returncode": 0
+    },
+    {
+      "check": "no-swallowed",
+      "returncode": 0
+    },
+    {
+      "check": "test-fallbacks",
+      "returncode": 0
+    },
+    {
+      "check": "fail-loud",
+      "returncode": 0
+    },
+    {
+      "check": "ruff-scripts",
+      "returncode": 0
+    }
+  ],
+  "typing": {
+    "filesAnalyzed": 12,
+    "errorCount": 1299,
+    "warningCount": 0,
+    "informationCount": 0,
+    "timeInSec": 3.434,
+    "ratchet_passed": true,
+    "suppressions_and_any_references": 0,
+    "note": "Accepted strict typing debt, not complete static proof."
+  },
+  "runtime_dependencies": {
+    "declarations": [
+      "numpy>=2.0,<3",
+      "scipy>=1.15,<2"
+    ],
+    "dependencies": [
+      {
+        "name": "numpy",
+        "version": "2.5.3",
+        "vulns": []
+      },
+      {
+        "name": "scipy",
+        "version": "1.18.1",
+        "vulns": []
+      }
+    ],
+    "active_exceptions": [],
+    "blocking_findings": []
+  },
+  "documentation": {
+    "sources": 32,
+    "routes": 38,
+    "node_tests_passed": 49,
+    "browser_tests_passed": 28,
+    "screenshot_and_accessibility_pairs": 24,
+    "js_bytes": 1436407,
+    "js_budget_bytes": 1500000,
+    "css_bytes": 381365,
+    "css_budget_bytes": 400000,
+    "security_policy_passed": true,
+    "reported_vulnerable_packages": 40,
+    "high": 34,
+    "moderate": 6,
+    "note": "Inherited Docusaurus/search-only production dependencies retain the template critical floor; other production roots retain the high floor. This is not zero-advisory assurance."
+  },
+  "artifact_validation": {
+    "source_date_epoch": 1704067200,
+    "independent_builds_identical": 3,
+    "package_audit_passed": true,
+    "twine_passed": true,
+    "check_manifest_passed": true,
+    "pyroma_rating": "10/10",
+    "outside_checkout_installations": [
+      {
+        "chances": "2.0.0",
+        "cli_commands_verified": 5,
+        "distributions": 132,
+        "manuals_verified": 34,
+        "numpy": "2.5.3",
+        "operations": 19,
+        "paired_source_archive_replayed": true,
+        "python": "3.12.12",
+        "receipt_sha256": "7bf5456e9652cecaaec14ca20be5f11b1e5c6707c25e59b403d68a93364e9f6a",
+        "scipy": "1.18.1",
+        "standalone_examples_executed": 14,
+        "artifact": "chances-2.0.0-py3-none-any.whl",
+        "artifact_sha256": "3d9c23cdf90c56614a6cd05ae13db6c652e5178df074eb0b65897938f8915a61",
+        "import_outside_checkout": true
+      },
+      {
+        "chances": "2.0.0",
+        "cli_commands_verified": 5,
+        "distributions": 132,
+        "manuals_verified": 34,
+        "numpy": "2.5.3",
+        "operations": 19,
+        "paired_source_archive_replayed": true,
+        "python": "3.12.12",
+        "receipt_sha256": "7bf5456e9652cecaaec14ca20be5f11b1e5c6707c25e59b403d68a93364e9f6a",
+        "scipy": "1.18.1",
+        "standalone_examples_executed": 14,
+        "artifact": "chances-2.0.0.tar.gz",
+        "artifact_sha256": "06a1761ec7d26d4b55ab50022b8370a4120cacd11f5b2458c9495a72437d8c23",
+        "extracted_manual_regeneration_byte_neutral": true,
+        "import_outside_checkout": true
+      }
+    ],
+    "manifest_mutations_rejected_before_writes": 13,
+    "independent_structural_manifest_cases_rejected": 6
+  },
+  "seeded_conformance": {
+    "cases": 785,
+    "structured_errors": 6,
+    "catalog_inspect_receipts_shapes_dtypes_bytes_identical": true,
+    "fixtures_are_research_observations": false
+  },
+  "branding": {
+    "former_organization_references": 0,
+    "original_chances_mit_notice_preserved": true,
+    "scaffold_notices": "Autonomio, adapted under operator authorization"
+  },
+  "remote_enforcement": {
+    "activated": false,
+    "live_rulesets_observed": 0,
+    "repository_variables_observed": 0,
+    "codeowner_and_approver_write_access_unresolved": true,
+    "required_ci_and_codeql_not_run_remotely": true,
+    "runbook": "SETUP.md"
+  },
+  "execution_logs": {
+    "product": {
+      "local_path": "/tmp/chances-final-product.log",
+      "sha256": "db68132e5e1233cd1698ba8c6bc500ce1b185439ec8825929371da1fabaac8a6"
+    },
+    "minimum_product": {
+      "local_path": "/tmp/chances-final-floor310.log",
+      "sha256": "35d04a6f31714d03593ddac377339c019057e90b45318e4fae102ed6176e3ebe"
+    },
+    "governance": {
+      "local_path": "/tmp/chances-final-governance.log",
+      "sha256": "8db147c3e8f621534d99580165255fd9bb05fb8553b1d5cdd78a0d9833166733"
+    },
+    "documentation": {
+      "local_path": "/tmp/chances-final-docs.log",
+      "sha256": "9736811e622a5ce053035fe8898fbc8d9469725d9858195fc792d62434cb88d0"
+    },
+    "docs_audit": {
+      "local_path": "/tmp/chances-final-docs-audit.log",
+      "sha256": "9cd58c5429337d9e89a3bf79c71291d5bec8fd03e7a88509303eea981a6bd1db"
+    },
+    "runtime_profile": {
+      "local_path": "/tmp/chances-final-runtime.json",
+      "sha256": "6639531bdfee0daabc7ab1b4f60e4e5da60fe518a1b9e6bcdd9d13ab2e4e0c17"
+    },
+    "conformance_baseline": {
+      "local_path": "/tmp/chances-quality-golden-before.json",
+      "sha256": "e2e4b5be38d76bee5eb61ce4d96cc499da177387b045a0f2d0d3a0659ee0050f"
+    },
+    "conformance_candidate": {
+      "local_path": "/tmp/chances-quality-golden-accepted.json",
+      "sha256": "e2e4b5be38d76bee5eb61ce4d96cc499da177387b045a0f2d0d3a0659ee0050f"
+    }
+  }
+}

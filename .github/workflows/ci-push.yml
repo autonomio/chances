@@ -1,35 +1,87 @@
-name: Build
+name: Verify and build
 
-on: [push]
+on:
+  push:
+  pull_request:
+    branches: [master]
+
+permissions:
+  contents: read
 
 jobs:
-  build:
-    name: Python ${{ matrix.python-version }} and ${{ matrix.os }}
+  verify:
+    name: Python ${{ matrix.python-version }} on ${{ matrix.os }}
     runs-on: ${{ matrix.os }}
     strategy:
-      max-parallel: 9
+      fail-fast: false
       matrix:
-        python-version: ['3.9', '3.10', '3.11']
+        python-version: ['3.10', '3.12', '3.14']
         os: [ubuntu-latest, macos-latest]
-
     steps:
-    - uses: actions/checkout@v2
-    - name: Set up Python ${{ matrix.python-version }}
-      uses: actions/setup-python@v4
-      with:
-        python-version: ${{ matrix.python-version }}
-    - name: Dependencies
-      run: |
-        python -m pip install --upgrade pip
-        pip install six
-        pip install -r requirements.txt
-    - name: Lint with flake8
-      run: |
-        pip install flake8
-        # stop the build if there are Python syntax errors or undefined names
-        flake8 . --count --select=E9,F63,F7 --show-source --statistics
-        # exit-zero treats all errors as warnings. The GitHub editor is 127 chars wide
-        flake8 . --count --exit-zero --max-complexity=10 --max-line-length=127 --statistics
-    - name: Tests
-      run: |
-        python test_script.py
+      - uses: actions/checkout@93cb6efe18208431cddfb8368fd83d5badbf9bfd  # v5.0.1
+        with:
+          persist-credentials: false
+      - uses: actions/setup-python@ece7cb06caefa5fff74198d8649806c4678c61a1  # v6.3.0
+        with:
+          python-version: ${{ matrix.python-version }}
+      - name: Install
+        run: |
+          python -m pip install --require-hashes -r requirements/ci/product-env.txt
+          python -m pip install --no-build-isolation --no-deps -e .
+      - name: Verify contracts
+        run: |
+          python -m pytest tests/package
+          python scripts/build_catalog.py --check
+          python test_script.py
+      - name: Build wheel and source distribution
+        run: python -m build --no-isolation
+      - name: Verify installed artifacts outside checkout
+        shell: bash
+        run: |
+          for artifact in dist/*.whl dist/*.tar.gz; do
+            chances_smoke_env=$(mktemp -d "$RUNNER_TEMP/chances-install-XXXXXX")
+            python -m venv "$chances_smoke_env"
+            "$chances_smoke_env/bin/python" -m pip install --require-hashes -r requirements/ci/product-env.txt
+            "$chances_smoke_env/bin/python" -m pip install --no-build-isolation --no-deps "$artifact"
+            (
+              cd "$RUNNER_TEMP"
+              "$chances_smoke_env/bin/python" -c 'from pathlib import Path; import runpy, chances; from importlib.metadata import version; assert version("chances") == chances.__version__; root = Path(chances.__file__).parent; assert (root / "AGENTS.md").is_file(); assert (root / "docs/operations.json").is_file(); from tempfile import TemporaryDirectory; d = TemporaryDirectory(); result = runpy.run_path(str(root / "docs/research_batch.py"))["run"](Path(d.name) / "batch"); assert result.data.shape == (100,); d.cleanup()'
+            )
+          done
+
+  windows-publication:
+    name: Native publication on Windows Python 3.12
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@93cb6efe18208431cddfb8368fd83d5badbf9bfd  # v5.0.1
+        with:
+          persist-credentials: false
+      - uses: actions/setup-python@ece7cb06caefa5fff74198d8649806c4678c61a1  # v6.3.0
+        with:
+          python-version: '3.12'
+      - name: Install locked product environment
+        run: |
+          python -m pip install --require-hashes -r requirements/ci/product-env.txt
+          python -m pip install --no-build-isolation --no-deps -e .
+      - name: Verify native publication boundaries
+        run: python -m pytest tests/package/test_publication.py -q
+
+  minimum-dependencies:
+    name: Minimum NumPy and SciPy on Python 3.10
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@93cb6efe18208431cddfb8368fd83d5badbf9bfd  # v5.0.1
+        with:
+          persist-credentials: false
+      - uses: actions/setup-python@ece7cb06caefa5fff74198d8649806c4678c61a1  # v6.3.0
+        with:
+          python-version: '3.10'
+      - name: Install supported dependency floor
+        run: |
+          python -m pip install --require-hashes -r requirements/ci/minimum-env.txt
+          python -m pip install --no-build-isolation --no-deps -e .
+      - name: Verify contracts
+        run: |
+          python -m pytest tests/package
+          python scripts/build_catalog.py --check
+          python test_script.py
