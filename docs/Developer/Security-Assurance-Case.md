@@ -52,10 +52,9 @@ artifact attestations require separate evidence after publication and activation
 ## OpenSSF evidence
 
 [Best Practices entry 15137](https://www.bestpractices.dev/projects/15137)
-is the external badge record. `.bestpractices.json` proposes criterion statuses
-and source-linked evidence; it distinguishes maintainer attestations from
-measured checks. A proposal or progress badge does not mean the project has
-earned Passing or Silver.
+records the Passing badge earned on 2026-10-01. `.bestpractices.json` retains
+criterion statuses and source-linked evidence; it distinguishes maintainer
+attestations from measured checks. Silver requires separate evidence.
 
 The initial Scorecard run `36887139175` measured `6.2/10` against merged master
 `ee6ab1725bcc60bff78ad45b561dbb3d0b9632da`. Its findings drove read-only
