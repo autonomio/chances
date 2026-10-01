@@ -1,3 +1,7 @@
+# v2.0.2
+
+- Cancel superseded CI runs, avoid duplicate feature-branch verification, and bound documentation installation and checks.
+
 # v2.0.1
 
 - Limit default workflow tokens to read access and isolate required writes in their jobs.

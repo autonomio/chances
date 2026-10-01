@@ -2,16 +2,22 @@ name: Verify and build
 
 on:
   push:
+    branches: [master]
   pull_request:
     branches: [master]
 
 permissions:
   contents: read
 
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
 jobs:
   verify:
     name: Python ${{ matrix.python-version }} on ${{ matrix.os }}
     runs-on: ${{ matrix.os }}
+    timeout-minutes: 20
     strategy:
       fail-fast: false
       matrix:
@@ -52,6 +58,7 @@ jobs:
   windows-publication:
     name: Native publication on Windows Python 3.12
     runs-on: windows-latest
+    timeout-minutes: 20
     steps:
       - uses: actions/checkout@93cb6efe18208431cddfb8368fd83d5badbf9bfd  # v5.0.1
         with:
@@ -69,6 +76,7 @@ jobs:
   minimum-dependencies:
     name: Minimum NumPy and SciPy on Python 3.10
     runs-on: ubuntu-latest
+    timeout-minutes: 20
     steps:
       - uses: actions/checkout@93cb6efe18208431cddfb8368fd83d5badbf9bfd  # v5.0.1
         with:
