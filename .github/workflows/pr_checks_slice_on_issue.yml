@@ -175,6 +175,8 @@ jobs:
               --json title,body,changedFiles > pr_view.json
             jq -r '.title' pr_view.json > pr_title.txt
             jq -r '.body // ""' pr_view.json > pr_body.txt
+            # REST preserves the event login for app authors (dependabot[bot]).
+            PR_AUTHOR=$(gh api "repos/$REPO/pulls/$PR_NUM" --jq '.user.login // ""')
             EXPECTED_FILES=$(jq -r '.changedFiles' pr_view.json)
 
             gh api "repos/$REPO/pulls/$PR_NUM/files" \
@@ -207,7 +209,8 @@ jobs:
               --pr-body-file pr_body.txt \
               --pr-files-file pr_files.txt \
               --template .github/ISSUE_TEMPLATE/slice.yml \
-              --repo "$REPO" 2>&1)
+              --repo "$REPO" \
+              --pr-author "$PR_AUTHOR" 2>&1)
             GATE_EXIT=$?
             set -e
             echo "$GATE_OUT"

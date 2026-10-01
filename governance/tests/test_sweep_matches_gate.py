@@ -22,9 +22,12 @@ from __future__ import annotations
 import re
 from pathlib import Path
 
+import pytest
+
 REPO_ROOT = Path(__file__).resolve().parents[2]
 SWEEP = REPO_ROOT / '.github/workflows/pr_checks_slice_sweep.yml'
 GATE_WORKFLOW = REPO_ROOT / '.github/workflows/pr_checks_slice.yml'
+ON_ISSUE = REPO_ROOT / '.github/workflows/pr_checks_slice_on_issue.yml'
 
 # Flags that carry a judgement input. `--pr-author` decides the automation
 # exemption; the rest decide the scope and closing-set checks. Both call sites
@@ -52,7 +55,8 @@ def _gate_invocation(workflow: Path) -> set[str]:
     return set(_FLAG_RE.findall('\n'.join(lines)))
 
 
-def test_sweep_reads_the_author_from_the_rest_user_login() -> None:
+@pytest.mark.parametrize('workflow', [SWEEP, ON_ISSUE], ids=['sweep', 'issue-change'])
+def test_rerun_reads_the_author_from_the_rest_user_login(workflow: Path) -> None:
     """The author must be read the way the pull_request event carries it.
 
     `gh pr view --json author` serialises a GitHub App as `app/dependabot`;
@@ -61,7 +65,7 @@ def test_sweep_reads_the_author_from_the_rest_user_login() -> None:
     the gate receives a non-empty author that matches no configured bot, so
     it enforces and overturns a correct SKIP while looking correctly wired.
     """
-    text = SWEEP.read_text(encoding='utf-8')
+    text = workflow.read_text(encoding='utf-8')
     assert ".user.login" in text, (
         'the sweep must read the author from the REST pull request payload, '
         'which carries the same login the pull_request event does'
@@ -89,22 +93,24 @@ def test_configured_bot_authors_are_in_event_login_form() -> None:
         )
 
 
-def test_sweep_passes_the_pr_author() -> None:
+@pytest.mark.parametrize('workflow', [SWEEP, ON_ISSUE], ids=['sweep', 'issue-change'])
+def test_rerun_passes_the_pr_author(workflow: Path) -> None:
     """The gathered author must actually reach the gate."""
-    assert '--pr-author' in _gate_invocation(SWEEP), (
+    assert '--pr-author' in _gate_invocation(workflow), (
         'the sweep runs the slice gate without --pr-author, so the gate sees an '
         'empty author, enforces, and publishes a failure over a correct SKIP'
     )
 
 
-def test_sweep_and_gate_pass_the_same_arguments() -> None:
+@pytest.mark.parametrize('workflow', [SWEEP, ON_ISSUE], ids=['sweep', 'issue-change'])
+def test_rerun_and_gate_pass_the_same_arguments(workflow: Path) -> None:
     """Argument parity, not the presence of one flag.
 
     Two call sites running the same gate over the same PR must hand it the
     same inputs. Asserting only `--pr-author` would pass while some later
     argument is added to one and forgotten in the other.
     """
-    sweep = _gate_invocation(SWEEP)
+    sweep = _gate_invocation(workflow)
     gate = _gate_invocation(GATE_WORKFLOW)
     assert sweep == gate, (
         f'the sweep and the pull_request gate disagree on inputs; '

@@ -244,3 +244,21 @@ def test_ratchet_gates_have_no_permanent_bootstrap_mode() -> None:
             and f'repo != {seed_q}' in text, (
             f'{name}: the bootstrap probe must require all three conditions'
         )
+
+
+def test_security_reporting_has_only_a_private_contact_route() -> None:
+    """A public issue form cannot enforce private vulnerability disclosure."""
+    templates = REPO_ROOT / '.github' / 'ISSUE_TEMPLATE'
+    config = yaml.safe_load((templates / 'config.yml').read_text(encoding='utf-8'))
+    assert config['blank_issues_enabled'] is False
+    assert any(
+        contact['url'] == 'https://github.com/autonomio/chances/security/advisories/new'
+        for contact in config['contact_links']
+    )
+    for form in templates.glob('*.yml'):
+        if form.name == 'config.yml':
+            continue
+        data = yaml.safe_load(form.read_text(encoding='utf-8'))
+        assert 'security' not in data.get('name', '').casefold(), (
+            f'{form.name} permits public submission of vulnerability details'
+        )
