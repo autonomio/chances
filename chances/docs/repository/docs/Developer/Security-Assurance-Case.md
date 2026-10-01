@@ -67,7 +67,8 @@ history cannot be rewritten by a workflow change. Required mutation permissions
 remain in their individual jobs.
 
 The bounded Atheris campaign lives in `fuzz/` and runs from
-`.github/workflows/fuzz.yml` with hash-locked tooling. It exercises malformed
+`.github/workflows/fuzz.yml` and the required lint gate with hash-locked tooling.
+It exercises malformed
 JSON, bounded structured protocols, deterministic generation and receipt
 mutation. Only declared `ChancesError` failures count as expected rejection;
 other exceptions and failed invariants crash the campaign and retain evidence.

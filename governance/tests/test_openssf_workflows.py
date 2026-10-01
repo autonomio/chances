@@ -1,6 +1,7 @@
 """Security tooling keeps default tokens read-only and badge claims attributable."""
 from __future__ import annotations
 
+import ast
 import json
 from pathlib import Path
 
@@ -53,14 +54,15 @@ def test_badge_proposals_require_explicit_evidence() -> None:
 
 def test_fuzzing_uses_bounded_locked_tooling() -> None:
     """A fuzz marker counts only when CI runs a constrained real campaign."""
-    workflow = yaml.safe_load((ROOT / '.github/workflows/fuzz.yml').read_text())
-    commands = '\n'.join(step.get('run', '') for job in workflow['jobs'].values()
-                         for step in job['steps'])
-    assert '--require-hashes' in commands
-    assert 'requirements/ci/fuzz-env.txt' in commands
-    assert 'fuzz/fuzz_protocol.py' in commands
-    assert '-atheris_runs=10000' in commands
-    assert '-max_len=4096' in commands
+    for filename in ('fuzz.yml', 'pr_checks_lint.yml'):
+        workflow = yaml.safe_load((ROOT / '.github/workflows' / filename).read_text())
+        commands = '\n'.join(step.get('run', '') for job in workflow['jobs'].values()
+                             for step in job['steps'])
+        assert '--require-hashes' in commands
+        assert 'requirements/ci/fuzz-env.txt' in commands
+        assert 'fuzz/fuzz_protocol.py' in commands
+        assert '-atheris_runs=10000' in commands
+        assert '-max_len=4096' in commands
     assert 'atheris==' in (ROOT / 'requirements/ci/fuzz-env.txt').read_text()
     assert 'atheris.Setup(' in (ROOT / 'fuzz/fuzz_protocol.py').read_text()
 
@@ -82,3 +84,14 @@ def test_runtime_requirements_preserve_project_envelope() -> None:
         effective = SpecifierSet(f'{requirement.specifier},{constraints[requirement.name]}')
         assert effective == expected[requirement.name]
     assert '/requirements/constraints.txt' in project['tool']['hatch']['build']['targets']['sdist']['include']
+
+
+def test_declared_version_matches_package_and_citation() -> None:
+    """Source exports, package artifacts and citation metadata advance together."""
+    version = loads_toml((ROOT / 'pyproject.toml').read_text())['project']['version']
+    module = ast.parse((ROOT / 'chances/__init__.py').read_text())
+    declared = next(node.value for node in module.body if isinstance(node, ast.Assign)
+                    and any(isinstance(target, ast.Name) and target.id == '__version__'
+                            for target in node.targets))
+    assert ast.literal_eval(declared) == version
+    assert yaml.safe_load((ROOT / 'CITATION.cff').read_text())['version'] == version

@@ -67,6 +67,18 @@ jobs:
           uv pip install --python .venv-lint/bin/python --require-hashes -r requirements/ci/build-tools.txt
           uv pip install --python .venv-lint/bin/python --no-build-isolation --no-deps -e .
 
+      - name: Install hash-locked fuzz engine
+        run: |
+          uv pip install --python .venv-lint/bin/python --only-binary :all: --require-hashes -r requirements/ci/fuzz-env.txt
+
+      - name: Fuzz protocols and receipts before merge
+        run: |
+          mkdir -p fuzz-evidence/corpus
+          cp fuzz/corpus/* fuzz-evidence/corpus/
+          .venv-lint/bin/python fuzz/fuzz_protocol.py --evidence fuzz-evidence/outcomes.json \
+            fuzz-evidence/corpus -seed=42 -atheris_runs=10000 -max_len=4096 \
+            -timeout=5 -rss_limit_mb=512 -artifact_prefix=fuzz-evidence/crash-
+
       - name: Verify generated scientific manuals and workflow
         run: |
           .venv-lint/bin/python scripts/build_catalog.py --check
