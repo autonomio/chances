@@ -1,3 +1,7 @@
+# v2.0.3
+
+- Cancel superseded CI runs, avoid duplicate feature-branch verification, and bound documentation installation and checks.
+
 # v2.0.2
 
 - Align the README product home with live badges, reader navigation, and explicit support and security routes.

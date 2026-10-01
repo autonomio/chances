@@ -9,10 +9,15 @@ permissions:
   contents: read
   pull-requests: read
 
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
 jobs:
   pr_checks_lint:
     name: pr_checks_lint
     runs-on: ubuntu-latest
+    timeout-minutes: 30
     steps:
       - name: Checkout
         uses: actions/checkout@93cb6efe18208431cddfb8368fd83d5badbf9bfd  # v5.0.1
@@ -39,12 +44,14 @@ jobs:
         run: npm --prefix docs-site ci
 
       - name: Install documentation browser
+        timeout-minutes: 10
         run: docs-site/node_modules/.bin/playwright install --with-deps chromium
 
       - name: Audit documentation dependencies
         run: npm --prefix docs-site run security:audit
 
       - name: Check documentation site
+        timeout-minutes: 10
         run: npm --prefix docs-site run check
 
       - name: Retain documentation evidence
