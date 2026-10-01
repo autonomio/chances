@@ -116,10 +116,10 @@
     },
     {
       "installed": "docs/repository/docs/Developer/Documentation-System.md",
-      "installed_sha256": "668cdea935ad2489887c9fc9582568424487a32e6f573d07e63b80346fd2996b",
+      "installed_sha256": "06b7f7254f562fdbe03749ec0df2fcc1e9b0b38b9ac3c82cdf87621930c49265",
       "route": "/developer/documentation-system",
       "source": "docs/Developer/Documentation-System.md",
-      "source_sha256": "b89d8f405c74a4a2635dd790ddf275684226e9de4a0073b5e4738a8cb73cbb47"
+      "source_sha256": "ec180f901d753e1015a77a7e84193ef945fae1dc614e6abb3954af59203bd0dc"
     },
     {
       "installed": "docs/repository/docs/Developer/Documentation-Adoption.md",

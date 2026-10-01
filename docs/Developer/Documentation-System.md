@@ -345,7 +345,7 @@ behavior. These controls cannot be portable without choosing a host.
 | local links | Docusaurus broken-link failure |
 | external links | `check-external-links.mjs` |
 | Markdown style | `markdownlint-cli2` |
-| dependency advisories | `npm audit --json` |
+| dependency advisories | `npm audit --include=dev --json` |
 | assembly and production build | Docusaurus build |
 | routes, sitemap, robots, and search | `verify-build.mjs` |
 | static asset budgets | `verify-build.mjs` |
