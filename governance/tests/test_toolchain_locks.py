@@ -97,3 +97,17 @@ def test_editable_helper_is_not_a_scientific_runtime_dependency() -> None:
         assert 'editables' in {
             Requirement(value).name for value in metadata['optional-dependencies'][extra]
         }
+
+
+@pytest.mark.parametrize('platform', ['linux', 'darwin'])
+def test_build_and_packaging_locks_share_one_coherent_tool_environment(platform: str) -> None:
+    build = _active_requirements('build-tools', '3.12', platform)
+    packaging = _active_requirements('packaging-tools', '3.12', platform)
+    shared = build.keys() & packaging.keys()
+    assert 'trove-classifiers' in shared, 'Expected the classifier library shared by Hatch and Pyroma.'
+    conflicts = {
+        name: (str(build[name].specifier), str(packaging[name].specifier))
+        for name in shared
+        if build[name].specifier != packaging[name].specifier
+    }
+    assert not conflicts, f'Combined hash-locked installation has conflicting pins: {conflicts}'
