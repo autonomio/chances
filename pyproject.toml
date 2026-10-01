@@ -55,7 +55,7 @@ core-metadata-version = "2.4"
 include = [
     "/chances", "/tests/package", "/scripts/build_catalog.py", "/scripts/benchmark.py",
     "/docs", "/docs-site", "/README.md", "/CHANGELOG.md", "/.markdownlint.json",
-    "/LICENSE", "/pyproject.toml", "/requirements.txt", "/test_script.py",
+    "/LICENSE", "/pyproject.toml", "/requirements.txt", "/requirements/constraints.txt", "/test_script.py",
     "/CONTRIBUTING.md", "/SECURITY.md", "/CITATION.cff", "/GOVERNANCE.md",
     "/MAINTAINERS.md", "/SUPPORT.md", "/THIRD_PARTY.md", "/CODE_OF_CONDUCT.md",
     "/NOTICE", "/AUTHORS",

@@ -4,12 +4,14 @@ on:
   workflow_dispatch:
 
 permissions:
-  issues: write
   contents: read
 
 jobs:
   setup:
     runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      issues: write
     steps:
       - name: Merge labels from configured template repository
         env:

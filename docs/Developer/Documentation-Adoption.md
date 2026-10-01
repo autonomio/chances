@@ -49,10 +49,11 @@ developer page, and package page in desktop/mobile and light/dark contexts.
 Each context checks navigation, overflow, and accessibility; shared tests also
 check search, source edit links, typography, and mobile interaction.
 
-The inherited dependency audit blocks high-severity findings for ordinary
-production roots and critical findings for the Docusaurus/search-only subtree.
-That is a severity policy, not a claim that the dependency tree has no advisories.
-The audit prints its findings and fails on unknown severities or malformed data.
+The dependency audit checks the complete locked tree, including development
+tools, and blocks every known advisory regardless of severity. The former
+Docusaurus/search severity exemption is removed. The audit fails on unknown
+severities or malformed data; a clean result describes the advisory database
+at check time, not a guarantee against undiscovered vulnerabilities.
 
 ## Deployment and rollout boundary
 

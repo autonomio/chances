@@ -2,9 +2,10 @@
 
 ## Supported Versions
 
-Chances 2.0 is under development on this branch. Historical 0.1 releases do
-not acquire the new checks retroactively. Report issues against an exact version
-or commit; maintainers decide remediation and release timing.
+The maintained source is the 2.0 series on `master`; its release artifacts are
+published only through the protected workflows. Historical 0.1 releases do not
+acquire the new checks retroactively. Report issues against an exact version
+or commit; maintainers identify affected versions during triage.
 
 ## Reporting a Vulnerability
 
@@ -22,6 +23,21 @@ Include:
 - any logs or proof artifacts that are safe to share privately
 
 Reporters are credited in the release notes and `CHANGELOG.md` entry of the fix unless they request otherwise.
+
+## Response and disclosure
+
+Maintainers aim to acknowledge private reports within 14 days. They reproduce
+the report, assess impact and affected versions, and coordinate a fix and
+disclosure with the reporter. Critical vulnerabilities receive priority.
+Confirmed medium-or-higher vulnerabilities that become public must be fixed
+and released within 60 days, unless a documented mitigation or evidence shows
+the reported issue does not apply.
+
+Release notes must identify every publicly known vulnerability fixed by the
+release, including its CVE or other public identifier when assigned.
+Publish a GitHub security advisory and release notes for confirmed fixes; credit
+the reporter unless they opt out. These targets define the response process;
+they are not evidence of past response times.
 
 ## Verifying Release Artifacts
 

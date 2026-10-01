@@ -10,12 +10,9 @@ The invariant is deliberately narrow: these extractors must always return,
 never raise, and must return the declared type. *What* they return on nonsense
 is the gate's business; *that* they return at all is this file's.
 
-Coverage-guided fuzzing (Atheris) was the first approach and was withdrawn:
-it ships no wheels for Python 3.12 or later and cannot build against this
-repository's floor, so the workflow could not install its own dependency.
-Property-based testing reaches the same invariant, runs inside an already
-required check rather than a separate advisory workflow, and shrinks a failing
-case to a minimal reproduction — which a 60-second fuzz run does not.
+Property-based testing runs inside a required check and shrinks failures to
+minimal reproductions. The separate scientific protocol/receipt fuzz campaign
+is defined in `fuzz/`; it does not replace these issue-parser invariants.
 """
 from __future__ import annotations
 

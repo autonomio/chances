@@ -3,6 +3,10 @@
 # v2.0.1
 
 - Limit default workflow tokens to read access and isolate required writes in their jobs.
+- Remediate documentation dependencies and block known advisories across the full locked tree.
+- Add bounded protocol and receipt fuzzing with hash-locked development tooling.
+- Record source-linked OpenSSF badge evidence and explicit test and disclosure policies.
+- Preserve runtime bounds while correcting dependency scanner parsing.
 
 # v2.0.0
 
