@@ -29,10 +29,12 @@ jobs:
           python-version: '3.12'
 
       - name: Install locked runtime and fuzz engine
+        env:
+          PIP_ONLY_BINARY: ":all:"
         run: |
           python -m pip install --require-hashes -r requirements/ci/runtime-env.txt
           python -m pip install --require-hashes -r requirements/ci/build-tools.txt
-          python -m pip install --only-binary=:all: --require-hashes -r requirements/ci/fuzz-env.txt
+          python -m pip install --require-hashes -r requirements/ci/fuzz-env.txt
           python -m pip install --no-build-isolation --no-deps -e .
 
       - name: Fuzz bounded protocols and saved receipts

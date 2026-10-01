@@ -6,6 +6,7 @@ import argparse
 import atexit
 import hashlib
 import json
+import signal
 import sys
 import tempfile
 from collections import Counter
@@ -130,7 +131,9 @@ class ProtocolFuzzer:
         contents = {key: value for key, value in receipt.items() if key != 'receipt_sha256'}
         receipt['receipt_sha256'] = hashlib.sha256(canonical(contents)).hexdigest()
         (self.bundle / 'receipt.json').write_bytes(canonical(receipt))
-        assert chances.verify(self.bundle).data.tobytes() == self.output
+        verified = chances.verify(self.bundle)
+        assert verified.data.tobytes() == self.output
+        assert canonical(verified.receipt) == self.receipt
 
     @atheris.instrument_func
     def raw_receipt(self, payload: bytes) -> None:
@@ -183,7 +186,11 @@ def main() -> None:
             target = ProtocolFuzzer(Path(directory), arguments.evidence)
         atexit.register(target.report)
         atheris.Setup([sys.argv[0], *fuzzer_arguments], target.run)
-        atheris.Fuzz()
+        try:
+            atheris.Fuzz()
+        finally:
+            # Atheris leaves its periodic watchdog armed when its run limit exits Python.
+            signal.setitimer(signal.ITIMER_REAL, 0)
 
 
 if __name__ == '__main__':

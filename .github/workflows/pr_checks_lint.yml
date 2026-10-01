@@ -68,8 +68,10 @@ jobs:
           uv pip install --python .venv-lint/bin/python --no-build-isolation --no-deps -e .
 
       - name: Install hash-locked fuzz engine
+        env:
+          UV_NO_BUILD: "true"
         run: |
-          uv pip install --python .venv-lint/bin/python --only-binary :all: --require-hashes -r requirements/ci/fuzz-env.txt
+          uv pip install --python .venv-lint/bin/python --require-hashes -r requirements/ci/fuzz-env.txt
 
       - name: Fuzz protocols and receipts before merge
         run: |

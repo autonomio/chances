@@ -1,0 +1,2 @@
+# Bounded protocol/receipt fuzzing: Linux x86_64 CPython 3.12 only.
+atheris==3.1.0
