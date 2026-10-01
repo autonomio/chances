@@ -27,7 +27,7 @@
     "@fontsource/ibm-plex-sans": "5.2.8",
     "prism-react-renderer": "2.4.1",
     "react": "19.2.7",
-    "react-dom": "19.2.7"
+    "react-dom": "19.3.0"
   },
   "overrides": {
     "brace-expansion": "5.0.12",
