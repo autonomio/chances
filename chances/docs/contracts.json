@@ -1,0 +1,138 @@
+{
+  "array": {
+    "dtype_kinds": [
+      "b",
+      "i",
+      "u",
+      "f",
+      "U",
+      "S"
+    ],
+    "finite_floats_required": true,
+    "hash_contract": "SHA256(chances-array-v1 NUL + canonical JSON(dtype.str,shape) + NUL + C-order bytes)",
+    "identity_fields": [
+      "dtype",
+      "shape",
+      "values",
+      "bytes",
+      "sha256"
+    ],
+    "maximum_dimensions": 16,
+    "pickle": false
+  },
+  "capabilities": {
+    "distributions": 132,
+    "operations": 19
+  },
+  "documentation_sources_sha256": "64d355bcbf608b9536a07353154e3b52921571fb04ed625c4d603e0f6cacdb1f",
+  "navigation": {
+    "documentation_hub": "docs/repository/docs/README.md",
+    "documentation_sources": "docs/sources.json",
+    "entrypoint": "AGENTS.md",
+    "executable_workflow": "docs/research_batch.py",
+    "migration": "docs/migration.md",
+    "operations": "docs/operations.json",
+    "package_boundary": "docs/repository/chances/README.md",
+    "paths_relative_to": "Path(chances.__file__).parent",
+    "specifications": "docs/recipes.md"
+  },
+  "package_version": "2.0.0",
+  "randomness": {
+    "default_engine": "pcg64dxsm",
+    "derivation": "sha256-seed-stream-v1",
+    "engines": {
+      "mt19937": "MT19937",
+      "pcg64": "PCG64",
+      "pcg64dxsm": "PCG64DXSM",
+      "philox": "Philox",
+      "sfc64": "SFC64"
+    },
+    "global_rng_mutation": false,
+    "seed_range": "integer in [0, 2**256); booleans rejected",
+    "shared_stream_state": false,
+    "stream": {
+      "default": "default",
+      "maximum_utf8_bytes": 512,
+      "normalization": "NFC"
+    }
+  },
+  "receipt": {
+    "bundle_files": [
+      "data.npy",
+      "recipe.json",
+      "receipt.json"
+    ],
+    "checks": [
+      "finite",
+      "supported_dtype",
+      "resource_limits",
+      "shape",
+      "dtype",
+      "declared_support",
+      "structural_constraints"
+    ],
+    "contract": {
+      "optional_fields": [
+        "dependence",
+        "stratification"
+      ],
+      "required_fields": [
+        "shape",
+        "dtype",
+        "finite",
+        "support"
+      ]
+    },
+    "fields": [
+      "receipt_version",
+      "versions",
+      "environment",
+      "spec",
+      "spec_sha256",
+      "source",
+      "randomness",
+      "checks",
+      "contract",
+      "output",
+      "receipt_sha256"
+    ],
+    "hash_contract": "SHA256 of sorted, compact, finite UTF-8 JSON, excluding receipt_sha256 itself",
+    "optional_source_file": "source.npy",
+    "replay": "Verify archive, reject mismatched versions/environment, regenerate and compare evidence/output.",
+    "rng_fields": [
+      "seed",
+      "stream",
+      "engine",
+      "derivation",
+      "state_before",
+      "state_after"
+    ],
+    "rng_state": "Bit-generator state plus SeedSequence entropy, spawn_key, pool_size, and n_children_spawned; captures QMC child spawning.",
+    "signed": false,
+    "timestamps": false,
+    "verification": "Check archive integrity and declared contracts without regenerating values.",
+    "version": 1
+  },
+  "schema_version": "chances.contracts.v1",
+  "specification": {
+    "default_limits": {
+      "max_bytes": 268435456,
+      "max_values": 10000000,
+      "max_work": 100000000
+    },
+    "fields": [
+      "version",
+      "operation",
+      "parameters",
+      "randomness",
+      "limits"
+    ],
+    "limit_range": "positive integers less than 2**63",
+    "maximum_json_bytes": 1048576,
+    "required": [
+      "operation",
+      "randomness.seed"
+    ],
+    "version": 1
+  }
+}

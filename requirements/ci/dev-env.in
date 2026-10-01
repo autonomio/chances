@@ -1,0 +1,5 @@
+# Dev-env set: compiled from the project's own `dev` extra, so every tool
+# version lives in pyproject.toml and nowhere else. Listing a tool here instead
+# would recreate exactly the drift the contract tests were written to catch --
+# and a second copy is a second thing a dependency bump has to find.
+.[dev]

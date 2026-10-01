@@ -1,0 +1,144 @@
+{
+  "schema_version": 1,
+  "typing": {
+    "patterns": {
+      "any_annotation": {
+        "pattern": ":\\s*Any\\b",
+        "total": 0
+      },
+      "any_return": {
+        "pattern": "->\\s*Any\\b",
+        "total": 0
+      },
+      "any_import": {
+        "pattern": "from typing import[^\\n]*\\bAny\\b",
+        "total": 0
+      },
+      "cast_any": {
+        "pattern": "cast\\([^)]*\\bAny\\b",
+        "total": 0
+      },
+      "dict_any": {
+        "pattern": "dict\\[[^]]*\\bAny\\b",
+        "total": 0
+      },
+      "list_any": {
+        "pattern": "list\\[\\s*Any\\b",
+        "total": 0
+      },
+      "tuple_any": {
+        "pattern": "tuple\\[[^]]*\\bAny\\b",
+        "total": 0
+      },
+      "type_ignore": {
+        "pattern": "#\\s*type:\\s*ignore",
+        "total": 0
+      },
+      "pyright_ignore": {
+        "pattern": "#\\s*pyright:\\s*ignore",
+        "total": 0
+      },
+      "noqa": {
+        "pattern": "#\\s*noqa",
+        "total": 0
+      }
+    },
+    "any_references": {
+      "total": 0
+    },
+    "pyright_errors": {
+      "total": 1299
+    },
+    "pyright_warnings": {
+      "total": 0
+    }
+  },
+  "fail_loud": {
+    "categories": {
+      "bare_except": {
+        "total": 0
+      },
+      "empty_pass": {
+        "total": 0
+      },
+      "empty_ellipsis": {
+        "total": 0
+      },
+      "empty_return_none": {
+        "total": 0
+      },
+      "empty_continue_break": {
+        "total": 0
+      },
+      "contextlib_suppress": {
+        "total": 0
+      },
+      "errors_ignore_kwarg": {
+        "total": 0
+      }
+    }
+  },
+  "modules": {
+    "chances/__init__.py": 22,
+    "chances/__main__.py": 53,
+    "chances/_api.py": 708,
+    "chances/_checks.py": 338,
+    "chances/_distributions.py": 763,
+    "chances/_errors.py": 11,
+    "chances/_operations.py": 1006,
+    "chances/_random.py": 139,
+    "chances/docs/research_batch.py": 52,
+    "chances/legacy.py": 151,
+    "chances/methods.py": 10,
+    "chances/utils.py": 10,
+    "governance/__init__.py": 10,
+    "governance/_common.py": 359,
+    "governance/bootstrap_repository.py": 633,
+    "governance/cc_gate.py": 329,
+    "governance/check_budget_ratchet.py": 120,
+    "governance/check_coverage_floor.py": 120,
+    "governance/check_coverage_ratchet.py": 120,
+    "governance/check_dependency_vulnerabilities.py": 120,
+    "governance/check_diff_coverage.py": 120,
+    "governance/check_docstrings.py": 120,
+    "governance/check_file_size_balance.py": 120,
+    "governance/check_module_budgets.py": 120,
+    "governance/check_module_docstrings.py": 120,
+    "governance/check_no_swallowed_violations.py": 120,
+    "governance/check_test_code_ratio.py": 120,
+    "governance/check_test_fallbacks.py": 120,
+    "governance/check_test_runtime.py": 191,
+    "governance/closeout_evidence.py": 120,
+    "governance/fail_loud_gate.py": 421,
+    "governance/privileged_ruleset_audit.py": 126,
+    "governance/ruleset_gate.py": 205,
+    "governance/slice_gate.py": 846,
+    "governance/typing_gate.py": 823,
+    "governance/version_gate.py": 384,
+    "governance/_locked_requirements.py": 43,
+    "governance/_dependency_audit.py": 73,
+    "governance/_base_version.py": 65
+  },
+  "coverage": {
+    "line": 92,
+    "branch": 87
+  },
+  "runtime": {
+    "max_total_seconds": 60,
+    "baseline": {
+      "note": "Local Python3.12.12/macOS product suite under coverage,726 tests, concurrent independent documentation/governance/static verification. One observed final-source run; CI platform spread remains unmeasured until activation.",
+      "workflow": "pr_checks_tests",
+      "job": "pr_checks_tests",
+      "sample_count": 1,
+      "observed_max_seconds": 55.40781166701345,
+      "headroom_seconds": 4.592188332986552
+    }
+  },
+  "adoption": {
+    "date": "2026-10-01",
+    "template_commit": "fa7bf92caab5bb8d7f73120d4dc3526fd86c0348",
+    "modules": "Measured significant lines plus10% headroom (minimum10), preserving inherited120-line self-limits for short governance scripts.",
+    "coverage": "Initial floor banks observed gains minus configured two-point slack; final candidate measurements govern ratcheting.",
+    "typing": "Strict Pyright1.1.408, Python3.10 target, explicit installed Python3.12 interpreter, NumPy2.5.3/SciPy1.18.1;1299 diagnostics,0 warnings,0 missing imports. NoAny/suppression/fallback occurrences."
+  }
+}

@@ -1,0 +1,265 @@
+{
+  "sections": [
+    {
+      "dir": "overview",
+      "label": "Overview",
+      "position": 1,
+      "slug": "/overview",
+      "description": "Product boundary, system story, and task routing."
+    },
+    {
+      "dir": "guides",
+      "label": "Guides",
+      "position": 2,
+      "slug": "/guides",
+      "description": "End-to-end jobs and operational workflows."
+    },
+    {
+      "dir": "reference",
+      "label": "Reference",
+      "position": 3,
+      "slug": "/reference",
+      "description": "Interfaces, schemas, defaults, outputs, and edge cases."
+    },
+    {
+      "dir": "developer",
+      "label": "Developer",
+      "position": 4,
+      "slug": "/developer",
+      "description": "Contribution, release, documentation, and maintenance."
+    },
+    {
+      "dir": "packages",
+      "label": "Packages",
+      "position": 5,
+      "slug": "/packages",
+      "description": "Package ownership, boundaries, and public entry points."
+    }
+  ],
+  "documents": [
+    {
+      "source": "README.md",
+      "dest": "index.md",
+      "slug": "/",
+      "sidebarLabel": "Home",
+      "title": "Chances"
+    },
+    {
+      "source": "docs/README.md",
+      "dest": "overview/chances.md",
+      "slug": "/overview/chances",
+      "sidebarLabel": "Chances in one page",
+      "sidebarPosition": 1
+    },
+    {
+      "source": "CHANGELOG.md",
+      "dest": "overview/changelog.md",
+      "slug": "/overview/changelog",
+      "sidebarLabel": "Release history",
+      "sidebarPosition": 2
+    },
+    {
+      "source": "docs/Guides/README.md",
+      "dest": "guides/reproducible-batch.md",
+      "slug": "/guides/reproducible-batch",
+      "sidebarLabel": "Reproducible batch",
+      "sidebarPosition": 1
+    },
+    {
+      "source": "docs/Guides/Resampling.md",
+      "dest": "guides/resampling.md",
+      "slug": "/guides/resampling",
+      "sidebarLabel": "Resampling observations",
+      "sidebarPosition": 2
+    },
+    {
+      "source": "docs/Guides/Experimental-Design.md",
+      "dest": "guides/experimental-design.md",
+      "slug": "/guides/experimental-design",
+      "sidebarLabel": "Experimental design",
+      "sidebarPosition": 3
+    },
+    {
+      "source": "docs/Guides/Migration.md",
+      "dest": "guides/migration.md",
+      "slug": "/guides/migration",
+      "sidebarLabel": "Migrate from 0.1",
+      "sidebarPosition": 4
+    },
+    {
+      "source": "docs/Reference/README.md",
+      "dest": "reference/python-api.md",
+      "slug": "/reference/python-api",
+      "sidebarLabel": "Python API",
+      "sidebarPosition": 1
+    },
+    {
+      "source": "docs/Reference/Operation-Catalog.md",
+      "dest": "reference/operation-catalog.md",
+      "slug": "/reference/operation-catalog",
+      "sidebarLabel": "Operation catalog",
+      "sidebarPosition": 2
+    },
+    {
+      "source": "docs/Reference/Command-Line.md",
+      "dest": "reference/command-line.md",
+      "slug": "/reference/command-line",
+      "sidebarLabel": "Command line",
+      "sidebarPosition": 3
+    },
+    {
+      "source": "docs/Reference/Specifications-and-Receipts.md",
+      "dest": "reference/specifications-and-receipts.md",
+      "slug": "/reference/specifications-and-receipts",
+      "sidebarLabel": "Specifications and receipts",
+      "sidebarPosition": 4
+    },
+    {
+      "source": "docs/Developer/README.md",
+      "dest": "developer/home.md",
+      "slug": "/developer/home",
+      "sidebarLabel": "Develop Chances",
+      "sidebarPosition": 1
+    },
+    {
+      "source": "docs/Developer/Documentation-System.md",
+      "dest": "developer/documentation-system.md",
+      "slug": "/developer/documentation-system",
+      "sidebarLabel": "Documentation system",
+      "sidebarPosition": 2
+    },
+    {
+      "source": "docs/Developer/Documentation-Adoption.md",
+      "dest": "developer/documentation-adoption.md",
+      "slug": "/developer/documentation-adoption",
+      "sidebarLabel": "Documentation adoption",
+      "sidebarPosition": 3
+    },
+    {
+      "source": "docs-site/README.md",
+      "dest": "developer/documentation-toolchain.md",
+      "slug": "/developer/documentation-toolchain",
+      "sidebarLabel": "Documentation toolchain",
+      "sidebarPosition": 4
+    },
+    {
+      "source": "chances/README.md",
+      "dest": "packages/chances.md",
+      "slug": "/packages/chances",
+      "sidebarLabel": "Chances package",
+      "sidebarPosition": 1
+    },
+    {
+      "source": "docs/Developer/Governance-Adoption.md",
+      "dest": "developer/governance-adoption.md",
+      "slug": "/developer/governance-adoption",
+      "sidebarLabel": "Governance adoption",
+      "sidebarPosition": 5
+    },
+    {
+      "source": "docs/Developer/Configuration.md",
+      "dest": "developer/configuration.md",
+      "slug": "/developer/configuration",
+      "sidebarLabel": "Configuration",
+      "sidebarPosition": 6
+    },
+    {
+      "source": "docs/Developer/Writing-Docstrings.md",
+      "dest": "developer/writing-docstrings.md",
+      "slug": "/developer/writing-docstrings",
+      "sidebarLabel": "Writing docstrings",
+      "sidebarPosition": 7
+    },
+    {
+      "source": "docs/Developer/Technical-Debt.md",
+      "dest": "developer/technical-debt.md",
+      "slug": "/developer/technical-debt",
+      "sidebarLabel": "Technical debt",
+      "sidebarPosition": 8
+    },
+    {
+      "source": "docs/Developer/Packaging.md",
+      "dest": "developer/packaging.md",
+      "slug": "/developer/packaging",
+      "sidebarLabel": "Packaging",
+      "sidebarPosition": 9
+    },
+    {
+      "source": "docs/Developer/Release-Policy.md",
+      "dest": "developer/release-policy.md",
+      "slug": "/developer/release-policy",
+      "sidebarLabel": "Release policy",
+      "sidebarPosition": 10
+    },
+    {
+      "source": "docs/Developer/Making-Release.md",
+      "dest": "developer/making-release.md",
+      "slug": "/developer/making-release",
+      "sidebarLabel": "Making a release",
+      "sidebarPosition": 11
+    },
+    {
+      "source": "docs/Developer/Semantic-Versioning.md",
+      "dest": "developer/semantic-versioning.md",
+      "slug": "/developer/semantic-versioning",
+      "sidebarLabel": "Semantic versioning",
+      "sidebarPosition": 12
+    },
+    {
+      "source": "docs/Developer/Security-Assurance-Case.md",
+      "dest": "developer/security-assurance-case.md",
+      "slug": "/developer/security-assurance-case",
+      "sidebarLabel": "Security assurance case",
+      "sidebarPosition": 13
+    },
+    {
+      "source": "CONTRIBUTING.md",
+      "dest": "developer/contributing.md",
+      "slug": "/developer/contributing",
+      "sidebarLabel": "Contributing",
+      "sidebarPosition": 14
+    },
+    {
+      "source": "GOVERNANCE.md",
+      "dest": "developer/governance.md",
+      "slug": "/developer/governance",
+      "sidebarLabel": "Governance",
+      "sidebarPosition": 15
+    },
+    {
+      "source": "MAINTAINERS.md",
+      "dest": "developer/maintainers.md",
+      "slug": "/developer/maintainers",
+      "sidebarLabel": "Maintainers",
+      "sidebarPosition": 16
+    },
+    {
+      "source": "SECURITY.md",
+      "dest": "developer/security.md",
+      "slug": "/developer/security",
+      "sidebarLabel": "Security",
+      "sidebarPosition": 17
+    },
+    {
+      "source": "SUPPORT.md",
+      "dest": "developer/support.md",
+      "slug": "/developer/support",
+      "sidebarLabel": "Support",
+      "sidebarPosition": 18
+    },
+    {
+      "source": "THIRD_PARTY.md",
+      "dest": "developer/third-party.md",
+      "slug": "/developer/third-party",
+      "sidebarLabel": "Third party",
+      "sidebarPosition": 19
+    },
+    {
+      "source": "CODE_OF_CONDUCT.md",
+      "dest": "developer/code-of-conduct.md",
+      "slug": "/developer/code-of-conduct",
+      "sidebarLabel": "Code of conduct",
+      "sidebarPosition": 20
+    }
+  ]
+}

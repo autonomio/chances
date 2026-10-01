@@ -1,5 +1,29 @@
-from .methods import Randomizer
-from .utils import *
+"""Scientific randomness from explicit, replayable protocols."""
+
+__version__ = '2.0.0'
+
+from ._api import Generated, generate, inspect, replay, verify
+from ._errors import ChancesError
+
+# Legacy names import no network clients and never initialize global RNG state.
+from .legacy import Randomizer, generate_random_alpha
 
 
-__version__ = "0.1.9"
+def catalog() -> dict:
+    """Return the same machine-readable operation contracts shipped to agents."""
+    from ._operations import catalog as operation_catalog
+
+    return operation_catalog()
+
+
+__all__ = [
+    'ChancesError',
+    'Generated',
+    'Randomizer',
+    'catalog',
+    'generate',
+    'generate_random_alpha',
+    'inspect',
+    'replay',
+    'verify',
+]

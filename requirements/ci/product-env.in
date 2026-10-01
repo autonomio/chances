@@ -1,0 +1,2 @@
+# Universal product/test matrix; installs local artifacts separately with --no-deps.
+.[test]

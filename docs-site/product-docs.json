@@ -1,0 +1,9 @@
+{
+  "productId": "chances",
+  "productName": "Chances",
+  "tagline": "Scientific randomness with explicit protocols, isolated streams, and verifiable receipts.",
+  "siteUrl": "https://autonomio.github.io",
+  "basePath": "/chances/",
+  "sourceRepoUrl": "https://github.com/autonomio/chances",
+  "sourceBranch": "master"
+}
