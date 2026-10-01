@@ -4,6 +4,7 @@
 
 - Align the README product home with live badges, reader navigation, and explicit support and security routes.
 - Complete the first scientific workflow through saved evidence, verification, and exact replay in the recorded environment.
+- Run the retained-bundle README example in an isolated test directory.
 
 # v2.0.1
 

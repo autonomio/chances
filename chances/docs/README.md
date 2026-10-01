@@ -54,7 +54,7 @@ The catalog covers **19 operations and 132 distribution families**.
 | Draw from a scientific model | Univariate and multivariate distributions, empirical samples, and mixtures |
 | Resample observations | Whole-row selection, permutations, bootstrap, and stratified splits |
 | Plan a study or simulation | Balanced allocation, antithetic pairs, and randomized or quasi Monte Carlo designs |
-| Declare independent computations | Explicit seeds and named streams with isolated generators |
+| Keep computations isolated | Explicit seeds and named streams with isolated generators |
 | Audit and repeat a result | Validation before drawing, checked arrays, saved receipts, verification, and conditional exact replay |
 
 Use the [operation catalog](repository/docs/Reference/Operation-Catalog.md) to select a family,
