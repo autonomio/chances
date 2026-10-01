@@ -242,10 +242,10 @@
     },
     {
       "installed": "docs/repository/THIRD_PARTY.md",
-      "installed_sha256": "d7edca5f06606084198ef16e47124eb18b493ffc290c11fb966798f126d13ee9",
+      "installed_sha256": "1214e5d05fd31c5c478e3c649d44d62dde3c8db73cad8e61b23cfe2b0fb52cd7",
       "route": "/developer/third-party",
       "source": "THIRD_PARTY.md",
-      "source_sha256": "b3c8b393404dc824a238c12aa6f53ab7f3935a89ec434c57a04b8f687578d307"
+      "source_sha256": "c9f923a053e4ced4b2d0a31e294ac05a26cb3894a968fb5529dbf6dd4a588039"
     },
     {
       "installed": "docs/repository/CODE_OF_CONDUCT.md",

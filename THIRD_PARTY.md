@@ -9,8 +9,7 @@ Its MIT notice is retained in `governance/LICENSE`, `docs-site/LICENSE` and the 
 The original Chances copyright remains in `LICENSE`.
 
 Before release, review changed dependency licenses, run the runtime dependency
-audit and docs-site audit, and retain exact findings. The docs audit blocks high
-findings in ordinary production roots and critical findings in the inherited
-Docusaurus/search-only subtree; known findings and the acceptance boundary are
-explained in [documentation adoption](docs/Developer/Documentation-Adoption.md).
-Passing that severity policy does not mean zero known advisories.
+audit and docs-site audit, and retain exact findings. The docs audit checks the
+complete locked tree, including development tools, and blocks every known
+advisory. [Documentation adoption](docs/Developer/Documentation-Adoption.md)
+defines the acceptance boundary; scans describe known advisories at check time.
