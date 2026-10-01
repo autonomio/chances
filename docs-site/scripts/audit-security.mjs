@@ -29,6 +29,11 @@ function main() {
     cwd: siteRoot,
     encoding: 'utf8',
   });
+  if (result.error || result.signal || ![0, 1].includes(result.status)) {
+    const reason = result.error?.message || result.signal || `status ${result.status}`;
+    process.stderr.write(`npm audit did not complete normally: ${reason}\n`);
+    process.exit(1);
+  }
   if (!result.stdout) {
     process.stderr.write(result.stderr || 'npm audit produced no JSON output\n');
     process.exit(result.status || 1);
