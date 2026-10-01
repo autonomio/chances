@@ -1,8 +1,14 @@
 <!-- Generated from CHANGELOG.md; edit the canonical repository source. -->
 
-# v2.0.2
+# v2.0.3
 
 - Cancel superseded CI runs, avoid duplicate feature-branch verification, and bound documentation installation and checks.
+
+# v2.0.2
+
+- Align the README product home with live badges, reader navigation, and explicit support and security routes.
+- Complete the first scientific workflow through saved evidence, verification, and exact replay in the recorded environment.
+- Run the retained-bundle README example in an isolated test directory.
 
 # v2.0.1
 

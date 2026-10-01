@@ -37,7 +37,8 @@ def test_shipped_agent_navigation_and_catalog_are_complete():
     assert any(entry['source'] == 'chances/README.md' for entry in sources['sources'])
 
 
-def test_readme_example_is_executable():
+def test_readme_example_is_executable(tmp_path, monkeypatch):
+    monkeypatch.chdir(tmp_path)
     blocks = re.findall(r'```python\n(.*?)\n```', (ROOT / 'README.md').read_text(), re.S)
     assert blocks
     for block in blocks:
