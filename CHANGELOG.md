@@ -1,3 +1,8 @@
+# v2.0.2
+
+- Align the README product home with live badges, reader navigation, and explicit support and security routes.
+- Complete the first scientific workflow through saved evidence, verification, and exact replay in the recorded environment.
+
 # v2.0.1
 
 - Limit default workflow tokens to read access and isolate required writes in their jobs.
