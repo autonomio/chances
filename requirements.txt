@@ -1,4 +1,4 @@
-# Runtime bounds come from the shared resolver envelope.
--c requirements/constraints.txt
+# Runtime upper bounds match the canonical project manifest.
+-c requirements-runtime.txt
 numpy>=2.0
 scipy>=1.15

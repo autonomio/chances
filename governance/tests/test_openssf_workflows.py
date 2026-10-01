@@ -73,17 +73,21 @@ def test_runtime_requirements_preserve_project_envelope() -> None:
     expected = {Requirement(value).name: Requirement(value).specifier
                 for value in project['project']['dependencies']}
     constraints = {Requirement(line).name: Requirement(line).specifier
-                   for line in (ROOT / 'requirements/constraints.txt').read_text().splitlines()
+                   for line in (ROOT / 'requirements-runtime.txt').read_text().splitlines()
                    if line.strip() and not line.startswith('#')}
+    assert constraints.keys() == expected.keys()
+    assert all(item.operator in {'<', '<='} for bound in constraints.values() for item in bound)
     lines = (ROOT / 'requirements.txt').read_text().splitlines()
-    assert '-c requirements/constraints.txt' in lines
+    assert '-c requirements-runtime.txt' in lines
     declared = [Requirement(line) for line in lines
                 if line.strip() and not line.startswith(('#', '-'))]
     assert {requirement.name for requirement in declared} == expected.keys()
     for requirement in declared:
         effective = SpecifierSet(f'{requirement.specifier},{constraints[requirement.name]}')
         assert effective == expected[requirement.name]
-    assert '/requirements/constraints.txt' in project['tool']['hatch']['build']['targets']['sdist']['include']
+    included = project['tool']['hatch']['build']['targets']['sdist']['include']
+    assert '/requirements-runtime.txt' in included
+    assert '/requirements/constraints.txt' not in included
 
 
 def test_declared_version_matches_package_and_citation() -> None:
