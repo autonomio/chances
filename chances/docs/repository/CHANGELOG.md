@@ -6,6 +6,7 @@
 - Add 19 operations and 132 distribution families with declared output contracts.
 - Adopt the Autonomio documentation system with canonical sources, local search, and automated checks.
 - Adopt the complete governance gates, review contracts, deterministic artifact checks, and protected manual release workflows.
+- Use the existing organization PyPI API token behind protected approval and document organization-wide ruleset audit setup.
 - Reject custom protocol, source scalar and artifact-path subclasses before they can execute callbacks.
 - Preserve JSON literal types when verifying receipts, rejecting Boolean/integer aliases.
 

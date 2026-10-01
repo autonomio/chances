@@ -1,8 +1,8 @@
 name: Publish Package to PyPI
 
 # Publishing is a separate manual approval. No release event or workflow_run
-# can upload a package. PyPI must trust this workflow and the protected pypi
-# environment; no password or long-lived PyPI API token is accepted.
+# can upload a package. The existing organization PYPI_API_TOKEN is available
+# only to the protected pypi upload job, after approval.
 on:
   workflow_dispatch:
     inputs:
@@ -36,7 +36,7 @@ jobs:
         run: |
           set -euo pipefail
           test "$PUBLISH_REF" = 'refs/heads/master' || { echo '::error::Publish dispatch requires master.'; exit 1; }
-          test "$PUBLISH_ENABLED" = 'true' || { echo '::error::Configure the protected pypi environment and PyPI trusted publisher; set PYPI_PUBLISH_ENABLED=true.'; exit 1; }
+          test "$PUBLISH_ENABLED" = 'true' || { echo '::error::Configure the protected pypi environment and organization PYPI_API_TOKEN; set PYPI_PUBLISH_ENABLED=true.'; exit 1; }
           [[ "$RELEASE_TAG" =~ ^v[0-9]+\.[0-9]+\.[0-9]+$ ]] || { echo '::error::Use an approved vMAJOR.MINOR.PATCH tag.'; exit 1; }
 
       - name: Checkout the approved release tag
@@ -144,14 +144,25 @@ jobs:
     needs: build_distribution
     runs-on: ubuntu-latest
     environment: pypi
-    permissions:
-      id-token: write
+    permissions: {}
     steps:
+      - name: Validate the configured PyPI API token
+        env:
+          PYPI_API_TOKEN: ${{ secrets.PYPI_API_TOKEN }}
+        run: |
+          set -euo pipefail
+          test -n "$PYPI_API_TOKEN" || { echo '::error::The organization PYPI_API_TOKEN must be available to this repository.'; exit 1; }
+          [[ "$PYPI_API_TOKEN" == pypi-* ]] || { echo '::error::PYPI_API_TOKEN must contain a PyPI API token.'; exit 1; }
+
       - name: Download approved distributions
         uses: actions/download-artifact@018cc2cf5baa6db3ef3c5f8a56943fffe632ef53  # v6.0.0
         with:
           name: pypi-distributions
           path: dist
 
-      - name: Publish via trusted publishing
+      - name: Publish with the organization PyPI API token
         uses: pypa/gh-action-pypi-publish@ed0c53931b1dc9bd32cbe73a98c7f6766f8a527e  # v1.13.0
+        with:
+          user: __token__
+          password: ${{ secrets.PYPI_API_TOKEN }}
+          attestations: false

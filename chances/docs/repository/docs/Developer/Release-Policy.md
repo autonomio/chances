@@ -3,8 +3,9 @@
 # Release policy
 
 This page owns publication controls. [Making a release](Making-Release.md) owns
-the operator sequence. The new workflow is configured locally; historical 0.1
-releases do not gain its protections or attestations retroactively.
+the operator sequence. Protected environments are active; the proposed workflows
+become available after merge. Historical 0.1 releases do not gain their protections
+or attestations retroactively.
 
 ## Prerequisites
 
@@ -23,13 +24,16 @@ is burned; never reuse it. Partial PyPI uploads require a new version.
 | Release identity | exact master SHA, clean worktree, tag from project version |
 | Notes | reviewed changelog section and mechanically appended traceability |
 | Publish enablement | `PYPI_PUBLISH_ENABLED=true` and manual publish dispatch |
-| PyPI upload | trusted publishing OIDC from protected `pypi` environment |
+| PyPI upload | organization `PYPI_API_TOKEN`, authenticated as `__token__`, from protected `pypi` environment |
 | Filename availability | pre-build PyPI check rejects already served versions |
 | Consumer artifacts | content audit, metadata validation, deterministic build evidence |
 
 Environment protection must be configured remotely; naming an environment in
-YAML does not itself provide an approval gate. Old PyPI username/password
-secrets are unused by the new workflow and should be retired during activation.
+YAML does not itself provide an approval gate. The isolated upload job receives
+`PYPI_API_TOKEN` only after approval and rejects missing or incorrectly prefixed tokens.
+Old organization username/password secrets remain unchanged for other repositories.
+Token authentication does not generate PyPI digital attestations; GitHub build
+provenance remains independently attested. No authentication fallback is allowed.
 
 ## Release deliverables
 

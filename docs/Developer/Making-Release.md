@@ -26,8 +26,8 @@ before mutation. An existing tag is not authorization to overwrite it.
 
 ## Failures
 
-Missing enablement variables, environment approval, trusted publisher or ruleset
-controls must be resolved before relying on the workflow. Follow the burned-version
+Missing enablement variables, environment approval, organization `PYPI_API_TOKEN`
+or ruleset controls must be resolved before relying on the workflow. Follow the burned-version
 recovery rule in [release policy](Release-Policy.md) after partial uploads.
 
 ## Read next

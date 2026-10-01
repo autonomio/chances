@@ -1,22 +1,16 @@
-"""Code-owner review law: the enforcement surfaces are owned and the
-ruleset demands owner approval for changes to them.
+"""Require bit-mis approval for every PR through sole global code ownership.
 
-An Actions check can be neutered by the PR it judges -- the gate
-executes from the judged merge ref. Owner review is the one layer
-outside that ref, so the files whose content decides merge verdicts
-carry code owners, the ruleset requires their approval on the most
-recent push (a stale owner approval must not survive a later push to
-an enforcement surface), and there is deliberately no global ``*``
-rule (which would make its owner a required approver on every PR
-instead of only the enforcement surfaces). Every owned path must
-resolve on disk: a renamed or mistyped surface would otherwise sit
-unowned while GitHub silently matches nothing.
+The protected default branch supplies CODEOWNERS and the ruleset enforces owner
+review outside the judged merge ref. No later path rule may substitute another
+owner. PR authors cannot approve themselves; last-push approval independently
+requires a reviewer other than the latest reviewable pusher. Approval count alone
+does not select the designated operator.
 """
 from __future__ import annotations
 
 import json
-import re
 
+import yaml
 from _common import REPO_ROOT
 
 CODEOWNERS = REPO_ROOT / '.github' / 'CODEOWNERS'
@@ -35,7 +29,7 @@ ENFORCEMENT_PATHS = frozenset({
     '/scripts/',
     '/tests/package/conftest.py',
 })
-EXPECTED_OWNERS = frozenset({'@mikkokotila', '@pdey', '@bit-mis', '@zero-bang'})
+GOVERNANCE_CONFIG = REPO_ROOT / 'governance.yml'
 
 
 def _rule_lines() -> list[list[str]]:
@@ -47,30 +41,24 @@ def _rule_lines() -> list[list[str]]:
     return lines
 
 
-def test_codeowners_covers_enforcement_surfaces() -> None:
-    rules = _rule_lines()
-    assert rules, f'{CODEOWNERS} declares no ownership rules'
-    covered = {rule[0] for rule in rules}
-    assert covered == ENFORCEMENT_PATHS
-    for rule in rules:
-        assert set(rule[1:]) == EXPECTED_OWNERS, rule[0]
-        assert all(re.fullmatch(r'@[\w-]+', owner) for owner in rule[1:]), rule
-
-
-def test_codeowners_paths_resolve_on_disk() -> None:
-    for rule in _rule_lines():
-        rel = rule[0].lstrip('/')
-        target = REPO_ROOT / rel.rstrip('/')
-        if rule[0].endswith('/'):
-            assert target.is_dir(), f'{rule[0]} does not resolve to a directory'
-        else:
-            assert target.is_file(), f'{rule[0]} does not resolve to a file'
-
-
-def test_codeowners_has_no_global_rule() -> None:
-    assert all(rule[0] != '*' for rule in _rule_lines()), (
-        'a global * rule makes its owner a required approver on every PR'
+def test_codeowners_requires_bit_mis_for_every_path() -> None:
+    assert _rule_lines() == [['*', '@bit-mis']], (
+        'every path must require bit-mis without later ownership overrides'
     )
+
+
+def test_enforcement_surfaces_resolve_on_disk() -> None:
+    for pattern in ENFORCEMENT_PATHS:
+        target = REPO_ROOT / pattern.lstrip('/').rstrip('/')
+        if pattern.endswith('/'):
+            assert target.is_dir(), f'{pattern} does not resolve to a directory'
+        else:
+            assert target.is_file(), f'{pattern} does not resolve to a file'
+
+
+def test_governance_names_bit_mis_as_approving_authority() -> None:
+    config = yaml.safe_load(GOVERNANCE_CONFIG.read_text(encoding='utf-8'))
+    assert config['review']['approving_authority'] == 'bit-mis'
 
 
 def test_ruleset_snapshot_requires_code_owner_review() -> None:
@@ -81,7 +69,7 @@ def test_ruleset_snapshot_requires_code_owner_review() -> None:
         if rule['type'] == 'pull_request'
     ]
     assert [p['require_code_owner_review'] for p in params] == [True]
-    # A code-owner approval granted on one revision must not survive a
-    # later push: the most recent reviewable push needs approval from
-    # someone other than its pusher.
+    # The most recent reviewable push needs approval from another user;
+    # code-owner review independently makes bit-mis a required approver.
     assert [p['require_last_push_approval'] for p in params] == [True]
+    assert [p['required_approving_review_count'] for p in params] == [1]

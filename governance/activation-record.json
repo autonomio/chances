@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "updated_at": "2026-10-01T12:42:45.449393+00:00",
+  "updated_at": "2026-10-01T15:13:26.439839+00:00",
   "repository": "autonomio/chances",
   "branch": "codex/chances-2",
   "authorization": "Operator authorized live activation after the local adoption checkpoint.",
@@ -17,8 +17,8 @@
   },
   "repository_variables": {
     "RULESET_ID": "24303910",
-    "RELEASE_ENABLED": "absent; publishing disabled",
-    "PYPI_PUBLISH_ENABLED": "absent; publishing disabled"
+    "RELEASE_ENABLED": "true; API read-back verified",
+    "PYPI_PUBLISH_ENABLED": "true; API read-back verified"
   },
   "actions_defaults": {
     "default_workflow_permissions": "read",
@@ -26,12 +26,11 @@
     "verified": true
   },
   "remaining": {
-    "approval_identity": "user selection pending; inherited named reviewers currently have read access",
-    "CODEOWNERS": "initial master has no CODEOWNERS; proposed ownership becomes effective only after merge and access resolution",
-    "scoped_audit_credential": "not provisioned; token-specific bypass visibility must pass before relying on CI audit",
-    "release_and_pypi_environments": "not provisioned; reviewer selection required",
-    "pypi_trusted_publisher": "owner setup and verification pending; owner autonomio, repo chances, workflow pr_publish_pypi.yml, environment pypi",
-    "authoritative_ci": "Nine substantive required contexts passed at 0dfe50705a3c24d08a94751c583740109a3b5b25; slice remains blocked by unchecked Required Gates readiness item. Later commits require their own exact-SHA checks."
+    "approval_identity": "bit-mis selected by operator; repository write access verified; sole global CODEOWNER becomes effective after merge; human approval still required",
+    "CODEOWNERS": "initial master has no CODEOWNERS; proposed sole global owner bit-mis is eligible and requires approval for every future PR after merge",
+    "scoped_audit_credential": "Operator confirms existing organization RULESET_AUDIT_TOKEN; all-repository visibility and token-specific bypass_actors proof remain unobserved locally. The master audit fails if the actual token cannot expose bypasses.",
+    "authoritative_ci": "Nine substantive required contexts passed at 44ec09e2bb3efd97c0eca825b903f6affb60902e. Current workflow, policy and documentation changes require their own exact-SHA CI; slice readiness and bit-mis human approval remain pending.",
+    "pypi_credential_validation": "Operator confirmed organization PYPI_API_TOKEN; secret visibility and PyPI authentication are checked by the approved upload job, not claimed as locally verified."
   },
   "protected_base_version_compatibility": {
     "base_commit": "432f9e94d5e7532d522cfd1d60a1817e64efb60a",
@@ -108,5 +107,117 @@
     "packaging_lock_sha256": "931c941470cf0d7ec97bddb47797418b558fa1d4359d5a9e7d9d8534f9122a89",
     "focused_regressions": 49,
     "other_pins_and_platform_markers": "preserved"
+  },
+  "release_activation": {
+    "verified_at": "2026-10-01T15:11:39.554770+00:00",
+    "authorization": "Operator authorized release/PyPI setup using existing organization secrets and explicitly required bit-mis approval.",
+    "required_reviewer": {
+      "login": "bit-mis",
+      "id": 265471408,
+      "repository_permission": "write",
+      "api_verified": true
+    },
+    "environments": {
+      "release": {
+        "id": 23219245321,
+        "required_reviewers": [
+          "bit-mis"
+        ],
+        "prevent_self_review": true,
+        "can_admins_bypass": false,
+        "deployment_branch_policy": {
+          "protected_branches": false,
+          "custom_branch_policies": true
+        },
+        "allowed_branch_names": [
+          "master"
+        ],
+        "allowed_tag_names": [],
+        "api_verified": true
+      },
+      "pypi": {
+        "id": 23219249306,
+        "required_reviewers": [
+          "bit-mis"
+        ],
+        "prevent_self_review": true,
+        "can_admins_bypass": false,
+        "deployment_branch_policy": {
+          "protected_branches": false,
+          "custom_branch_policies": true
+        },
+        "allowed_branch_names": [
+          "master"
+        ],
+        "allowed_tag_names": [],
+        "api_verified": true
+      }
+    },
+    "pypi_authentication": {
+      "secret": "PYPI_API_TOKEN",
+      "scope": "existing organization secret; name confirmed by operator",
+      "username": "__token__",
+      "credential_exposure": "protected upload job only; absent from build job",
+      "publish_job_github_permissions": {},
+      "fallback": "none",
+      "pypi_digital_attestations": false,
+      "github_build_provenance": "retained",
+      "legacy_organization_secrets": "PYPI_USERNAME and PYPI_PASSWORD unchanged",
+      "credential_value_or_authentication_verified": false
+    },
+    "enablement_variables": {
+      "RELEASE_ENABLED": "true",
+      "PYPI_PUBLISH_ENABLED": "true",
+      "api_verified": true
+    },
+    "live_ruleset_audit": "PASS using existing administrator CLI credential; not proof of the operator-confirmed organization audit token",
+    "workflow_availability": "proposed workflows become available after merge",
+    "publication": "configuration only; no tag, release, or upload created",
+    "proof_files": {
+      "before.json": {
+        "local_path": "/tmp/chances-github-activation/release-setup/before.json",
+        "sha256": "2dd198ef7bae5a42f8bb3cc03b909e23a9776194426097d11115f028f7b75596"
+      },
+      "bit-mis-access.json": {
+        "local_path": "/tmp/chances-github-activation/release-setup/bit-mis-access.json",
+        "sha256": "07c77d4a46423d06e5b0bd56fb1825733d658fd233a150260eacdbff9aa06e42"
+      },
+      "release-verified.json": {
+        "local_path": "/tmp/chances-github-activation/release-setup/release-verified.json",
+        "sha256": "cfa7debd8a6c1723384566e76fe2579292a27457e937e2a0ddffeadccdebb85a"
+      },
+      "pypi-verified.json": {
+        "local_path": "/tmp/chances-github-activation/release-setup/pypi-verified.json",
+        "sha256": "d7e8e1284d9580550f0dbe5d9d4da64b8c1924109f27a11939b4c5c149b7c4e0"
+      },
+      "variables-verified.json": {
+        "local_path": "/tmp/chances-github-activation/release-setup/variables-verified.json",
+        "sha256": "0b0eff55ae5eee3e53f0c21476d85ad63f7c770e7f2120d8cfc872a3213c5d17"
+      }
+    },
+    "local_validation": {
+      "governance_tests_passed": 570,
+      "governance_elapsed_seconds": 38.29,
+      "publication_and_release_guard_tests_passed": 36,
+      "new_publication_contract_cases": 26,
+      "documentation_unit_tests_passed": 61,
+      "documentation_browser_tests_passed": 28,
+      "documentation_routes_verified": 38,
+      "actionlint": "pass",
+      "ruff": "pass",
+      "docs_npm_audit": "pass under declared severity policy; 40 findings remain (34 high, 6 moderate)",
+      "scientific_source_changes": "none",
+      "installed_documentation_contract_tests_passed": 85
+    }
+  },
+  "organization_audit_secret": {
+    "name": "RULESET_AUDIT_TOKEN",
+    "provisioning": "existing organization secret confirmed by operator",
+    "desired_repository_access": "all repositories",
+    "visibility_readback": "not available: current CLI lacks admin:org scope",
+    "workflow_binding": "secrets.RULESET_AUDIT_TOKEN; protected master push or master manual dispatch only",
+    "value_read_or_copied": false,
+    "scoped_token_actual_bypass_visibility_verified": false,
+    "owner_setup_and_rotation_runbook": "SETUP.md: Organization-wide ruleset audit secret"
   }
 }

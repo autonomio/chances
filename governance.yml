@@ -48,7 +48,7 @@ runtime:
   python_version: "3.12"
 
 review:
-  approving_authority: zero-bang
+  approving_authority: bit-mis
 
 slice:
   label: slice

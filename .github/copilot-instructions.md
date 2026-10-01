@@ -63,7 +63,7 @@ On GitHub, map the verdict to the review event:
 - **mediocre → Comment.**
 - **ok → Approve.**
 
-`zero-bang` is the designated operator. The checked-in ruleset requires one approval, resolved threads, and code-owner review for owned surfaces; it does not restrict every approval to one login. If you are not the operator, record an `ok` verdict as a Comment that says you would approve. Repository maintainers must configure eligible reviewers and protected release environments during activation.
+`bit-mis` is the designated operator. The checked-in ruleset requires one approval, resolved threads, and code-owner review. Once `.github/CODEOWNERS` is merged, its sole global owner makes `bit-mis`'s approval mandatory for every PR; approval count alone does not select a login. PR authors cannot approve their own PR, and the most recent reviewable push needs approval from someone other than its pusher. If you are not the operator, record an `ok` verdict as a Comment that says you would approve. Repository maintainers must verify `bit-mis`'s write access and configure protected release environments during activation.
 
 ## 6. How to write a finding
 

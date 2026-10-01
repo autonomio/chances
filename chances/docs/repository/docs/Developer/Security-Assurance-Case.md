@@ -23,7 +23,7 @@ and GitHub CLI; remote claims require live repository evidence.
 | Dependencies | bound manifest, CI hashes, runtime vulnerability gate and explicit expiring exceptions |
 | Documentation dependencies | audit severity policy in documentation adoption, including inherited Docusaurus findings |
 | Actions | SHA-pinned actions, limited permissions, untrusted PR code separated from credentialed mutation |
-| Publication | exact master identity, protected manual environments, OIDC and attestations after successful activated runs |
+| Publication | exact master identity, protected manual environments, isolated organization PyPI API token, and GitHub build attestations after successful runs |
 
 ## Mechanical proof
 

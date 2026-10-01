@@ -48,13 +48,21 @@ The operator subsequently authorized GitHub activation. `Protect-Master`
 ruleset `24303910` is active and `RULESET_ID` is configured. Exact live comparison
 and the privileged local audit pass: all ten required contexts and review rules
 match, including an empty bypass list. This proves current server settings,
-not execution of the proposed workflows or an installed CI audit credential.
+not execution of the proposed workflows or proof of the scoped organization token.
 
-Reviewer selection and valid CODEOWNERS access, scoped audit credentials,
-protected release environments, trusted publishing, and authoritative CI remain
-activation prerequisites. Publishing and merge readiness are recorded separately;
-no package release is implied. A single-login approval rule is project policy;
-GitHub mechanically enforces review count and ownership.
+Protected `release` and `pypi` environments now require operator `bit-mis`, whose
+repository write access was re-verified. They prevent self-review, disable
+administrator bypass, and admit only `master`. Operator-confirmed organization `PYPI_API_TOKEN` replaces the proposed
+OIDC-only upload; the isolated upload job validates the credential before use.
+GitHub build provenance remains attested; PyPI digital attestations require OIDC
+and are explicitly disabled in token mode. The workflows become available after merge.
+
+Sole global CODEOWNER `* @bit-mis` requires the operator
+for every PR after merge. The operator confirmed organization `RULESET_AUDIT_TOKEN`;
+its actual bypass visibility and authoritative CI for each new commit remain
+acceptance prerequisites. Publishing and merge readiness are recorded separately;
+no package release is implied. GitHub enforces the sole code owner through required
+ownership review and enforces `bit-mis` directly in both deployment environments.
 
 ## Required evidence
 
