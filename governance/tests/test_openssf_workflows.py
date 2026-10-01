@@ -37,11 +37,13 @@ def test_mutation_permissions_remain_explicit_in_their_jobs() -> None:
         assert {key for key, value in permissions.items() if value == 'write'} == writable
 
 
-def test_badge_proposals_preserve_unknown_attestations() -> None:
-    """Repository inspection cannot certify private events or human knowledge."""
+def test_badge_proposals_require_explicit_evidence() -> None:
+    """Published statuses retain evidence and distinguish human attestations."""
     proposals = json.loads((ROOT / '.bestpractices.json').read_text())
-    for criterion in ('release_notes_vulns',):
-        assert proposals[f'{criterion}_status'] == '?'
+    assert proposals['release_notes_vulns_status'] == 'N/A'
+    assert 'public records' in proposals['release_notes_vulns_justification']
+    for criterion in ('know_secure_design', 'know_common_errors', 'no_leaked_credentials'):
+        assert 'confirmed on 2026-10-01' in proposals[f'{criterion}_justification']
     for key, value in proposals.items():
         if key.endswith('_status'):
             assert value in {'Met', 'Unmet', 'N/A', '?'}
