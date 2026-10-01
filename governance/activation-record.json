@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "updated_at": "2026-10-01T11:40:29.414869+00:00",
+  "updated_at": "2026-10-01T12:33:23.703224+00:00",
   "repository": "autonomio/chances",
   "branch": "codex/chances-2",
   "authorization": "Operator authorized live activation after the local adoption checkpoint.",
@@ -31,7 +31,7 @@
     "scoped_audit_credential": "not provisioned; token-specific bypass visibility must pass before relying on CI audit",
     "release_and_pypi_environments": "not provisioned; reviewer selection required",
     "pypi_trusted_publisher": "owner setup and verification pending; owner autonomio, repo chances, workflow pr_publish_pypi.yml, environment pypi",
-    "authoritative_ci": "awaiting publication of candidate"
+    "authoritative_ci": "Nine substantive required contexts passed at 0dfe50705a3c24d08a94751c583740109a3b5b25; slice remains blocked by unchecked Required Gates readiness item. Later commits require their own exact-SHA checks."
   },
   "protected_base_version_compatibility": {
     "base_commit": "432f9e94d5e7532d522cfd1d60a1817e64efb60a",
@@ -50,8 +50,37 @@
     "initial_variables": []
   },
   "local_governance_after_activation_changes": {
-    "passed": 427,
-    "elapsed_seconds": 20.5
+    "passed": 542,
+    "elapsed_seconds": 35.75,
+    "source_commit": "0dfe50705a3c24d08a94751c583740109a3b5b25"
   },
-  "issue": "https://github.com/autonomio/chances/issues/18"
+  "issue": "https://github.com/autonomio/chances/issues/18",
+  "private_vulnerability_reporting": {
+    "enabled": true,
+    "verified": true,
+    "public_security_issue_form": "removed; private advisory contact retained"
+  },
+  "review_repair_validation": {
+    "source_commit": "0dfe50705a3c24d08a94751c583740109a3b5b25",
+    "product_tests": 756,
+    "pytest_elapsed_seconds": 43.61,
+    "recorded_runtime_seconds": 43.18739233299857,
+    "runtime_ceiling_seconds": 60,
+    "line_coverage_percent": 94.65517241379311,
+    "branch_coverage_percent": 89.49367088607595,
+    "publication_helper_line_and_branch_coverage_percent": 100,
+    "governance_tests": 542,
+    "node_tests": 54,
+    "browser_tests": 28,
+    "scientific_golden_cases": 785,
+    "scientific_profiles": 6,
+    "golden_comparison": "byte-identical data, receipts, profiles and catalog",
+    "typing_diagnostics": 1299,
+    "typing_warnings": 0,
+    "new_helper_typing_diagnostics": 0,
+    "existing_policy_ceilings": "unchanged; new helper entries only",
+    "review_threads_resolved": 6,
+    "remaining_review_thread": "4155029951: non-author CODEOWNER access selection pending",
+    "compatibility_boundary": "Native exclusive publication on supported Linux/macOS/Windows calls; unavailable platform/filesystem fails explicitly."
+  }
 }
