@@ -4,7 +4,7 @@ build-backend = "hatchling.build"
 
 [project]
 name = "chances"
-version = "2.0.0"
+version = "2.0.1"
 description = "Reproducible scientific randomness with explicit streams and verified receipts"
 keywords = ["randomness", "reproducibility", "scientific", "sampling", "receipts"]
 readme = "README.md"
@@ -55,7 +55,7 @@ core-metadata-version = "2.4"
 include = [
     "/chances", "/tests/package", "/scripts/build_catalog.py", "/scripts/benchmark.py",
     "/docs", "/docs-site", "/README.md", "/CHANGELOG.md", "/.markdownlint.json",
-    "/LICENSE", "/pyproject.toml", "/requirements.txt", "/test_script.py",
+    "/LICENSE", "/pyproject.toml", "/requirements.txt", "/requirements-runtime.txt", "/test_script.py",
     "/CONTRIBUTING.md", "/SECURITY.md", "/CITATION.cff", "/GOVERNANCE.md",
     "/MAINTAINERS.md", "/SUPPORT.md", "/THIRD_PARTY.md", "/CODE_OF_CONDUCT.md",
     "/NOTICE", "/AUTHORS",
@@ -76,7 +76,7 @@ ignore = [
     "requirements/*", "requirements/**", "governance.yml", "CLAUDE.md", "AGENTS.md",
     "SETUP.md", "AUTONOMIO_PR_GUIDELINE.md", "AUTONOMIO_REPO_SPECIFICS.md",
     "scripts/create_release.py", "scripts/package_audit.py", "fuzz/*", "fuzz/**",
-    "DEVELOPER.md", ".gitignore", ".gitattributes", "setup.py",
+    "DEVELOPER.md", ".gitignore", ".gitattributes", "setup.py", ".bestpractices.json",
 ]
 
 [tool.pyright]

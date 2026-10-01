@@ -9,48 +9,37 @@ import {fileURLToPath} from 'node:url';
 import {auditFailure} from '../scripts/audit-report.mjs';
 import {auditSummary} from '../scripts/audit-security.mjs';
 
-test('reports permitted advisories without claiming zero vulnerabilities', () => {
+test('reports advisory counts without classifying findings as allowed', () => {
   const report = {vulnerabilities: {
     zeta: {severity: 'high'}, alpha: {severity: 'moderate'}, beta: {severity: 'moderate'},
   }};
-  const roots = new Map([
-    ['zeta', new Set(['@docusaurus/core'])],
-    ['alpha', new Set(['react'])], ['beta', new Set(['react'])],
-  ]);
-  assert.equal(auditFailure(report, roots), null);
+  assert.match(auditFailure(report), /known vulnerabilities/);
   const summary = auditSummary(report);
-  assert.match(summary, /meets the configured severity floors/);
   assert.match(summary, /Reported vulnerable packages: 3 \(moderate=2, high=1\)/);
-  assert.match(summary, /Allowed findings:\n  alpha \(moderate\)\n  beta \(moderate\)\n  zeta \(high\)/);
-  assert.doesNotMatch(summary, /no known|zero vulnerabilities|0 vulnerabilities/i);
+  assert.match(summary, /Findings:\n  alpha \(moderate\)\n  beta \(moderate\)\n  zeta \(high\)/);
+  assert.doesNotMatch(summary, /allowed|no known|zero vulnerabilities|0 vulnerabilities/i);
 });
 
 test('reports an empty audit explicitly without listing fictional findings', () => {
   assert.equal(auditSummary({vulnerabilities: {}}),
-    'Docs-site npm audit meets the configured severity floors.\nReported vulnerable packages: 0.\n');
-});
-
-test('the reporting change preserves the strict and relaxed severity policy', () => {
-  const report = {vulnerabilities: {victim: {severity: 'high'}}};
-  assert.match(auditFailure(report, new Map([['victim', new Set(['react'])]])), /floor high/);
-  assert.equal(auditFailure(report, new Map([['victim', new Set(['@docusaurus/core'])]])), null);
-  assert.match(auditFailure({vulnerabilities: {victim: {severity: 'critical'}}},
-    new Map([['victim', new Set(['@docusaurus/core'])]])), /floor critical/);
+    'Docs-site npm audit completed.\nReported vulnerable packages: 0.\n');
 });
 
 const auditScript = fileURLToPath(new URL('../scripts/audit-security.mjs', import.meta.url));
-for (const outcome of [0, 1, 2, 'signal', 'missing', 'array-report']) {
+for (const outcome of [0, 1, 2, 'signal', 'missing', 'array-report', 'development-advisory']) {
   test(`the audit command handles complete fixture JSON with process outcome ${outcome}`, () => {
     const directory = mkdtempSync(path.join(os.tmpdir(), 'chances-audit-process-'));
     try {
       if (outcome !== 'missing') {
         const finish = outcome === 'signal'
           ? "process.kill(process.pid, 'SIGTERM')"
-          : `process.exit(${outcome === 'array-report' ? 0 : outcome})`;
+          : `process.exit(${['array-report', 'development-advisory'].includes(outcome) ? 0 : outcome})`;
         const executable = path.join(directory, 'npm');
-        const payload = outcome === 'array-report' ? {vulnerabilities: []} : {vulnerabilities: {}};
+        const payload = outcome === 'array-report' ? {vulnerabilities: []}
+          : outcome === 'development-advisory'
+            ? {vulnerabilities: {tool: {severity: 'low'}}} : {vulnerabilities: {}};
         writeFileSync(executable,
-          `#!${process.execPath}\nprocess.stdout.write(${JSON.stringify(JSON.stringify(payload))}, () => { ${finish}; });\n`);
+          `#!${process.execPath}\nif (process.argv.includes('--omit=dev') || !process.argv.includes('--include=dev')) process.exit(3);\nprocess.stdout.write(${JSON.stringify(JSON.stringify(payload))}, () => { ${finish}; });\n`);
         chmodSync(executable, 0o755);
       }
       const result = spawnSync(process.execPath, [auditScript], {
@@ -59,15 +48,19 @@ for (const outcome of [0, 1, 2, 'signal', 'missing', 'array-report']) {
       assert.equal(result.error, undefined);
       if (outcome === 0 || outcome === 1) {
         assert.equal(result.status, 0, result.stderr);
-        assert.match(result.stdout, /meets the configured severity floors/);
+        assert.match(result.stdout, /npm audit completed/);
+      } else if (outcome === 'development-advisory') {
+        assert.equal(result.status, 1);
+        assert.match(result.stderr, /tool \(low\)/);
+        assert.doesNotMatch(result.stdout, /npm audit completed/);
       } else if (outcome === 'array-report') {
         assert.equal(result.status, 1);
         assert.match(result.stderr, /no vulnerabilities object/);
-        assert.doesNotMatch(result.stdout, /meets the configured severity floors/);
+        assert.doesNotMatch(result.stdout, /npm audit completed/);
       } else {
         assert.equal(result.status, 1);
         assert.match(result.stderr, /npm audit did not complete normally/);
-        assert.doesNotMatch(result.stdout, /meets the configured severity floors/);
+        assert.doesNotMatch(result.stdout, /npm audit completed/);
       }
     } finally {
       rmSync(directory, {recursive: true, force: true});

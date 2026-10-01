@@ -1,0 +1,1 @@
+P{"operation":"normal","parameters":{"size":8},"randomness":{"seed":42,"stream":"fuzz/protocol"}}

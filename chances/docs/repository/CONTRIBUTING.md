@@ -25,6 +25,13 @@ Every ordinary PR advances the version and changelog, closes its declared slice,
 and preserves seeded behavior unless its declared scientific change requires otherwise.
 Dependency bots have only the explicit exemptions in `governance.yml`.
 
+## Test policy
+
+Every new major feature must include meaningful automated tests of its stated
+behavior and failure boundaries. Bug fixes must add a regression test where
+practicable. The required coverage and changed-line checks enforce measured
+coverage; human review checks whether the tests prove the intended behavior.
+
 ## Review
 
 The canonical reviewer brief is [copilot instructions](https://github.com/autonomio/chances/blob/master/.github/copilot-instructions.md).

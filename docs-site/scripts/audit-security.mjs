@@ -3,7 +3,6 @@ import path from 'node:path';
 import {fileURLToPath} from 'node:url';
 
 import {auditFailure} from './audit-report.mjs';
-import {productionRoots} from './audit-scope.mjs';
 
 const scriptPath = fileURLToPath(import.meta.url);
 const siteRoot = path.resolve(path.dirname(scriptPath), '..');
@@ -15,17 +14,17 @@ export function auditSummary(report) {
   }
   const severities = [...counts].map(([severity, count]) => `${severity}=${count}`).join(', ');
   const lines = [
-    'Docs-site npm audit meets the configured severity floors.',
+    'Docs-site npm audit completed.',
     `Reported vulnerable packages: ${findings.length}${severities ? ` (${severities})` : ''}.`,
   ];
   if (findings.length) {
-    lines.push('Allowed findings:', ...findings.map(([name, vulnerability]) => `  ${name} (${vulnerability.severity})`));
+    lines.push('Findings:', ...findings.map(([name, vulnerability]) => `  ${name} (${vulnerability.severity})`));
   }
   return `${lines.join('\n')}\n`;
 }
 
 function main() {
-  const result = spawnSync('npm', ['audit', '--omit=dev', '--json'], {
+  const result = spawnSync('npm', ['audit', '--include=dev', '--json'], {
     cwd: siteRoot,
     encoding: 'utf8',
   });
@@ -39,7 +38,7 @@ function main() {
     process.exit(result.status || 1);
   }
   const report = JSON.parse(result.stdout);
-  const failure = auditFailure(report, productionRoots(siteRoot));
+  const failure = auditFailure(report);
   if (failure) {
     process.stderr.write(`${failure}\n`);
     process.exit(1);

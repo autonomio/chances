@@ -330,8 +330,8 @@ The static build guarantees:
 - a sitemap containing every page and generated category index
 - a robots resource naming the canonical sitemap
 - local search without an external indexing service
-- no production dependency advisory at or above the configured blocking
-  severity floors at check time; see [adoption policy](Documentation-Adoption.md)
+- no known advisory in the complete locked dependency tree at check time;
+  see [adoption policy](Documentation-Adoption.md)
 
 The deployment adapter MUST additionally prove canonical redirects, TLS,
 content security, permissions, referrer, content-type, frame headers, and `404`
@@ -345,7 +345,7 @@ behavior. These controls cannot be portable without choosing a host.
 | local links | Docusaurus broken-link failure |
 | external links | `check-external-links.mjs` |
 | Markdown style | `markdownlint-cli2` |
-| dependency advisories | `npm audit --omit=dev` |
+| dependency advisories | `npm audit --include=dev --json` |
 | assembly and production build | Docusaurus build |
 | routes, sitemap, robots, and search | `verify-build.mjs` |
 | static asset budgets | `verify-build.mjs` |

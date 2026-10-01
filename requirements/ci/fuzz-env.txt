@@ -1,0 +1,4 @@
+# Atheris 3.1.0 has no dependencies; this campaign uses Linux x86_64 CPython 3.12.
+# Hash from https://pypi.org/pypi/atheris/3.1.0/json; binary-only installation below.
+atheris==3.1.0 \
+    --hash=sha256:ec5e11f21a4c197fe91f7aea2b2de88e623c73a21fc07b105ac6329a1588457b

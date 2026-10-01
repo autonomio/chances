@@ -1,0 +1,1 @@
+P{"operation":"normal","parameters":{"scale":-1},"randomness":{"seed":42}}

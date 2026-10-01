@@ -39,7 +39,7 @@ jobs:
         run: npm --prefix docs-site ci
 
       - name: Install documentation browser
-        run: npm --prefix docs-site exec -- playwright install --with-deps chromium
+        run: docs-site/node_modules/.bin/playwright install --with-deps chromium
 
       - name: Audit documentation dependencies
         run: npm --prefix docs-site run security:audit
@@ -66,6 +66,20 @@ jobs:
           uv pip install --python .venv-lint/bin/python --require-hashes -r requirements/ci/runtime-env.txt
           uv pip install --python .venv-lint/bin/python --require-hashes -r requirements/ci/build-tools.txt
           uv pip install --python .venv-lint/bin/python --no-build-isolation --no-deps -e .
+
+      - name: Install hash-locked fuzz engine
+        env:
+          UV_NO_BUILD: "true"
+        run: |
+          uv pip install --python .venv-lint/bin/python --require-hashes -r requirements/ci/fuzz-env.txt
+
+      - name: Fuzz protocols and receipts before merge
+        run: |
+          mkdir -p fuzz-evidence/corpus
+          cp fuzz/corpus/* fuzz-evidence/corpus/
+          .venv-lint/bin/python fuzz/fuzz_protocol.py --evidence fuzz-evidence/outcomes.json \
+            fuzz-evidence/corpus -seed=42 -atheris_runs=10000 -max_len=4096 \
+            -timeout=5 -rss_limit_mb=512 -artifact_prefix=fuzz-evidence/crash-
 
       - name: Verify generated scientific manuals and workflow
         run: |

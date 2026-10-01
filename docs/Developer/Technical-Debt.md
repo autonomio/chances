@@ -41,7 +41,6 @@ When an item is fixed:
 | ID | Surface and evidence | Severity and blast radius | Fix trigger and removal |
 | --- | --- | --- | --- |
 | TYP-001 | Strict Pyright diagnostics in the package; exact count in `.github/budgets.json`, measured during governance adoption | Medium maintainer risk: generic protocol dictionaries and NumPy/SciPy stubs leave incomplete static proof; scientific runtime checks and seeded tests remain authoritative | Every touched protocol surface must reduce diagnostics; add precise validated protocol and array types without ignores, update this register and configuration evidence when fully typed |
-| DOC-001 | Inherited Docusaurus/search production advisories; findings retained by the documentation audit policy | Medium docs-toolchain exposure under declared severity floors; it does not imply vulnerable scientific runtime output | Upgrade when compatible fixed upstream dependencies exist, rerun audit and browser parity, update Documentation-Adoption.md |
 
 Resolved or removed debt stays in git history and linked PR discussion, not as
 stale active-risk text on this page.

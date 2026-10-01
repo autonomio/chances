@@ -1,2 +1,4 @@
-numpy>=2.0,<3
-scipy>=1.15,<2
+# Runtime upper bounds match the canonical project manifest.
+-c requirements-runtime.txt
+numpy>=2.0
+scipy>=1.15

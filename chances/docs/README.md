@@ -2,6 +2,9 @@
 
 # Chances
 
+[![OpenSSF Best Practices](https://www.bestpractices.dev/projects/15137/badge)](https://www.bestpractices.dev/projects/15137)
+[![OpenSSF Scorecard](https://api.scorecard.dev/projects/github.com/autonomio/chances/badge)](https://scorecard.dev/viewer/?uri=github.com/autonomio/chances)
+
 Scientific randomness from a declared protocol, with verifiable arrays and execution receipts.
 
 Chances owns generation, validation, archival integrity, and conditional exact replay.
