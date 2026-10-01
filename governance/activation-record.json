@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "updated_at": "2026-10-01T12:33:23.703224+00:00",
+  "updated_at": "2026-10-01T12:42:45.449393+00:00",
   "repository": "autonomio/chances",
   "branch": "codex/chances-2",
   "authorization": "Operator authorized live activation after the local adoption checkpoint.",
@@ -81,6 +81,32 @@
     "existing_policy_ceilings": "unchanged; new helper entries only",
     "review_threads_resolved": 6,
     "remaining_review_thread": "4155029951: non-author CODEOWNER access selection pending",
-    "compatibility_boundary": "Native exclusive publication on supported Linux/macOS/Windows calls; unavailable platform/filesystem fails explicitly."
+    "compatibility_boundary": "Native exclusive publication on supported Linux/macOS/Windows calls; unavailable platform/filesystem fails explicitly.",
+    "minimum_dependency_tests": {
+      "python": "3.10.16",
+      "numpy": "2.0.0",
+      "scipy": "1.15.0",
+      "passed": 756,
+      "elapsed_seconds": 31.62
+    }
+  },
+  "windows_native_publication": {
+    "source_commit": "14e5ebdcae8ec783915ffabebe350a4a9d571b7a",
+    "workflow_run_id": 36863094003,
+    "job_id": 110371868132,
+    "python_version": "3.12.10",
+    "passed": 29,
+    "skipped": 1,
+    "skip_reason": "Creating Windows symlinks requires separate host privileges.",
+    "conclusion": "success"
+  },
+  "combined_packaging_locks": {
+    "common_pin": "trove-classifiers==2026.9.21.13",
+    "hashes": "verified against PyPI",
+    "host_combined_hash_install": "33 packages; pip dependency check passes",
+    "linux_cpython_312_x86_64_combined_hash_resolve": "38 packages; passes",
+    "packaging_lock_sha256": "931c941470cf0d7ec97bddb47797418b558fa1d4359d5a9e7d9d8534f9122a89",
+    "focused_regressions": 49,
+    "other_pins_and_platform_markers": "preserved"
   }
 }
