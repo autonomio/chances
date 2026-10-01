@@ -39,7 +39,7 @@
     "websocket-driver": "0.7.5"
   },
   "devDependencies": {
-    "@axe-core/playwright": "4.12.1",
+    "@axe-core/playwright": "4.13.0",
     "@playwright/test": "1.61.1",
     "markdownlint-cli2": "0.18.1"
   },
