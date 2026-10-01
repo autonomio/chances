@@ -19,6 +19,7 @@ import scipy
 
 from . import __version__
 from ._errors import ChancesError
+from ._publication import publish_directory
 from ._random import DERIVATION, generator, resolve_randomness, state, validate_state
 
 SPEC_VERSION = 1
@@ -62,12 +63,27 @@ def _json_equal(left: object, right: object) -> bool:
 
 
 def _artifact_path(directory: str | Path, *, role: str) -> Path:
+    code = 'OUTPUT_FAILED' if role == 'output' else 'INVALID_BUNDLE'
     if not any(type(directory) is native for native in _PATH_TYPES):
-        code = 'OUTPUT_FAILED' if role == 'output' else 'INVALID_BUNDLE'
         raise ChancesError(
             code, 'Use a native string or pathlib path; path callbacks are forbidden.'
         )
+    if '\x00' in str(directory):
+        raise ChancesError(code, 'Native artifact paths cannot contain NUL bytes.')
     return Path(directory).expanduser().absolute()
+
+
+def _output_destination(directory: str | Path) -> Path:
+    destination = _artifact_path(directory, role='output')
+    try:
+        destination.parent.mkdir(parents=True, exist_ok=True)
+    except (OSError, ValueError) as error:
+        raise ChancesError(
+            'OUTPUT_FAILED',
+            'The destination parent cannot be prepared.',
+            {'path': str(destination), 'error': str(error)},
+        ) from error
+    return destination
 
 
 def _json_hash(value: object) -> str:
@@ -434,8 +450,7 @@ class Generated:
                 'RESULT_CHANGED',
                 'Data, source, or receipt changed; generate again before publishing.',
             )
-        destination = _artifact_path(directory, role='output')
-        destination.parent.mkdir(parents=True, exist_ok=True)
+        destination = _output_destination(directory)
         lock = destination.parent / (destination.name + '.chances-lock')
         try:
             descriptor = os.open(lock, os.O_CREAT | os.O_EXCL | os.O_WRONLY, 0o600)
@@ -467,9 +482,13 @@ class Generated:
             verify(temporary)
             if os.path.lexists(destination):
                 raise ChancesError('OUTPUT_EXISTS', 'The destination appeared during publication.')
-            os.rename(temporary, destination)
+            publish_directory(temporary, destination)
             temporary = None
             return destination
+        except FileExistsError as error:
+            raise ChancesError(
+                'OUTPUT_EXISTS', 'The destination appeared during publication.'
+            ) from error
         except OSError as error:
             raise ChancesError(
                 'OUTPUT_FAILED',

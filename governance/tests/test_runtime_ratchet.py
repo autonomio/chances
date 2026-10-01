@@ -44,7 +44,7 @@ def _run(
     profile = tmp_path / 'profile.json'
     profile.write_text(json.dumps({'total_seconds': 1.0, 'tests': []}), encoding='utf-8')
 
-    for module in ('_common.py', 'check_test_runtime.py'):
+    for module in ('_common.py', '_protected_budget.py', 'check_test_runtime.py'):
         (tmp_path / 'governance' / module).write_text(
             (REPO_ROOT / 'governance' / module).read_text(encoding='utf-8'), encoding='utf-8',
         )
@@ -126,7 +126,7 @@ def test_unreachable_base_ref_blocks(tmp_path: Path) -> None:
     )
     profile = tmp_path / 'profile.json'
     profile.write_text(json.dumps({'total_seconds': 1.0, 'tests': []}), encoding='utf-8')
-    for module in ('_common.py', 'check_test_runtime.py'):
+    for module in ('_common.py', '_protected_budget.py', 'check_test_runtime.py'):
         (tmp_path / 'governance' / module).write_text(
             (REPO_ROOT / 'governance' / module).read_text(encoding='utf-8'), encoding='utf-8',
         )
@@ -158,7 +158,7 @@ def test_missing_base_file_blocks(tmp_path: Path) -> None:
     )
     profile = tmp_path / 'profile.json'
     profile.write_text(json.dumps({'total_seconds': 1.0, 'tests': []}), encoding='utf-8')
-    for module in ('_common.py', 'check_test_runtime.py'):
+    for module in ('_common.py', '_protected_budget.py', 'check_test_runtime.py'):
         (tmp_path / 'governance' / module).write_text(
             (REPO_ROOT / 'governance' / module).read_text(encoding='utf-8'), encoding='utf-8',
         )

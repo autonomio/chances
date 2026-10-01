@@ -13,6 +13,7 @@ from pathlib import Path
 from typing import Final
 
 from _common import REPO_ROOT, fail_setup
+from _protected_budget import protected_budget_text
 
 HEAD_BUDGET_PATH = REPO_ROOT / '.github' / 'budgets.json'
 BUDGET_SECTION = 'modules'
@@ -30,28 +31,24 @@ def _parse_budget(text: str) -> dict[str, int]:
     if not text.strip():
         return {}
     try:
-        data = json.loads(text).get(BUDGET_SECTION, {})
+        raw = json.loads(text)
     except json.JSONDecodeError as exc:
         _fail_setup(f'cannot parse budget JSON: {exc}')
+    if not isinstance(raw, dict):
+        _fail_setup('budget JSON is not an object')
+    data = raw.get(BUDGET_SECTION, {})
     if not isinstance(data, dict):
         _fail_setup('budget JSON is not an object')
     parsed: dict[str, int] = {}
     for key, value in data.items():
-        if not isinstance(value, int) or value <= 0:
+        if isinstance(value, bool) or not isinstance(value, int) or value <= 0:
             _fail_setup(f'budget["{key}"] must be positive int, got {value!r}')
         parsed[str(key)] = value
     return parsed
 
 
 def _base_budget_from_ref(base_ref: str) -> dict[str, int]:
-    cmd = ['git', 'show', f'{base_ref}:.github/budgets.json']
-    try:
-        result = subprocess.run(cmd, check=False, capture_output=True, text=True)
-    except FileNotFoundError:
-        return {}
-    if result.returncode != 0:
-        return {}
-    return _parse_budget(result.stdout)
+    return _parse_budget(protected_budget_text(base_ref, 'BUDGET RATCHET GATE') or '')
 
 
 def _pr_body_from_number(pr_number: int) -> str:

@@ -186,7 +186,7 @@ def test_budget_ratchet_accepts_marker(tmp_path: Path) -> None:
     (tmp_path / '.github' / 'budgets.json').write_text(
         json.dumps({BUDGET_SECTION: head}), encoding='utf-8')
     base_file = tmp_path / 'base.json'
-    base_file.write_text(json.dumps(base), encoding='utf-8')
+    base_file.write_text(json.dumps({BUDGET_SECTION: base}), encoding='utf-8')
     body_file = tmp_path / 'body.txt'
     body_file.write_text(
         '[budget-raise: new_repository_template/foo.py: legitimate growth]\n',
@@ -197,6 +197,7 @@ def test_budget_ratchet_accepts_marker(tmp_path: Path) -> None:
     (scripts_dir / '__init__.py').write_text('', encoding='utf-8')
     import shutil
     shutil.copy2(GOVERNANCE_DIR / '_common.py', scripts_dir / '_common.py')
+    shutil.copy2(GOVERNANCE_DIR / '_protected_budget.py', scripts_dir / '_protected_budget.py')
     shutil.copy2(GOVERNANCE_DIR / 'check_budget_ratchet.py', scripts_dir / 'check_budget_ratchet.py')
     result = subprocess.run(
         [sys.executable, str(scripts_dir / 'check_budget_ratchet.py'),
@@ -205,6 +206,7 @@ def test_budget_ratchet_accepts_marker(tmp_path: Path) -> None:
     )
     assert result.returncode == 0, result.stderr + result.stdout
     assert 'BUDGET RATCHET GATE -- PASS' in result.stdout
+    assert 'vacuous' not in result.stdout
 
 
 def test_no_module_imports_tomllib_unguarded() -> None:

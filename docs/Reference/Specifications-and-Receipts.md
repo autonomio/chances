@@ -217,8 +217,13 @@ The `contract` is checked against the saved protocol. These are observable facts
 not proof of a sampling law from one array.
 
 `write` detects changed data, source, or evidence, stages and validates files,
-then publishes a new directory. Existing outputs are rejected. Failed validation
-publishes no result. Changed outputs need a new declared computation and evidence.
+then publishes a new directory. Native atomic exclusion rejects existing outputs,
+including a destination created during publication. Linux requires
+`renameat2(RENAME_NOREPLACE)`, macOS requires `renamex_np(RENAME_EXCL)`,
+and Windows uses its exclusive `os.rename` behavior. Unsupported platforms,
+filesystems, or unavailable native calls fail with `OUTPUT_FAILED`; there is no
+overwriting fallback. Failed validation publishes no result. Changed outputs
+need a new declared computation and evidence.
 
 `verify` validates archive identity, resolved protocol, postconditions, and complete
 state records; it returns archived values without regeneration. `replay` verifies,

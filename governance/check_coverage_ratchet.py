@@ -27,6 +27,7 @@ from pathlib import Path
 from typing import Final
 
 from _common import REPO_ROOT, fail_setup
+from _protected_budget import protected_budget_text
 
 HEAD_BUDGET_PATH = REPO_ROOT / '.github' / 'budgets.json'
 BUDGET_SECTION = 'coverage'
@@ -46,9 +47,12 @@ def _parse_floor(text: str) -> dict[str, int]:
     if not text.strip():
         return {}
     try:
-        data = json.loads(text).get(BUDGET_SECTION, {})
+        raw = json.loads(text)
     except json.JSONDecodeError as exc:
         _fail_setup(f'cannot parse coverage_budget JSON: {exc}')
+    if not isinstance(raw, dict):
+        _fail_setup('coverage_budget JSON is not an object')
+    data = raw.get(BUDGET_SECTION, {})
     if not isinstance(data, dict):
         _fail_setup('coverage_budget JSON is not an object')
     parsed: dict[str, int] = {}
@@ -61,12 +65,7 @@ def _parse_floor(text: str) -> dict[str, int]:
 
 
 def _base_floor_from_ref(base_ref: str) -> dict[str, int]:
-    cmd = ['git', 'show', f'{base_ref}:.github/budgets.json']
-    try:
-        result = subprocess.run(cmd, check=False, capture_output=True, text=True)
-    except FileNotFoundError:
-        return {}
-    return _parse_floor(result.stdout) if result.returncode == 0 else {}
+    return _parse_floor(protected_budget_text(base_ref, 'COVERAGE RATCHET GATE') or '')
 
 
 def _pr_body_from_number(pr_number: int) -> str:

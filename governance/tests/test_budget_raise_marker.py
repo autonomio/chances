@@ -114,7 +114,7 @@ def test_gate_blocks_a_raise_carrying_a_blank_marker(tmp_path: Path) -> None:
     base.write_text(json.dumps({'modules': {'pkg/mod.py': 100}}), encoding='utf-8')
     body = tmp_path / 'body.txt'
     body.write_text('[budget-raise: pkg/mod.py: ]\n', encoding='utf-8')
-    for module in ('_common.py', 'check_budget_ratchet.py'):
+    for module in ('_common.py', '_protected_budget.py', 'check_budget_ratchet.py'):
         (tmp_path / 'governance' / module).write_text(
             (REPO_ROOT / 'governance' / module).read_text(encoding='utf-8'), encoding='utf-8',
         )

@@ -47,7 +47,8 @@ def test_active_exceptions_honors_expiry() -> None:
 
 
 def test_active_exceptions_requires_a_reason() -> None:
-    assert gate.active_exceptions('[{"id":"A","reason":"  ","expiry":"2099-01-01"}]', _TODAY) == set()
+    with pytest.raises(SystemExit):
+        gate.active_exceptions('[{"id":"A","reason":"  ","expiry":"2099-01-01"}]', _TODAY)
 
 
 def test_active_exceptions_empty_text_is_empty() -> None:
@@ -62,3 +63,30 @@ def test_active_exceptions_rejects_malformed_entry() -> None:
 def test_active_exceptions_rejects_bad_expiry() -> None:
     with pytest.raises(SystemExit):
         gate.active_exceptions('[{"id":"A","reason":"x","expiry":"not-a-date"}]', _TODAY)
+
+
+@pytest.mark.parametrize('reason', [None, False, True, 0, 1, [], {}, '', '  '])
+def test_exception_reason_is_native_nonempty_text(reason: object) -> None:
+    import json
+    raw = json.dumps([{'id': 'PYSEC-2021-66', 'reason': reason, 'expiry': '2099-01-01'}])
+    with pytest.raises(SystemExit) as failure:
+        gate.active_exceptions(raw, _TODAY)
+    assert failure.value.code == 2
+
+
+@pytest.mark.parametrize('field,value', [('id', None), ('id', ''), ('id', 7),
+                                         ('expiry', 20990101), ('expiry', None)])
+def test_exception_identity_and_expiry_are_native_text(field: str, value: object) -> None:
+    import json
+    item = {'id': 'PYSEC-2021-66', 'reason': 'tracked reason', 'expiry': '2099-01-01'}
+    item[field] = value
+    with pytest.raises(SystemExit) as failure:
+        gate.active_exceptions(json.dumps([item]), _TODAY)
+    assert failure.value.code == 2
+
+
+def test_invalid_reason_cannot_hide_a_known_vulnerability() -> None:
+    raw = '[{"id":"PYSEC-2021-66","reason":null,"expiry":"2099-01-01"}]'
+    with pytest.raises(SystemExit):
+        gate.active_exceptions(raw, _TODAY)
+    assert any('PYSEC-2021-66' in item for item in gate.evaluate(_AUDITED, set()))

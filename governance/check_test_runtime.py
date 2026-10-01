@@ -16,13 +16,14 @@ from __future__ import annotations
 
 import argparse
 import json
+import math
 import re
-import subprocess
 import sys
 from pathlib import Path
 from typing import Any, Final
 
 from _common import REPO_ROOT, exit_if_disabled, fail_setup, gate_setting
+from _protected_budget import protected_budget_text
 
 BANNER: Final[str] = 'TEST RUNTIME GATE'
 BUDGET_PATH: Final[Path] = REPO_ROOT / '.github' / 'budgets.json'
@@ -47,6 +48,14 @@ def load_json(path: Path, what: str) -> dict[str, Any]:
     return data
 
 
+def _seconds(value: object, what: str, *, allow_zero: bool) -> float:
+    """Require finite, representable seconds before any comparison or reporting."""
+    if (isinstance(value, bool) or not isinstance(value, (int, float)) or value < 0
+            or (not allow_zero and value == 0) or value > sys.float_info.max or not math.isfinite(value)):
+        fail_setup(BANNER, f'{what} must be finite and {"nonnegative" if allow_zero else "positive"}, got {value!r}')
+    return float(value)
+
+
 def base_ceiling(base_ref: str | None, base_file: str | None) -> float | None:
     """The ceiling recorded on the base ref, or None when there is none.
 
@@ -56,23 +65,9 @@ def base_ceiling(base_ref: str | None, base_file: str | None) -> float | None:
     make every raise look like a first commit.
     """
     if base_ref is not None:
-        # `git show REF:path` fails both when the file is absent at REF and
-        # when REF itself is unreachable. Those must not be conflated: the
-        # first is the commit introducing the budget, the second is a base ref
-        # that was never fetched -- and treating that as "no base ceiling"
-        # would silently disable the ratchet exactly when it cannot be checked.
-        if subprocess.run(
-            ['git', 'rev-parse', '--verify', '--quiet', f'{base_ref}^{{commit}}'],
-            check=False, capture_output=True, text=True,
-        ).returncode != 0:
-            fail_setup(BANNER, f'base ref {base_ref!r} is unreachable; fetch it before the gate runs')
-        result = subprocess.run(
-            ['git', 'show', f'{base_ref}:.github/budgets.json'],
-            check=False, capture_output=True, text=True,
-        )
-        if result.returncode != 0:
+        text = protected_budget_text(base_ref, BANNER)
+        if text is None:
             return None
-        text = result.stdout
     elif base_file is not None:
         # Same rule as the branch above: an unreadable base is a setup failure,
         # not an absent ceiling. Falling through to None here would skip the
@@ -85,17 +80,17 @@ def base_ceiling(base_ref: str | None, base_file: str | None) -> float | None:
     if not text.strip():
         return None
     try:
-        section = json.loads(text).get(BUDGET_SECTION, {})
+        raw = json.loads(text)
     except json.JSONDecodeError as exc:
         fail_setup(BANNER, f'cannot parse base budgets.json: {exc}')
+    if not isinstance(raw, dict):
+        fail_setup(BANNER, 'base budgets.json is not an object')
+    section = raw.get(BUDGET_SECTION, {})
     if not isinstance(section, dict):
         fail_setup(BANNER, 'base budgets.json runtime section is not an object')
-    value = section.get('max_total_seconds')
-    if value is None:
+    if 'max_total_seconds' not in section:
         return None
-    if isinstance(value, bool) or not isinstance(value, (int, float)) or value <= 0:
-        fail_setup(BANNER, f'base max_total_seconds must be positive, got {value!r}')
-    return float(value)
+    return _seconds(section['max_total_seconds'], 'base max_total_seconds', allow_zero=False)
 
 
 def raise_is_declared(pr_body: str) -> bool:
@@ -109,18 +104,15 @@ def raise_is_declared(pr_body: str) -> bool:
 
 def slowest(profile: dict[str, Any], limit: int) -> list[tuple[str, float]]:
     """Return the slowest tests, longest first, capped at limit."""
-    raw = profile.get('tests', [])
+    raw = profile.get('tests')
     if not isinstance(raw, list):
         fail_setup(BANNER, 'profile .tests must be a list')
     rows: list[tuple[str, float]] = []
     for entry in raw:
-        if not isinstance(entry, dict):
-            continue
-        name = str(entry.get('name', '<unnamed>'))
-        duration = entry.get('duration', 0.0)
-        if isinstance(duration, bool) or not isinstance(duration, (int, float)):
-            continue
-        rows.append((name, float(duration)))
+        if not isinstance(entry, dict) or not isinstance(entry.get('name'), str) or not entry['name'].strip():
+            fail_setup(BANNER, 'profile test rows must have nonempty string names')
+        duration = _seconds(entry.get('duration'), 'profile test duration', allow_zero=True)
+        rows.append((entry['name'], duration))
     return sorted(rows, key=lambda row: -row[1])[:limit]
 
 
@@ -137,10 +129,10 @@ def main() -> int:
 
     budget = load_json(BUDGET_PATH, 'runtime budget').get(BUDGET_SECTION, {})
     profile = load_json(Path(args.profile), 'runtime profile')
+    if not isinstance(budget, dict):
+        fail_setup(BANNER, 'runtime budget section must be an object')
 
-    ceiling = budget.get('max_total_seconds')
-    if isinstance(ceiling, bool) or not isinstance(ceiling, (int, float)) or ceiling <= 0:
-        fail_setup(BANNER, f'max_total_seconds must be a positive number, got {ceiling!r}')
+    ceiling = _seconds(budget.get('max_total_seconds'), 'max_total_seconds', allow_zero=False)
     limit = gate_setting(
         'runtime_budget', 'slowest_tests_limit', DEFAULT_SLOWEST_TESTS_LIMIT, BANNER
     )
@@ -170,9 +162,7 @@ def main() -> int:
             print('Merge blocked.', file=sys.stderr)
             return 1
 
-    total = profile.get('total_seconds')
-    if isinstance(total, bool) or not isinstance(total, (int, float)):
-        fail_setup(BANNER, f'profile .total_seconds must be a number, got {total!r}')
+    total = _seconds(profile.get('total_seconds'), 'profile .total_seconds', allow_zero=True)
 
     print(f'suite runtime: {float(total):.2f}s (ceiling {float(ceiling):.2f}s)')
     rows = slowest(profile, limit)

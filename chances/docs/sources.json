@@ -98,14 +98,14 @@
       "aliases": [
         {
           "installed": "docs/recipes.md",
-          "installed_sha256": "8feeea5bdda2290ccb5d66171660debc35a0db74f276a686ed52171264d0fbb7"
+          "installed_sha256": "bc462022ee04fb91e8497e920cd080fb53a3e472cfb82eedc24a541cbaf60a01"
         }
       ],
       "installed": "docs/repository/docs/Reference/Specifications-and-Receipts.md",
-      "installed_sha256": "62fc2b790b5577a3a92308503f57d926813a5e53d2752c453a9315288d9d55e2",
+      "installed_sha256": "2d5f2c1a987bcc17fbc95a95301961233630af83d47331d60578f3a371134531",
       "route": "/reference/specifications-and-receipts",
       "source": "docs/Reference/Specifications-and-Receipts.md",
-      "source_sha256": "8dcf2c1500de99eb50915554783a2b690a77bcda5c1b9e09e89549ded32b73a4"
+      "source_sha256": "3d7bab2be52a065273d7033e213a8667fc7a503df13d54932dcef19c06dc101c"
     },
     {
       "installed": "docs/repository/docs/Developer/README.md",
@@ -172,10 +172,10 @@
     },
     {
       "installed": "docs/repository/docs/Developer/Packaging.md",
-      "installed_sha256": "8ab26afea3d410eddf69d5f85d309cac7b904e6b8820a3842366d442421d3bb9",
+      "installed_sha256": "764224f60bdea9d86c1767a87d1c2ca0a4b26d7f32410fb57d257f9d3dd6bf9a",
       "route": "/developer/packaging",
       "source": "docs/Developer/Packaging.md",
-      "source_sha256": "202faa445e3e2342ac5fd3b2562e452baa319661a2b7a443366289e9a81e57cd"
+      "source_sha256": "24328ca641ef0468e0ac6f92c15d55b3767af2b8d40602a8b97d1259dad0d924"
     },
     {
       "installed": "docs/repository/docs/Developer/Release-Policy.md",

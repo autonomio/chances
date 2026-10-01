@@ -152,7 +152,7 @@ def test_rename_failure_removes_all_staged_artifacts(tmp_path, monkeypatch):
     def fail(*args):
         raise OSError('rename refused')
 
-    monkeypatch.setattr(api.os, 'rename', fail)
+    monkeypatch.setattr(api, 'publish_directory', fail)
     with pytest.raises(ch.ChancesError) as error:
         result.write(tmp_path / 'failed')
     assert error.value.code == 'OUTPUT_FAILED'

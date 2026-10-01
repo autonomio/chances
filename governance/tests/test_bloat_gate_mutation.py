@@ -22,6 +22,7 @@ def _clone_script_into(root: Path, name: str) -> Path:
     # Gates import the shared helper by bare name, so a cloned gate needs
     # _common.py beside it to run in isolation.
     shutil.copy2(GOVERNANCE_DIR / '_common.py', dest_dir / '_common.py')
+    shutil.copy2(GOVERNANCE_DIR / '_protected_budget.py', dest_dir / '_protected_budget.py')
     dest = dest_dir / name
     shutil.copy2(GOVERNANCE_DIR / name, dest)
     return dest

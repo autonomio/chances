@@ -50,12 +50,14 @@ def active_exceptions(raw_text: str, today: datetime.date) -> set[str]:
     for item in raw:
         if not isinstance(item, dict) or not {'id', 'reason', 'expiry'} <= set(item):
             _fail_setup(f'each exception needs id, reason, expiry: {item!r}')
+        if any(not isinstance(item[key], str) or not item[key].strip() for key in ('id', 'reason', 'expiry')):
+            _fail_setup(f'exception id, reason and expiry must be nonempty strings: {item!r}')
         try:
-            expiry = datetime.date.fromisoformat(str(item['expiry']))
+            expiry = datetime.date.fromisoformat(item['expiry'])
         except ValueError:
             _fail_setup(f'exception expiry must be ISO YYYY-MM-DD: {item!r}')
-        if expiry >= today and str(item['reason']).strip():
-            active.add(str(item['id']))
+        if expiry >= today:
+            active.add(item['id'])
     return active
 
 

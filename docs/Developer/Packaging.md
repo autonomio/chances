@@ -33,7 +33,10 @@ canonical GitHub links; installed manuals do not require them locally.
 
 Runtime dependencies carry both bounds, or an exact pin. `requirements/constraints.txt`
 is the human-readable CI resolver envelope; `requirements/ci/*.txt` are the
-compiled hash-pinned installations. Ruff and Pyright exact pins live in the manifest.
+compiled hash-pinned installations, including platform-specific dependencies.
+Editable installs with isolation disabled require both Hatchling and its
+`editables` helper from the locked build-tool environment. Ruff and Pyright
+exact pins live in the manifest.
 
 ## Reproducibility
 
