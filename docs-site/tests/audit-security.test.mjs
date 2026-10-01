@@ -39,17 +39,18 @@ test('the reporting change preserves the strict and relaxed severity policy', ()
 });
 
 const auditScript = fileURLToPath(new URL('../scripts/audit-security.mjs', import.meta.url));
-for (const outcome of [0, 1, 2, 'signal', 'missing']) {
+for (const outcome of [0, 1, 2, 'signal', 'missing', 'array-report']) {
   test(`the audit command handles complete fixture JSON with process outcome ${outcome}`, () => {
     const directory = mkdtempSync(path.join(os.tmpdir(), 'chances-audit-process-'));
     try {
       if (outcome !== 'missing') {
         const finish = outcome === 'signal'
           ? "process.kill(process.pid, 'SIGTERM')"
-          : `process.exit(${outcome})`;
+          : `process.exit(${outcome === 'array-report' ? 0 : outcome})`;
         const executable = path.join(directory, 'npm');
+        const payload = outcome === 'array-report' ? {vulnerabilities: []} : {vulnerabilities: {}};
         writeFileSync(executable,
-          `#!${process.execPath}\nprocess.stdout.write(JSON.stringify({vulnerabilities: {}}), () => { ${finish}; });\n`);
+          `#!${process.execPath}\nprocess.stdout.write(${JSON.stringify(JSON.stringify(payload))}, () => { ${finish}; });\n`);
         chmodSync(executable, 0o755);
       }
       const result = spawnSync(process.execPath, [auditScript], {
@@ -59,6 +60,10 @@ for (const outcome of [0, 1, 2, 'signal', 'missing']) {
       if (outcome === 0 || outcome === 1) {
         assert.equal(result.status, 0, result.stderr);
         assert.match(result.stdout, /meets the configured severity floors/);
+      } else if (outcome === 'array-report') {
+        assert.equal(result.status, 1);
+        assert.match(result.stderr, /no vulnerabilities object/);
+        assert.doesNotMatch(result.stdout, /meets the configured severity floors/);
       } else {
         assert.equal(result.status, 1);
         assert.match(result.stderr, /npm audit did not complete normally/);

@@ -163,3 +163,16 @@ test('productionRoots places transitive packages, not just the roots themselves'
     }
   }
 });
+
+for (const vulnerabilities of [[], [{severity: 'critical'}]]) {
+  test(`array vulnerability reports fail closed (${vulnerabilities.length} entries)`, () => {
+    assert.equal(auditFailure({vulnerabilities}, NO_ROOTS),
+      'npm audit report has no vulnerabilities object');
+  });
+}
+
+for (const invalid of [null, [], false, 'report']) {
+  test(`non-object audit reports fail closed (${JSON.stringify(invalid)})`, () => {
+    assert.equal(auditFailure(invalid, NO_ROOTS), 'npm audit report must be an object');
+  });
+}

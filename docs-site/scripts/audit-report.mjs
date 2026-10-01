@@ -46,6 +46,9 @@ function floorFor(roots) {
  * it, as produced by `audit-scope.mjs`.
  */
 export function auditFailure(report, rootsByPackage) {
+  if (typeof report !== 'object' || report === null || Array.isArray(report)) {
+    return 'npm audit report must be an object';
+  }
   if (Object.hasOwn(report, 'error')) {
     return `npm audit failed: ${JSON.stringify(report.error)}`;
   }
@@ -53,6 +56,7 @@ export function auditFailure(report, rootsByPackage) {
     !Object.hasOwn(report, 'vulnerabilities')
     || typeof report.vulnerabilities !== 'object'
     || report.vulnerabilities === null
+    || Array.isArray(report.vulnerabilities)
   ) {
     return 'npm audit report has no vulnerabilities object';
   }
