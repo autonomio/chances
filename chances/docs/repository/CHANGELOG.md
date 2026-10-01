@@ -1,5 +1,9 @@
 <!-- Generated from CHANGELOG.md; edit the canonical repository source. -->
 
+# v2.0.1
+
+- Limit default workflow tokens to read access and isolate required writes in their jobs.
+
 # v2.0.0
 
 - Replace historical randomness shortcuts with explicit scientific protocols, isolated streams, and verifiable receipts.
