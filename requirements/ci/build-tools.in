@@ -1,2 +1,3 @@
-# Mirrors [build-system].requires; editable CI installs disable isolation.
+# Build backend and its editable helper; CI disables build isolation.
 hatchling>=1.27,<2
+editables>=0.5,<1
