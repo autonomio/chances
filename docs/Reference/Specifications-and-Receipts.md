@@ -222,8 +222,12 @@ including a destination created during publication. Linux requires
 `renameat2(RENAME_NOREPLACE)`, macOS requires `renamex_np(RENAME_EXCL)`,
 and Windows uses its exclusive `os.rename` behavior. Unsupported platforms,
 filesystems, or unavailable native calls fail with `OUTPUT_FAILED`; there is no
-overwriting fallback. Failed validation publishes no result. Changed outputs
-need a new declared computation and evidence.
+overwriting fallback. Writers stage independently; the first completed native
+publication wins, and competing writers receive `OUTPUT_EXISTS`. A terminated
+process may leave a `.chances-*` staging directory in the parent, but it never
+reserves the destination or blocks a later writer. Remove an orphan only after
+confirming its writer has stopped. Failed validation publishes no result.
+Changed outputs need a new declared computation and evidence.
 
 `verify` validates archive identity, resolved protocol, postconditions, and complete
 state records; it returns archived values without regeneration. `replay` verifies,
@@ -258,7 +262,7 @@ JSON with unsuccessful exit status; malformed command syntax has its own usage r
 | Resource limit | Inspect costs and revise the batch or justified budget. |
 | Changed artifact or evidence | Retain the archive for investigation; regenerate into a new destination from the original protocol/source. |
 | Replay incompatibility | Use the recorded environment, or verify archived values without claiming regenerated equivalence. |
-| Existing or busy destination | Choose a new destination or wait for its publisher. |
+| Existing destination or competing publication | Use a new destination; retain the completed winner. |
 
 Never silently select another distribution, change replacement, reorder
 observations, weaken checks, or discard inconvenient values.

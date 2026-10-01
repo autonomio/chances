@@ -98,14 +98,14 @@
       "aliases": [
         {
           "installed": "docs/recipes.md",
-          "installed_sha256": "bc462022ee04fb91e8497e920cd080fb53a3e472cfb82eedc24a541cbaf60a01"
+          "installed_sha256": "e4f66a0492a3bf497e9a28794e5bc21a1ce7014b8d38bf53cca2a855203b2237"
         }
       ],
       "installed": "docs/repository/docs/Reference/Specifications-and-Receipts.md",
-      "installed_sha256": "2d5f2c1a987bcc17fbc95a95301961233630af83d47331d60578f3a371134531",
+      "installed_sha256": "3fe4cfb2fcf4164593f3f41909a04fc994a4014502856fac3a439bb1acdd0d65",
       "route": "/reference/specifications-and-receipts",
       "source": "docs/Reference/Specifications-and-Receipts.md",
-      "source_sha256": "3d7bab2be52a065273d7033e213a8667fc7a503df13d54932dcef19c06dc101c"
+      "source_sha256": "7d234f20790a873ef4be0e097b781ac7361b0ced732042e6ef096b25b5a79ee2"
     },
     {
       "installed": "docs/repository/docs/Developer/README.md",

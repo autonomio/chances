@@ -451,18 +451,6 @@ class Generated:
                 'Data, source, or receipt changed; generate again before publishing.',
             )
         destination = _output_destination(directory)
-        lock = destination.parent / (destination.name + '.chances-lock')
-        try:
-            descriptor = os.open(lock, os.O_CREAT | os.O_EXCL | os.O_WRONLY, 0o600)
-        except FileExistsError as error:
-            raise ChancesError(
-                'OUTPUT_BUSY', 'Another writer holds this destination.', {'path': str(destination)}
-            ) from error
-        except OSError as error:
-            raise ChancesError(
-                'OUTPUT_FAILED', 'The destination cannot be locked.', {'path': str(destination)}
-            ) from error
-        os.close(descriptor)
         temporary = None
         try:
             if os.path.lexists(destination):
@@ -498,7 +486,6 @@ class Generated:
         finally:
             if temporary is not None:
                 shutil.rmtree(temporary)
-            lock.unlink(missing_ok=True)
 
 
 def generate(spec: object, *, source: object = None, output: str | Path | None = None) -> Generated:

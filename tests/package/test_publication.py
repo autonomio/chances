@@ -3,9 +3,14 @@
 import ctypes
 import errno
 import json
+import os
+import subprocess
 import sys
+import time
+from pathlib import Path
 from types import SimpleNamespace
 
+import numpy as np
 import pytest
 
 import chances as ch
@@ -228,3 +233,121 @@ def test_bundle_nul_rejected_before_reading_the_prefix_bundle(tmp_path, action, 
     assert error.value.code == 'INVALID_BUNDLE'
     assert {p.name: p.read_bytes() for p in source.iterdir()} == before
     assert list(tmp_path.iterdir()) == [source]
+
+
+_CRASH_WRITER = """
+import os,sys
+from pathlib import Path
+import chances
+import chances._api as api
+
+def crash(stage):
+    Path(sys.argv[2]).write_text(str(stage))
+    os._exit(73)
+
+api.verify = crash
+chances.generate({"operation":"normal","parameters":{"size":4},"randomness":{"seed":42}}, output=Path(sys.argv[1]))
+"""
+
+_CONCURRENT_WRITER = """
+import json,sys,time
+from pathlib import Path
+import chances
+import chances._api as api
+
+seed = int(sys.argv[2])
+destination = Path(sys.argv[1])
+release = destination.parent / "release"
+original = api.publish_directory
+
+def synchronized(stage,target):
+    (destination.parent / (str(seed) + ".ready")).write_text(str(stage))
+    deadline = time.monotonic() + 10
+    while not release.exists():
+        if time.monotonic() >= deadline:
+            raise RuntimeError("publisher barrier timed out")
+        time.sleep(0.01)
+    original(stage,target)
+
+api.publish_directory = synchronized
+try:
+    chances.generate({"operation":"normal","parameters":{"loc":float(seed),"scale":0,"size":4},"randomness":{"seed":seed}}, output=destination)
+except chances.ChancesError as error:
+    print(json.dumps({"seed":seed,"code":error.code}))
+    sys.exit(2)
+print(json.dumps({"seed":seed,"code":"published"}))
+"""
+
+
+def test_hard_crash_during_staging_cannot_reserve_destination(tmp_path):
+    destination = tmp_path / 'after-crash'
+    marker = tmp_path / 'crashed-stage'
+    env = {**os.environ, 'PYTHONPATH': str(Path(ch.__file__).parent.parent)}
+    crashed = subprocess.run(
+        [sys.executable, '-c', _CRASH_WRITER, str(destination), str(marker)],
+        cwd=tmp_path,
+        env=env,
+        capture_output=True,
+        text=True,
+        timeout=15,
+    )
+    assert crashed.returncode == 73, crashed.stdout + crashed.stderr
+    assert not destination.exists()
+    abandoned = Path(marker.read_text())
+    assert abandoned.parent == tmp_path and abandoned.name.startswith('.chances-')
+    original = {p.name: p.read_bytes() for p in abandoned.iterdir()}
+    assert set(original) == {'data.npy', 'recipe.json', 'receipt.json'}
+    assert list(tmp_path.glob('*.chances-lock')) == []
+    result = ch.generate(recipe(), output=destination)
+    np.testing.assert_array_equal(ch.verify(destination).data, result.data)
+    np.testing.assert_array_equal(ch.replay(destination).data, result.data)
+    assert {p.name: p.read_bytes() for p in abandoned.iterdir()} == original
+    assert list(tmp_path.glob('.chances-*')) == [abandoned]
+
+
+def test_concurrent_processes_publish_one_complete_immutable_winner(tmp_path):
+    destination = tmp_path / 'concurrent'
+    env = {**os.environ, 'PYTHONPATH': str(Path(ch.__file__).parent.parent)}
+    with (
+        subprocess.Popen(
+            [sys.executable, '-c', _CONCURRENT_WRITER, str(destination), '1'],
+            cwd=tmp_path,
+            env=env,
+            stdout=subprocess.PIPE,
+            stderr=subprocess.PIPE,
+            text=True,
+        ) as first,
+        subprocess.Popen(
+            [sys.executable, '-c', _CONCURRENT_WRITER, str(destination), '2'],
+            cwd=tmp_path,
+            env=env,
+            stdout=subprocess.PIPE,
+            stderr=subprocess.PIPE,
+            text=True,
+        ) as second,
+    ):
+        deadline = time.monotonic() + 15
+        ready = [tmp_path / '1.ready', tmp_path / '2.ready']
+        while not all(p.exists() for p in ready) and time.monotonic() < deadline:
+            time.sleep(0.01)
+        assert all(p.exists() for p in ready), 'Both writers must finish unique staging.'
+        stages = [Path(p.read_text()) for p in ready]
+        assert len(set(stages)) == 2
+        assert all(p.parent == tmp_path and p.name.startswith('.chances-') for p in stages)
+        (tmp_path / 'release').write_text('publish')
+        outputs = [first.communicate(timeout=15), second.communicate(timeout=15)]
+        assert sorted([first.returncode, second.returncode]) == [0, 2], outputs
+    outcomes = [json.loads(stdout) for stdout, _ in outputs]
+    assert sorted(item['code'] for item in outcomes) == ['OUTPUT_EXISTS', 'published']
+    winner = next(item['seed'] for item in outcomes if item['code'] == 'published')
+    saved = ch.verify(destination)
+    assert saved.receipt['spec']['randomness']['seed'] == winner
+    np.testing.assert_array_equal(saved.data, np.full(4, float(winner)))
+    before = {p.name: p.read_bytes() for p in destination.iterdir()}
+    assert set(before) == {'data.npy', 'recipe.json', 'receipt.json'}
+    with pytest.raises(ch.ChancesError) as error:
+        ch.generate(recipe(), output=destination)
+    assert error.value.code == 'OUTPUT_EXISTS'
+    assert {p.name: p.read_bytes() for p in destination.iterdir()} == before
+    assert list(tmp_path.glob('.chances-*')) == []
+    assert list(tmp_path.glob('*.chances-lock')) == []

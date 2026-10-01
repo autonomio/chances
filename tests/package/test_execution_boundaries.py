@@ -103,24 +103,23 @@ def test_without_replacement_respects_duplicate_observation_multiplicity(monkeyp
     assert 'beyond availability' in str(error.value)
 
 
-def test_busy_destination_preserves_other_writer_lock(tmp_path):
+def test_stale_legacy_lock_cannot_block_publication_and_is_preserved(tmp_path):
     result = ch.generate(recipe())
-    lock = tmp_path / 'busy.chances-lock'
-    lock.write_bytes(b'other writer')
-    with pytest.raises(ch.ChancesError) as error:
-        result.write(tmp_path / 'busy')
-    assert error.value.code == 'OUTPUT_BUSY'
-    assert lock.read_bytes() == b'other writer'
-    assert not (tmp_path / 'busy').exists()
+    lock = tmp_path / 'recovered.chances-lock'
+    lock.write_bytes(b'legacy writer')
+    destination = tmp_path / 'recovered'
+    result.write(destination)
+    np.testing.assert_array_equal(ch.verify(destination).data, result.data)
+    assert lock.read_bytes() == b'legacy writer'
 
 
-def test_lock_failure_is_structured_and_does_not_stage(tmp_path, monkeypatch):
+def test_staging_failure_is_structured_without_publishing(tmp_path, monkeypatch):
     result = ch.generate(recipe())
 
-    def fail(*args):
-        raise OSError('permission denied')
+    def fail(*args, **kwargs):
+        raise OSError('staging refused')
 
-    monkeypatch.setattr(api.os, 'open', fail)
+    monkeypatch.setattr(api.tempfile, 'mkdtemp', fail)
     with pytest.raises(ch.ChancesError) as error:
         result.write(tmp_path / 'failed')
     assert error.value.code == 'OUTPUT_FAILED'
