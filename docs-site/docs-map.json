@@ -59,6 +59,13 @@
       "sidebarPosition": 2
     },
     {
+      "source": "docs/Roadmap.md",
+      "dest": "overview/roadmap.md",
+      "slug": "/overview/roadmap",
+      "sidebarLabel": "Roadmap",
+      "sidebarPosition": 3
+    },
+    {
       "source": "docs/Guides/README.md",
       "dest": "guides/reproducible-batch.md",
       "slug": "/guides/reproducible-batch",

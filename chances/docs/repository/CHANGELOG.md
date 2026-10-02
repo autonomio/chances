@@ -1,5 +1,10 @@
 <!-- Generated from CHANGELOG.md; edit the canonical repository source. -->
 
+# v2.0.4
+
+- Document the next-year roadmap and explicit security-assurance arguments.
+- Map Silver criteria to public evidence and retain unresolved release and continuity requirements.
+
 # v2.0.3
 
 - Cancel superseded CI runs, avoid duplicate feature-branch verification, and bound documentation installation and checks.
