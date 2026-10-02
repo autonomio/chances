@@ -210,10 +210,10 @@
     },
     {
       "installed": "docs/repository/docs/Developer/Security-Assurance-Case.md",
-      "installed_sha256": "64ed1dbff7ec0724366b35d12efcfdc9be3575baf803c835adcf027380b18378",
+      "installed_sha256": "95b3c80180c6f952255b1e2ca354d83acc08d28a1e6d9c8140223eeb4762a885",
       "route": "/developer/security-assurance-case",
       "source": "docs/Developer/Security-Assurance-Case.md",
-      "source_sha256": "e910182169b5dfddc89cbb1d4307167a284eb3ced4bc60aa6b5f8a56160ee4f5"
+      "source_sha256": "d7924b3a0a751eaa54254320990aec82ea4daca0da07d35b4c05129c10ab96f2"
     },
     {
       "installed": "docs/repository/CONTRIBUTING.md",

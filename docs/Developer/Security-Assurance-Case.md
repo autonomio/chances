@@ -98,7 +98,8 @@ artifact attestations require separate evidence after publication and activation
 [Best Practices entry 15137](https://www.bestpractices.dev/projects/15137)
 records the Passing badge earned on 2026-10-01. `.bestpractices.json` retains
 criterion statuses and source-linked evidence; it distinguishes maintainer
-attestations from measured checks. Silver requires separate evidence. The public assessment still records 13%
+attestations from measured checks. Silver requires separate evidence.
+The public assessment still records 13%
 completion as of 2026-10-02; that percentage includes unanswered fields and does
 not measure the percentage of implemented security controls.
 
@@ -109,6 +110,12 @@ requires a completed, publicly verifiable publication; configured workflows are
 not evidence that this has occurred. Reporter-credit history and regression-test
 coverage of actual bug fixes require a separate historical audit. Unknown facts
 remain unknown in the proposal file until supported.
+
+The full documentation dependency audit reports zero advisories on 2026-10-02.
+Separate Dependabot findings against the locked CI toolchain require urllib3
+2.8.0 and pip 26.2.0; dependency monitoring remains Unmet in the proposals until
+they are fixed or their non-exploitability is established. Runtime-only scans
+do not prove that development tools are free of known vulnerabilities.
 
 The initial Scorecard run `36887139175` measured `6.2/10` against merged master
 `ee6ab1725bcc60bff78ad45b561dbb3d0b9632da`. Its findings drove read-only
