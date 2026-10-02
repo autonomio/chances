@@ -39,7 +39,7 @@ allocations, permutations, and point designs through the same seeded protocol.
 
 | Section | Authority and entry |
 | --- | --- |
-| Overview | [Product home](../../README.md) and [release history](../CHANGELOG.md) |
+| Overview | [Product home](../../README.md), [roadmap](Roadmap.md), and [release history](../CHANGELOG.md) |
 | Guides | [Reproducible batch](Guides/README.md), [resampling](Guides/Resampling.md), [experimental design](Guides/Experimental-Design.md), [migration](Guides/Migration.md) |
 | Reference | [Python API](Reference/README.md), [catalog](Reference/Operation-Catalog.md), [CLI](Reference/Command-Line.md), [specifications and receipts](Reference/Specifications-and-Receipts.md) |
 | Developer | [Develop Chances](Developer/README.md), [documentation contract](Developer/Documentation-System.md), [adoption evidence](Developer/Documentation-Adoption.md), [site toolchain](../docs-site/README.md) |

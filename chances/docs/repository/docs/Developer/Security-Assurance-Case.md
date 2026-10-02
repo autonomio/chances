@@ -12,6 +12,28 @@ Read the scientific [receipt contract](../Reference/Specifications-and-Receipts.
 and the repository [constitution](https://github.com/autonomio/chances/blob/master/CLAUDE.md). Verification uses Python 3.12
 and GitHub CLI; remote claims require live repository evidence.
 
+## Threat model and security requirements
+
+An attacker may control specification JSON, source arrays, saved bundles,
+issue text, or proposed repository changes. Their goals include executing
+input code, exhausting resources, changing retained results without detection,
+overwriting an existing batch, or introducing an unauthorized release.
+An accidental invalid scientific request is subject to the same validation.
+
+Chances must reject unsupported syntax and values, bound declared work,
+preserve caller-owned inputs and global RNG state, detect altered bundle
+content, refuse incompatible replay, and publish a batch without replacing an
+existing destination. It must expose failures rather than select a different
+scientific method. These claims assume a trusted Python/runtime installation,
+filesystem and reviewed implementation; they do not cover compromised hardware
+or an attacker who controls the host process. Resource limits bound declared
+arrays and work, not every possible native-library execution time.
+
+The [receipt contract](../Reference/Specifications-and-Receipts.md) owns the
+user-visible guarantees and compatibility conditions. An attacker who rewrites
+all unsigned bundle content and hashes can create a consistent replacement;
+hash verification detects integrity mismatch, not authorship or authenticity.
+
 ## Trust boundaries
 
 | Boundary | Evidence and limit |
@@ -24,6 +46,28 @@ and GitHub CLI; remote claims require live repository evidence.
 | Documentation dependencies | complete-tree audit blocks every known advisory, including development tools |
 | Actions | SHA-pinned actions, limited permissions, untrusted PR code separated from credentialed mutation |
 | Publication | exact master identity, protected manual environments, isolated organization PyPI API token, and GitHub build attestations after successful runs |
+
+## Secure-design argument
+
+| Principle | Applied control and evidence |
+| --- | --- |
+| Fail-safe defaults | Invalid fields, seeds, source types and limits fail before generation; replay rejects incompatible evidence. See [protocol validation](../../../../_api.py) and [stream resolution](../../../../_random.py). |
+| Complete mediation | Public inspection and generation resolve inputs through the shared validator; archive verification checks recorded contracts and content before replay. [API tests](https://github.com/autonomio/chances/tree/master/tests/package) exercise both accepted and rejected inputs. |
+| Least privilege and separation | Library calls need no credentials or network service. Workflow defaults are read-only; credentialed publication follows protected manual approval. [Workflow contract tests](https://github.com/autonomio/chances/blob/master/governance/tests/test_openssf_workflows.py) prohibit default write permissions. |
+| Economy of mechanism | Literal JSON, typed arrays and one protocol route avoid executable input formats. Generation, verification and replay share explicit contracts instead of unrelated shortcuts. |
+| Open design | Source, schemas, tests, governance rules and this argument are public. Receipts use published SHA-256 rather than a private cryptographic construction. |
+| Least common mechanism | Each declared stream owns a local generator; [randomness implementation](../../../../_random.py) and package tests enforce independence from global RNG state. |
+| Psychological acceptability | Inspection reveals resolved choices before drawing; structured failures identify corrections. [Python API](../Reference/README.md) and [quick start](../../../README.md#first-successful-computation) show the same path used by agents. |
+
+## Common-weakness argument
+
+| Weakness class | Countermeasure and limit |
+| --- | --- |
+| Injection and unsafe deserialization (CWE-94, CWE-502) | No input callbacks, code evaluation or pickle. Array loading uses `allow_pickle=False`; literal JSON and dtype allowlists define accepted data. See [input handling](../../../../_api.py). |
+| Improper validation and resource exhaustion (CWE-20, CWE-400) | Validate domains, finite values, array shape, supported dtype and declared resource limits before drawing; check output contracts afterward. [Scientific tests](https://github.com/autonomio/chances/tree/master/tests/package) and [protocol fuzzing](https://github.com/autonomio/chances/blob/master/fuzz/fuzz_protocol.py) exercise malformed and extreme inputs. |
+| Race and unintended overwrite (CWE-362, CWE-367) | Build a batch in a temporary sibling and publish without replacing an existing destination. [Publication implementation](../../../../_publication.py) and package tests cover contention and retained evidence. A hostile host/filesystem remains outside the guarantee. |
+| Incorrect security assumptions (CWE-345) | Receipt checks bind content and protocol but explicitly make no signature claim. Replay checks the recorded environment; a successful check does not prove scientific suitability. |
+| Vulnerable dependencies and unauthorized changes | Locked tooling, runtime and documentation audits, CodeQL, required reviews and live ruleset checks constrain the supply chain. [Dependency policy](Release-Policy.md) and [governance adoption](Governance-Adoption.md) state activation and historical limits. Unknown vulnerabilities and compromised trusted accounts remain risks. |
 
 ## Mechanical proof
 
@@ -57,6 +101,23 @@ artifact attestations require separate evidence after publication and activation
 records the Passing badge earned on 2026-10-01. `.bestpractices.json` retains
 criterion statuses and source-linked evidence; it distinguishes maintainer
 attestations from measured checks. Silver requires separate evidence.
+The public assessment still records 13%
+completion as of 2026-10-02; that percentage includes unanswered fields and does
+not measure the percentage of implemented security controls.
+
+The [roadmap](../Roadmap.md) supplies the next-year planning evidence. Maintenance
+continuity still needs verified emergency authority and credentials sufficient
+to resume issues, merges and releases within one week. Current release signing
+requires a completed, publicly verifiable publication; configured workflows are
+not evidence that this has occurred. Reporter-credit history and regression-test
+coverage of actual bug fixes require a separate historical audit. Unknown facts
+remain unknown in the proposal file until supported.
+
+The full documentation dependency audit reports zero advisories on 2026-10-02.
+Separate Dependabot findings against the locked CI toolchain require urllib3
+2.8.0 and pip 26.2.0; dependency monitoring remains Unmet in the proposals until
+they are fixed or their non-exploitability is established. Runtime-only scans
+do not prove that development tools are free of known vulnerabilities.
 
 The initial Scorecard run `36887139175` measured `6.2/10` against merged master
 `ee6ab1725bcc60bff78ad45b561dbb3d0b9632da`. Its findings drove read-only
