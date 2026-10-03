@@ -1,5 +1,12 @@
 <!-- Generated from CHANGELOG.md; edit the canonical repository source. -->
 
+# v2.0.5
+
+- Cancel superseded remaining source checks, bound runner occupancy, and stagger grouped dependency updates.
+- Remediate pip and urllib3 advisories in hash-locked development and packaging tooling.
+- Authenticate complete release source and distribution artifacts with publicly downloadable provenance bundles.
+- Require publication provenance to identify the exact approved source commit.
+
 # v2.0.4
 
 - Document the next-year roadmap and explicit security-assurance arguments.

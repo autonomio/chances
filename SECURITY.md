@@ -41,17 +41,19 @@ they are not evidence of past response times.
 
 ## Verifying Release Artifacts
 
-The adopted manual publishing workflow creates GitHub build-provenance
-attestations when activated and used. Historical releases have no such guarantee.
-For an artifact produced by that workflow, verify with:
+Protected manual release workflows authenticate complete tracked repository
+source and built distributions through GitHub provenance attestations. Successful
+runs publish the source archive, wheel, sdist, and downloadable Sigstore bundles
+on the GitHub release; the separate PyPI job uploads the same distributions.
+Historical releases do not acquire these guarantees retroactively, and configured
+workflows alone are not evidence of a completed signed release.
 
-```bash
-gh attestation verify <artifact> --repo autonomio/chances
-```
-
-SHA-256 digests of every built artifact are recorded in the publish run's job summary. The verification contract is documented in [Release Policy](docs/Developer/Release-Policy.md). Report verification mismatches through the private channel above.
-
-A CycloneDX SBOM and an offline `provenance.intoto.jsonl` bundle are **not** produced today; verification is against the attestation API rather than a downloaded bundle.
+Follow the exact source SHA, signer identity, and public trust-root verification
+instructions in [Release Policy](docs/Developer/Release-Policy.md#retrieve-and-verify-signatures).
+SHA-256 digests alone do not establish authenticity. Report verification mismatches
+through the private channel above. Scientific result receipts and annotated Git
+tags remain unsigned; release artifact signing does not change their guarantees.
+A CycloneDX SBOM is not produced.
 
 ## Scope
 

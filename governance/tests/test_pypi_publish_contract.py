@@ -53,7 +53,7 @@ def test_publication_uses_only_explicit_token_without_oidc_or_package_build(work
     build = workflow['jobs']['build_distribution']
     publish = workflow['jobs']['publish_to_pypi']
     assert build['permissions'] == {
-        'contents': 'read', 'id-token': 'write', 'attestations': 'write',
+        'contents': 'write', 'id-token': 'write', 'attestations': 'write',
     }
     assert '${{ secrets.PYPI_API_TOKEN }}' not in json.dumps(build)
     steps = publish['steps']
@@ -136,7 +136,7 @@ def test_history_guard_requires_this_project_version_protected_ancestry_and_fina
     tools.mkdir()
     (tools / 'python').symlink_to(sys.executable)
     for name, script in {
-        'git': '#!/bin/sh\n[ "$*" = "merge-base --is-ancestor HEAD origin/master" ] || exit 90\nexit "$ANCESTOR_RESULT"\n',
+        'git': '#!/bin/sh\nif [ "$*" = "rev-parse HEAD" ]; then printf "%s" "$CHECKOUT_SHA"; exit 0; fi\n[ "$*" = "merge-base --is-ancestor HEAD origin/master" ] || exit 90\nexit "$ANCESTOR_RESULT"\n',
         'gh': '#!/bin/sh\nprintf "%s" "$RELEASE_JSON"\n',
     }.items():
         executable = tools / name
@@ -148,6 +148,41 @@ def test_history_guard_requires_this_project_version_protected_ancestry_and_fina
     result = _run_guard(workflow, 'build_distribution', HISTORY, {
         'PATH': str(tools) + os.pathsep + os.defpath, 'RELEASE_TAG': 'v2.0.0',
         'GITHUB_REPOSITORY': 'autonomio/chances', 'ANCESTOR_RESULT': ancestor,
-        'RELEASE_JSON': json.dumps(release),
+        'RELEASE_JSON': json.dumps(release), 'GITHUB_SHA': 'a' * 40, 'CHECKOUT_SHA': 'a' * 40,
     }, tmp_path)
     assert (result.returncode == 0) is accepted
+
+
+def test_history_guard_rejects_checkout_that_differs_from_dispatch(workflow, tmp_path):
+    tools = tmp_path / 'tools'
+    tools.mkdir()
+    (tools / 'python').symlink_to(sys.executable)
+    git = tools / 'git'
+    git.write_text('#!/bin/sh\n[ "$*" = "rev-parse HEAD" ] || exit 90\nprintf "%s" "$CHECKOUT_SHA"\n')
+    git.chmod(0o700)
+    (tmp_path / 'pyproject.toml').write_text('[project]\nname="chances"\nversion="2.0.0"\n')
+    result = _run_guard(workflow, 'build_distribution', HISTORY, {
+        'PATH': str(tools) + os.pathsep + os.defpath, 'RELEASE_TAG': 'v2.0.0',
+        'GITHUB_SHA': 'a' * 40, 'CHECKOUT_SHA': 'b' * 40,
+    }, tmp_path)
+    assert result.returncode != 0
+    assert 'differs from dispatch SHA' in result.stdout
+    assert not (tmp_path / 'release.json').exists()
+
+
+def test_source_provenance_is_checked_before_build_and_pypi_handoff(workflow):
+    steps = workflow['jobs']['build_distribution']['steps']
+    names = [step['name'] for step in steps]
+    assert names.index(HISTORY) < names.index('Verify authenticated complete release source')
+    assert names.index('Verify authenticated complete release source') < names.index('Build and audit distributions')
+    assert names.index('Publish immutable distributions and signature bundle') < names.index('Upload distributions')
+    for name, signer in [
+        ('Verify authenticated complete release source', 'pr_post_release.yml'),
+        ('Publish immutable distributions and signature bundle', 'pr_publish_pypi.yml'),
+    ]:
+        program = _step(workflow, 'build_distribution', name)['run']
+        for flag in ('--source-digest "$GITHUB_SHA"', '--source-ref refs/heads/master',
+                     '--deny-self-hosted-runners', '--signer-workflow'):
+            assert flag in program
+        assert signer in program
+    assert 'cmp ' in _step(workflow, 'build_distribution', 'Verify authenticated complete release source')['run']
