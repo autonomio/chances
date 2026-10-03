@@ -52,10 +52,28 @@ Each context checks navigation, overflow, and accessibility; shared tests also
 check search, source edit links, typography, and mobile interaction.
 
 The dependency audit checks the complete locked tree, including development
-tools, and blocks every known advisory regardless of severity. The former
-Docusaurus/search severity exemption is removed. The audit fails on unknown
-severities or malformed data; a clean result describes the advisory database
-at check time, not a guarantee against undiscovered vulnerabilities.
+tools, and blocks every advisory at every severity unless its complete cause
+graph reaches only exact, reviewed exceptions. Malformed reports, npm errors,
+missing causes, orphan cycles, unknown severities, changed installed or locked
+versions, and expired exceptions fail. The required audit command is unchanged.
+Raw npm findings are retained as `docs-site/audit-evidence/npm-audit.json` in CI;
+accepted findings remain visible and are never reported as zero vulnerabilities.
+
+`docs-site/security-exceptions.json` is the exception authority. Each entry binds
+one GHSA ID, package, exact installed and locked version, severity, accountable
+maintainer, approval date, reason, and exclusive UTC expiry. Approval windows
+cannot exceed 30 days. Remove an exception when its patch can be adopted; any
+renewal requires a fresh maintainer decision and reviewed PR. Scientific runtime
+exceptions are outside this policy. A clean audit describes current advisory
+knowledge, not a guarantee against undiscovered vulnerabilities.
+
+On October 3, 2026, mikkokotila authorized two exceptions until **November 2,
+2026, 00:00 UTC**: [braces 3.0.3](https://github.com/advisories/GHSA-vfj7-8cjw-p6xm)
+and [http-cache-semantics 4.2.0](https://github.com/advisories/GHSA-ch52-4w7c-c8xp).
+Neither has a published patched npm version at approval time. Repository-controlled
+glob processing and disabled notifier caching limit the documented tooling
+exposure; the underlying defects remain. This risk acceptance does not establish
+that the packages are repaired or satisfy the Silver dependency criterion.
 
 ## Deployment and rollout boundary
 
