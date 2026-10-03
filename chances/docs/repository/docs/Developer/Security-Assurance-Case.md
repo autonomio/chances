@@ -45,7 +45,7 @@ hash verification detects integrity mismatch, not authorship or authenticity.
 | Dependencies | bound manifest, CI hashes, runtime vulnerability gate and explicit expiring exceptions |
 | Documentation dependencies | complete-tree audit blocks every known advisory, including development tools |
 | Actions | SHA-pinned actions, limited permissions, untrusted PR code separated from credentialed mutation |
-| Publication | exact master identity, protected manual environments, isolated organization PyPI API token, and GitHub build attestations after successful runs |
+| Publication | exact master identity, master-only environments without additional reviewers, isolated organization PyPI API token, and GitHub build attestations after successful runs |
 
 ## Secure-design argument
 
@@ -53,7 +53,7 @@ hash verification detects integrity mismatch, not authorship or authenticity.
 | --- | --- |
 | Fail-safe defaults | Invalid fields, seeds, source types and limits fail before generation; replay rejects incompatible evidence. See [protocol validation](../../../../_api.py) and [stream resolution](../../../../_random.py). |
 | Complete mediation | Public inspection and generation resolve inputs through the shared validator; archive verification checks recorded contracts and content before replay. [API tests](https://github.com/autonomio/chances/tree/master/tests/package) exercise both accepted and rejected inputs. |
-| Least privilege and separation | Library calls need no credentials or network service. Workflow defaults are read-only; credentialed publication follows protected manual approval. [Workflow contract tests](https://github.com/autonomio/chances/blob/master/governance/tests/test_openssf_workflows.py) prohibit default write permissions. |
+| Least privilege and separation | Library calls need no credentials or network service. Workflow defaults are read-only; credentialed publication follows verified master workflows after protected merge review. [Workflow contract tests](https://github.com/autonomio/chances/blob/master/governance/tests/test_openssf_workflows.py) prohibit default write permissions. |
 | Economy of mechanism | Literal JSON, typed arrays and one protocol route avoid executable input formats. Generation, verification and replay share explicit contracts instead of unrelated shortcuts. |
 | Open design | Source, schemas, tests, governance rules and this argument are public. Receipts use published SHA-256 rather than a private cryptographic construction. |
 | Least common mechanism | Each declared stream owns a local generator; [randomness implementation](../../../../_random.py) and package tests enforce independence from global RNG state. |

@@ -1,9 +1,11 @@
 name: Publish Package to PyPI
 
-# Publishing is a separate manual approval. No release event or workflow_run
-# can upload a package. The existing organization PYPI_API_TOKEN is available
-# only to the protected pypi upload job, after approval.
+# Approved merges supply authorization; environments restrict branches without reviewers.
 on:
+  workflow_run:
+    workflows: ["Approved Release"]
+    types: [completed]
+    branches: [master]
   workflow_dispatch:
     inputs:
       tag:
@@ -19,7 +21,34 @@ concurrency:
   cancel-in-progress: false
 
 jobs:
+  prepare_request:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    if: ${{ github.event_name == 'workflow_dispatch' || (github.event.workflow_run.conclusion == 'success' && github.event.workflow_run.head_repository.full_name == github.repository) }}
+    permissions:
+      contents: read
+    outputs:
+      version: ${{ steps.request.outputs.version }}
+      tag: ${{ steps.request.outputs.tag }}
+      ready: ${{ steps.request.outputs.ready }}
+    steps:
+      - name: Checkout protected master identity
+        uses: actions/checkout@93cb6efe18208431cddfb8368fd83d5badbf9bfd  # v5.0.1
+        with:
+          ref: ${{ github.sha }}
+          fetch-depth: 0
+          persist-credentials: false
+      - name: Set up Python
+        uses: actions/setup-python@ece7cb06caefa5fff74198d8649806c4678c61a1  # v6.3.0
+        with:
+          python-version: '3.12'
+      - name: Resolve authenticated request
+        id: request
+        run: python scripts/release_request.py publish
+
   build_distribution:
+    needs: prepare_request
+    if: ${{ needs.prepare_request.outputs.ready == 'true' }}
     name: build_distribution
     runs-on: ubuntu-latest
     timeout-minutes: 20
@@ -31,7 +60,7 @@ jobs:
     steps:
       - name: Validate explicit publication request
         env:
-          RELEASE_TAG: ${{ inputs.tag }}
+          RELEASE_TAG: ${{ needs.prepare_request.outputs.tag }}
           PUBLISH_REF: ${{ github.ref }}
           PUBLISH_ENABLED: ${{ vars.PYPI_PUBLISH_ENABLED }}
         run: |
@@ -43,7 +72,7 @@ jobs:
       - name: Checkout the approved release tag
         uses: actions/checkout@93cb6efe18208431cddfb8368fd83d5badbf9bfd  # v5.0.1
         with:
-          ref: ${{ inputs.tag }}
+          ref: ${{ needs.prepare_request.outputs.tag }}
           fetch-depth: 0
           persist-credentials: false
 
@@ -54,7 +83,7 @@ jobs:
 
       - name: Validate released version and protected history
         env:
-          RELEASE_TAG: ${{ inputs.tag }}
+          RELEASE_TAG: ${{ needs.prepare_request.outputs.tag }}
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
           set -euo pipefail
@@ -83,7 +112,7 @@ jobs:
       - name: Verify authenticated complete release source
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          RELEASE_TAG: ${{ inputs.tag }}
+          RELEASE_TAG: ${{ needs.prepare_request.outputs.tag }}
         run: |
           set -euo pipefail
           source_dir="$RUNNER_TEMP/approved-source"
@@ -155,7 +184,7 @@ jobs:
       - name: Publish immutable distributions and signature bundle
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          RELEASE_TAG: ${{ inputs.tag }}
+          RELEASE_TAG: ${{ needs.prepare_request.outputs.tag }}
           DISTRIBUTION_BUNDLE: ${{ steps.distribution_attestation.outputs.bundle-path }}
         run: |
           set -euo pipefail

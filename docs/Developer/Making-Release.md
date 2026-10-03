@@ -1,41 +1,41 @@
 # Making a release
 
-Create the reviewed release from an exact master commit. This procedure is
-manual and governed by [release policy](Release-Policy.md).
+A reviewed version change releases automatically after master verification.
+[Release policy](Release-Policy.md) owns the authorization and artifact contract.
 
 ## Prerequisites
 
-Activate repository controls in [SETUP.md](../../SETUP.md). Merge the reviewed
-version and changelog change; verify required CI on its exact SHA. The operator
-needs access to approve protected release and publishing environments.
+Activate branch-restricted environments and organization `PYPI_API_TOKEN` using
+[SETUP.md](../../SETUP.md). Keep `RELEASE_ENABLED=true` and
+`PYPI_PUBLISH_ENABLED=true`. Neither environment requires an additional reviewer.
 
 ## Sequence
 
-1. Record the reviewed `master` SHA and project version.
-2. Dispatch `Approved Release` on `master`, supplying the exact project version;
-   the workflow binds the dispatch SHA and rejects a changed remote master.
-3. Approve its protected `release` environment after reviewing identity and notes.
-4. Confirm the created `v<version>` tag and GitHub release refer to that SHA;
-   download the complete source archive and source signature bundle and verify
-   them using [release policy](Release-Policy.md#retrieve-and-verify-signatures).
-5. Before master advances, dispatch the manual PyPI publishing workflow on master
-   with the existing tag. The checked-out tag must equal this dispatch SHA;
-   approved source provenance is verified before building.
-6. Approve its protected `release` environment for the publication build, then
-   approve final upload in `pypi`; verify artifacts, digests and attestations.
+1. Bump the project version and newest changelog section in a PR; pass all ten
+   required checks and obtain the required bit-mis merge review.
+2. Merge to master. Successful `Verify and build` starts `Approved Release`.
+   The request must identify that exact master SHA and an unreleased version.
+3. The release signs complete source, verifies its identity, creates the immutable
+   tag and GitHub release, and attaches the source archive and signature bundle.
+4. Successful `Approved Release` starts `Publish Package to PyPI`. It checks the
+   exact source and builds, audits, signs, and publishes immutable distribution
+   assets before handing the same wheel and sdist to the isolated upload job.
+5. Verify downloaded GitHub and PyPI artifacts against their public bundles and
+   the exact source SHA using [release policy](Release-Policy.md#retrieve-and-verify-signatures).
 
 Expected output is a GitHub release containing authenticated complete source,
 wheel, sdist, and verification bundles, followed by the same wheel and sdist on
-PyPI. Verify the downloaded PyPI artifacts against the distribution bundle and
-approved SHA; archive those consumer-verification results with the run evidence.
-The release script rejects a mismatched branch, SHA, remote master or dirty tree
-before mutation. An existing tag is not authorization to overwrite it.
+PyPI. No second review or manual release dispatch is part of the normal path.
+An existing version tag on an older commit skips automatic publication. Eligibility
+uses immutable tags, so version bumps earlier in a multi-commit merge are recognized.
 
-## Failures
+## Recovery and failures
 
-Missing enablement variables, environment approval, organization `PYPI_API_TOKEN`
-or ruleset controls must be resolved before relying on the workflow. Follow the burned-version
-recovery rule in [release policy](Release-Policy.md) after partial uploads.
+Manual dispatch remains available on master for an exact version or existing tag
+when recovering a failed run. The same source, signature, and immutability checks
+apply. Missing enablement, credentials, failed verification, or an advanced master
+blocks publication visibly. Never replace published bytes or reuse a PyPI version
+after a partial upload; follow [release policy](Release-Policy.md#failure-and-recovery).
 
 ## Read next
 

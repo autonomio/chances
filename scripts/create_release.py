@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Publish one manually approved, immutable release from the default branch.
+"""Publish one reviewed, immutable release from the default branch.
 
 Before any tag or release mutation, the workflow event, checked-out SHA,
 remote branch, repository identity and existing tag targets must agree.
@@ -8,6 +8,7 @@ A partial publication resumes without moving an existing tag.
 """
 from __future__ import annotations
 
+import json
 import os
 import re
 import subprocess
@@ -103,8 +104,16 @@ def traceability(repo: str, tag: str, previous: str | None) -> str:
 
 def approved_source(repo: str) -> str:
     """Reject unapproved events, stale refs, foreign remotes and dirty bytes."""
-    if os.environ.get('GITHUB_EVENT_NAME') != 'workflow_dispatch':
-        raise SystemExit(f'{BANNER}: publication requires manual workflow_dispatch')
+    event_name = os.environ.get('GITHUB_EVENT_NAME')
+    if event_name not in {'workflow_dispatch', 'workflow_run'}:
+        raise SystemExit(f'{BANNER}: publication requires dispatch or validated master workflow')
+    if event_name == 'workflow_run':
+        event = json.loads(Path(os.environ['GITHUB_EVENT_PATH']).read_text())['workflow_run']
+        if (event['name'] != 'Verify and build' or event['event'] != 'push'
+                or event['status'] != 'completed' or event['conclusion'] != 'success'
+                or event['head_branch'] != 'master' or event['head_sha'] != os.environ.get('GITHUB_SHA')
+                or event['head_repository']['full_name'] != repo):
+            raise SystemExit(f'{BANNER}: upstream workflow does not authorize this source')
     if os.environ.get('GITHUB_REF') != 'refs/heads/master':
         raise SystemExit(f'{BANNER}: publication requires refs/heads/master')
     if not re.fullmatch(r'[A-Za-z0-9_.-]+/[A-Za-z0-9_.-]+', repo):

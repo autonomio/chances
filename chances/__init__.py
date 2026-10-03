@@ -1,6 +1,6 @@
 """Scientific randomness from explicit, replayable protocols."""
 
-__version__ = '2.0.6'
+__version__ = '2.0.7'
 
 from ._api import Generated, generate, inspect, replay, verify
 from ._errors import ChancesError

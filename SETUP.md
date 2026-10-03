@@ -85,28 +85,27 @@ and [organization-secret availability](https://docs.github.com/en/actions/how-to
 
 ## Release controls
 
-Create protected `release` and `pypi` environments with required reviewers,
-prevent self-review, disallow administrator bypass where supported, and restrict
-deployment branches to `master`; publish dispatch stays on master while
-checking out its validated existing release tag.
-Verify reviewers, self-review prevention, and the exact master branch policy
-through the environment API before enabling workflows. Verify administrator
-bypass is disabled through the GitHub environment UI or a supported API response;
-ordinary REST update documentation does not declare that input parameter.
+Create `release` and `pypi` environments with no required reviewers and no waiting
+timer; restrict deployment branches to exact `master`. The approving boundary is
+the required bit-mis PR review before merge, not another deployment review.
+Verify the exact branch policy and absence of required-reviewer rules through
+the environment API. Keep administrator bypass disabled.
 
-Set `RELEASE_ENABLED=true` only after the release environment and live master
-ruleset pass inspection. Set `PYPI_PUBLISH_ENABLED=true` after configuring the
-protected `pypi` environment and making organization secret `PYPI_API_TOKEN`
-available to this repository. The upload job requires a nonempty PyPI API token
-and authenticates as `__token__`; it never substitutes username/password secrets
-or OIDC after a failure. The build job never receives the PyPI credential.
-Keep organization `PYPI_USERNAME` and `PYPI_PASSWORD` unchanged: other repositories
-may still use them. Manual dispatch still requires environment approval.
+Set `RELEASE_ENABLED=true` and `PYPI_PUBLISH_ENABLED=true` after the live master
+ruleset and environment restrictions pass inspection. Make organization secret
+`PYPI_API_TOKEN` available to this repository. The isolated upload job requires
+a nonempty PyPI API token and authenticates as `__token__`; it never substitutes
+username/password secrets or OIDC after failure. The build job receives no PyPI
+credential. Keep organization `PYPI_USERNAME` and `PYPI_PASSWORD` unchanged for
+other repositories.
 
-On 2026-10-01, both environments were verified through the live API: sole required
-reviewer `bit-mis` has repository write access, self-review is blocked, administrator
-bypass is disabled, and the only deployment branch policy is exact `master`. The proposed workflows become available
-after merge; activation does not create a tag or publish a release.
+On 2026-10-03, the operator authorized automatic release and publication. Both
+live environments were updated and verified: no required reviewers, no waiting
+timer, administrator bypass disabled, and exact `master` branch restriction.
+The workflow chain becomes automatic after its reviewed change merges:
+`Verify and build` → `Approved Release` → `Publish Package to PyPI`.
+Only successful same-repository master runs with matching source SHA are accepted;
+Versions already tagged on older commits skip automatic publication. Manual dispatch supports recovery.
 
 Follow [making a release](docs/Developer/Making-Release.md); publish no artifact
 until the exact merged SHA, tag, version, checks and approval are verified.
