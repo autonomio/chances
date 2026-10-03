@@ -7,7 +7,7 @@ import test from 'node:test';
 import {acceptedPackages, auditExecutionFailure, reviewedExceptions, verifyInstalledExceptions} from '../scripts/audit-exceptions.mjs';
 import {auditFailure} from '../scripts/audit-report.mjs';
 
-const entries = JSON.parse(readFileSync(new URL('../security-exceptions.json', import.meta.url), 'utf8'));
+const entries = JSON.parse(readFileSync(new URL('./fixtures/reviewed-exceptions.json', import.meta.url), 'utf8'));
 const NOW = new Date('2026-10-03T12:00:00Z');
 const review = () => reviewedExceptions(structuredClone(entries), NOW);
 const advisory = (entry) => ({
@@ -29,7 +29,7 @@ function decision(candidate, reviewed = review()) {
   return {accepted, failure: auditFailure(candidate.report, accepted)};
 }
 
-test('checked-in approvals are exactly the two agreed IDs, versions and expiry', () => {
+test('retired approval fixtures preserve exact identity and expiry rejection', () => {
   assert.deepEqual(entries.map(({id, package: name, version, severity, approved_by, approved_on, expires}) =>
     [id, name, version, severity, approved_by, approved_on, expires]), [
     ['GHSA-vfj7-8cjw-p6xm', 'braces', '3.0.3', 'high', 'mikkokotila', '2026-10-03', '2026-11-02'],
@@ -37,6 +37,10 @@ test('checked-in approvals are exactly the two agreed IDs, versions and expiry',
   ]);
   assert.equal(reviewedExceptions(entries, new Date('2026-11-01T23:59:59.999Z')).size, 2);
   assert.throws(() => reviewedExceptions(entries, new Date('2026-11-02T00:00:00Z')), /expired/);
+});
+
+test('the live audit needs no advisory exceptions after the backports', () => {
+  assert.deepEqual(JSON.parse(readFileSync(new URL('../security-exceptions.json', import.meta.url), 'utf8')), []);
 });
 
 test('malformed, duplicate, unreviewed, future and overlong approvals fail closed', () => {

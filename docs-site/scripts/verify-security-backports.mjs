@@ -19,10 +19,16 @@ export function verifySecurityBackports(root = siteRoot) {
     if (manifest.name !== name || manifest.version !== record.local_version) {
       throw new Error(`${name} backport identity differs from provenance`);
     }
-    const files = readdirSync(directory, {recursive: true, withFileTypes: true})
-      .filter((entry) => entry.isFile())
-      .map((entry) => path.relative(directory, path.join(entry.parentPath, entry.name)).split(path.sep).join('/'))
-      .sort();
+    const files = [];
+    function collectFiles(relative = '') {
+      for (const entry of readdirSync(path.join(directory, relative), {withFileTypes: true})) {
+        const file = path.posix.join(relative, entry.name);
+        if (entry.isDirectory()) collectFiles(file);
+        else if (entry.isFile()) files.push(file);
+      }
+    }
+    collectFiles();
+    files.sort();
     if (JSON.stringify(files) !== JSON.stringify(Object.keys(record.patched_sha256).sort())) {
       throw new Error(`${name} backport file inventory differs from provenance`);
     }

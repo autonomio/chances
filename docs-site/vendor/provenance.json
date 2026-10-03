@@ -18,13 +18,13 @@
     "patched_sha256": {
       "LICENSE": "35bdd8a44339719441900fb50fbefc5e2dca1ca662cbaed7a687de842c8b70f2",
       "index.js": "332ea07c7b006361aad12aa994ca75dc1db8e8382b884909e2f38f10b85c88a4",
-      "lib/compile.js": "9b4186b5bfa6157c14eeeb96a2314ff48863676a4f221f3cb7f060f76b3e2a54",
+      "lib/compile.js": "ed8427ba0656b0788cfe7aba9e58f6ff90449f77171ac283068131044892e569",
       "lib/constants.js": "c18ac5adb57308f1ce42a28552da3a31f5d83709743ebd9a636336813a744d4b",
       "lib/expand.js": "fe310514b27da0fe40a14ad341fd31a710b5f11623fe1824cfdc4807a39d95e9",
       "lib/parse.js": "7c35b270e65fa552dcf729fe90660f050f6f15a445da4f0cb99d9ed5e4470dbc",
       "lib/stringify.js": "5dd18527cf5d9aa2c5d1ea4e6c7c47f89346a55856f9fb0caaa0fe634bce1f4e",
       "lib/utils.js": "b5a7596aa67730412b3c029ef09e84e6b67b8e445cffd35d1d295549c89066c7",
-      "lib/validate.js": "93f3876413fc5984eb52259728a7e960c4831172f760559407eae17f3782a8dd",
+      "lib/validate.js": "01181df048e19997ab0ab28ba130086effaa24114222469d8f18b5651bf0a23b",
       "package.json": "f647a55615c45f8db50e9f109521e1d3340c79101a01a49f398a7bd6455599b3"
     },
     "advisory": "GHSA-vfj7-8cjw-p6xm"
@@ -41,7 +41,7 @@
     "local_version": "4.2.0-autonomio.1",
     "patched_sha256": {
       "LICENSE": "ab868ad5a2ef5068560d9cd3b2180ec63c140bb4c5cae1ba779d300a0ac74fa3",
-      "index.js": "485f92acbbf31bcba79ece9afaeb9e7798e983913b831aed748c1769b5c798ea",
+      "index.js": "2577c48d4dca6cd8f7003cb857f58d13d7a76bf560d3b1a072e2f7cb8c601dc2",
       "package.json": "e86c543a64fd9060ff55d6ba48fa5b24c9c895893dfb27fca61d61efb1a9be9e"
     },
     "advisory": "GHSA-ch52-4w7c-c8xp"

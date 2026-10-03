@@ -3,6 +3,8 @@
 # v2.0.8
 
 - Backport bounded brace parsing and security-blocked cache reuse fixes in the documentation toolchain.
+- Cover parent cycles and origin-error revalidation; keep dependency compilation output silent.
+- Map six months of public defects to regression tests; distinguish pending continuity and private-history facts.
 - Retain upstream provenance and licenses; remove the temporary dependency exceptions after exploit regression checks.
 
 # v2.0.7

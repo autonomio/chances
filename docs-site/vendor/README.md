@@ -7,8 +7,8 @@ wheel and retained in source distributions that include documentation tooling.
 
 | Package | Upstream base | Local version | Repair |
 |---|---|---|---|
-| braces | 3.0.3 | 3.0.3-autonomio.1 | Bound parser and direct-AST depth to 100; reject cyclic or oversized ASTs before recursive walkers |
-| http-cache-semantics | 4.2.0 | 4.2.0-autonomio.1 | Refuse security-blocked cache reuse before considering max-stale or stale-while-revalidate |
+| braces | 3.0.3 | 3.0.3-autonomio.1 | Bound parser and direct-AST depth to 100; reject cyclic child/parent links or oversized ASTs before recursive walkers |
+| http-cache-semantics | 4.2.0 | 4.2.0-autonomio.1 | Refuse security-blocked cache reuse before considering max-stale, stale-while-revalidate or stale-if-error |
 
 `provenance.json` records the original registry URL and integrity, upstream
 file digests, and every local file digest. Original MIT and BSD-2-Clause licenses

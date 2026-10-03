@@ -394,19 +394,12 @@ module.exports = class CachePolicy {
     evaluateRequest(req) {
         this._assertRequestHasHeaders(req);
 
-        // In all circumstances, a cache MUST NOT ignore the must-revalidate directive
-        if (this._rescc['must-revalidate']) {
-            return this._evaluateRequestMissResult(req);
-        }
-
         if (!this._requestMatches(req, false)) {
             return this._evaluateRequestMissResult(req);
         }
 
         // Security prohibitions cannot be overridden by max-stale or stale-while-revalidate.
-        if (!this.storable() || this._rescc['no-cache'] || this._resHeaders.vary === '*' ||
-            (this._isShared && (this._rescc['proxy-revalidate'] ||
-                (this._resHeaders['set-cookie'] && !this._rescc.public)))) {
+        if (this._reuseForbidden()) {
             return this._evaluateRequestMissResult(req);
         }
 
@@ -687,10 +680,20 @@ module.exports = class CachePolicy {
     }
 
     /**
+     * @returns {boolean} `true` if security directives forbid unvalidated reuse.
+     */
+    _reuseForbidden() {
+        return !this.storable() || !!this._rescc['must-revalidate'] ||
+            !!this._rescc['no-cache'] || this._resHeaders.vary === '*' ||
+            !!(this._isShared && (this._rescc['proxy-revalidate'] ||
+                (this._resHeaders['set-cookie'] && !this._rescc.public)));
+    }
+
+    /**
      * @returns {boolean} `true` if `stale-if-error` condition allows use of a stale response.
      */
     _useStaleIfError() {
-        return this.maxAge() + toNumberOrZero(this._rescc['stale-if-error']) > this.age();
+        return !this._reuseForbidden() && this.maxAge() + toNumberOrZero(this._rescc['stale-if-error']) > this.age();
     }
 
     /** See `evaluateRequest()` for a more complete solution
@@ -698,7 +701,7 @@ module.exports = class CachePolicy {
      */
     useStaleWhileRevalidate() {
         const swr = toNumberOrZero(this._rescc['stale-while-revalidate']);
-        return swr > 0 && this.maxAge() + swr > this.age();
+        return !this._reuseForbidden() && swr > 0 && this.maxAge() + swr > this.age();
     }
 
     /**
@@ -839,7 +842,7 @@ module.exports = class CachePolicy {
     revalidatedPolicy(request, response) {
         this._assertRequestHasHeaders(request);
 
-        if (this._useStaleIfError() && isErrorResponse(response)) {
+        if (this._requestMatches(request, false) && this._useStaleIfError() && isErrorResponse(response)) {
           return {
               policy: this,
               modified: false,

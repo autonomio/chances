@@ -35,7 +35,7 @@ for (const outcome of [0, 1, 2, 'accepted', 'signal', 'missing', 'array-report',
       for (const script of ['audit-security.mjs', 'audit-report.mjs', 'audit-exceptions.mjs']) {
         copyFileSync(path.join(sourceRoot, 'scripts', script), path.join(scriptDirectory, script));
       }
-      const entries = JSON.parse(readFileSync(path.join(sourceRoot, 'security-exceptions.json'), 'utf8'));
+      const entries = JSON.parse(readFileSync(path.join(sourceRoot, 'tests', 'fixtures', 'reviewed-exceptions.json'), 'utf8'));
       writeFileSync(path.join(directory, 'security-exceptions.json'), JSON.stringify(entries));
       const packages = {};
       for (const entry of entries) {
