@@ -17,12 +17,19 @@ needs access to approve protected release and publishing environments.
 2. Dispatch `Approved Release` on `master`, supplying the exact project version;
    the workflow binds the dispatch SHA and rejects a changed remote master.
 3. Approve its protected `release` environment after reviewing identity and notes.
-4. Confirm the created `v<version>` tag and GitHub release refer to that SHA.
-5. Dispatch the manual PyPI publishing workflow with the existing tag.
+4. Confirm the created `v<version>` tag and GitHub release refer to that SHA;
+   download the complete source archive and source signature bundle and verify
+   them using [release policy](Release-Policy.md#retrieve-and-verify-signatures).
+5. Before master advances, dispatch the manual PyPI publishing workflow on master
+   with the existing tag. The checked-out tag must equal this dispatch SHA;
+   approved source provenance is verified before building.
 6. Approve its protected `release` environment for the publication build, then
    approve final upload in `pypi`; verify artifacts, digests and attestations.
 
-Expected output is a GitHub release followed by validated PyPI wheel and sdist.
+Expected output is a GitHub release containing authenticated complete source,
+wheel, sdist, and verification bundles, followed by the same wheel and sdist on
+PyPI. Verify the downloaded PyPI artifacts against the distribution bundle and
+approved SHA; archive those consumer-verification results with the run evidence.
 The release script rejects a mismatched branch, SHA, remote master or dirty tree
 before mutation. An existing tag is not authorization to overwrite it.
 

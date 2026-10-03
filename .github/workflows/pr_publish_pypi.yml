@@ -7,7 +7,7 @@ on:
   workflow_dispatch:
     inputs:
       tag:
-        description: Existing approved vMAJOR.MINOR.PATCH release tag reachable from master.
+        description: Existing approved vMAJOR.MINOR.PATCH release tag at the master dispatch SHA.
         required: true
         type: string
 
@@ -22,9 +22,10 @@ jobs:
   build_distribution:
     name: build_distribution
     runs-on: ubuntu-latest
+    timeout-minutes: 20
     environment: release
     permissions:
-      contents: read
+      contents: write  # publish immutable artifacts and signature bundles
       id-token: write
       attestations: write
     steps:
@@ -66,6 +67,7 @@ jobs:
           if project['name'] != 'chances' or os.environ['RELEASE_TAG'] != f"v{project['version']}":
               raise SystemExit('The approved tag must identify this Chances project version.')
           PY
+          test "$(git rev-parse HEAD)" = "$GITHUB_SHA" || { echo '::error::Release checkout differs from dispatch SHA; refuse misleading provenance.'; exit 1; }
           git merge-base --is-ancestor HEAD origin/master || { echo '::error::Release tag is outside protected master history.'; exit 1; }
           gh release view "$RELEASE_TAG" --repo "$GITHUB_REPOSITORY" --json isDraft,isPrerelease,tagName,targetCommitish > release.json
           python - <<'PY'
@@ -77,6 +79,23 @@ jobs:
           if release['tagName'] != os.environ['RELEASE_TAG'] or release['isDraft'] or release['isPrerelease']:
               raise SystemExit('Publish requires an existing final approved GitHub release.')
           PY
+
+      - name: Verify authenticated complete release source
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          RELEASE_TAG: ${{ inputs.tag }}
+        run: |
+          set -euo pipefail
+          source_dir="$RUNNER_TEMP/approved-source"
+          mkdir "$source_dir"
+          source_name="chances-${RELEASE_TAG#v}-source.tar.gz"
+          gh release download "$RELEASE_TAG" --repo "$GITHUB_REPOSITORY" --pattern "$source_name" --dir "$source_dir"
+          python scripts/release_assets.py archive --output "$RUNNER_TEMP/reconstructed-source.tar.gz"
+          cmp "$source_dir/$source_name" "$RUNNER_TEMP/reconstructed-source.tar.gz"
+          gh attestation verify "$source_dir/$source_name" --repo "$GITHUB_REPOSITORY" \
+            --source-digest "$GITHUB_SHA" --source-ref refs/heads/master \
+            --deny-self-hosted-runners \
+            --signer-workflow "$GITHUB_REPOSITORY/.github/workflows/pr_post_release.yml"
 
       - name: Install locked packaging toolchain
         run: |
@@ -118,6 +137,7 @@ jobs:
           python -m twine check dist/*
 
       - name: Attest build provenance
+        id: distribution_attestation
         uses: actions/attest-build-provenance@977bb373ede98d70efdf65b84cb5f73e068dcc2a  # v3.0.0
         with:
           subject-path: dist/*
@@ -132,6 +152,23 @@ jobs:
             echo '```'
           } >> "$GITHUB_STEP_SUMMARY"
 
+      - name: Publish immutable distributions and signature bundle
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          RELEASE_TAG: ${{ inputs.tag }}
+          DISTRIBUTION_BUNDLE: ${{ steps.distribution_attestation.outputs.bundle-path }}
+        run: |
+          set -euo pipefail
+          bundle="$RUNNER_TEMP/distributions-$GITHUB_RUN_ID-$GITHUB_RUN_ATTEMPT.sigstore.json"
+          cp "$DISTRIBUTION_BUNDLE" "$bundle"
+          for artifact in dist/*; do
+            gh attestation verify "$artifact" --bundle "$bundle" --repo "$GITHUB_REPOSITORY" \
+              --source-digest "$GITHUB_SHA" --source-ref refs/heads/master \
+              --deny-self-hosted-runners \
+              --signer-workflow "$GITHUB_REPOSITORY/.github/workflows/pr_publish_pypi.yml"
+          done
+          python scripts/release_assets.py upload --tag "$RELEASE_TAG" --assets dist/* "$bundle"
+
       - name: Upload distributions
         uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a  # v7.0.1
         with:
@@ -143,6 +180,7 @@ jobs:
     name: publish_to_pypi
     needs: build_distribution
     runs-on: ubuntu-latest
+    timeout-minutes: 20
     environment: pypi
     permissions: {}
     steps:

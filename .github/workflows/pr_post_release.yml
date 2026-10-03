@@ -21,9 +21,12 @@ jobs:
   post_release:
     name: post_release
     runs-on: ubuntu-latest
+    timeout-minutes: 15
     environment: release
     permissions:
       contents: write
+      id-token: write
+      attestations: write
     steps:
       - name: Require approved default-branch dispatch
         env:
@@ -72,6 +75,33 @@ jobs:
           remote_master=$(gh api "repos/$GITHUB_REPOSITORY/git/ref/heads/master" --jq '.object.sha')
           test "$remote_master" = "$GITHUB_SHA" || { echo '::error::Master advanced after this dispatch; review and dispatch again.'; exit 1; }
 
+      - name: Archive complete approved source
+        id: source
+        env:
+          REQUESTED_VERSION: ${{ inputs.version }}
+        run: |
+          set -euo pipefail
+          archive="$RUNNER_TEMP/chances-$REQUESTED_VERSION-source.tar.gz"
+          python scripts/release_assets.py archive --output "$archive"
+          printf 'path=%s\n' "$archive" >> "$GITHUB_OUTPUT"
+
+      - name: Attest complete source
+        id: source_attestation
+        uses: actions/attest-build-provenance@977bb373ede98d70efdf65b84cb5f73e068dcc2a  # v3.0.0
+        with:
+          subject-path: ${{ steps.source.outputs.path }}
+
+      - name: Verify source signing identity
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          SOURCE_ARCHIVE: ${{ steps.source.outputs.path }}
+          SOURCE_BUNDLE: ${{ steps.source_attestation.outputs.bundle-path }}
+        run: |
+          gh attestation verify "$SOURCE_ARCHIVE" --bundle "$SOURCE_BUNDLE" \
+            --repo "$GITHUB_REPOSITORY" --source-digest "$GITHUB_SHA" \
+            --source-ref refs/heads/master --deny-self-hosted-runners \
+            --signer-workflow "$GITHUB_REPOSITORY/.github/workflows/pr_post_release.yml"
+
       - name: Configure git identity
         run: |
           git config user.name 'github-actions[bot]'
@@ -91,3 +121,15 @@ jobs:
           export GIT_CONFIG_VALUE_0="$AUTH"
           git -c "http.https://github.com/.extraheader=$AUTH" fetch origin master --tags
           python scripts/create_release.py
+
+      - name: Publish immutable source and signature bundle
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          REQUESTED_VERSION: ${{ inputs.version }}
+          SOURCE_ARCHIVE: ${{ steps.source.outputs.path }}
+          SOURCE_BUNDLE: ${{ steps.source_attestation.outputs.bundle-path }}
+        run: |
+          set -euo pipefail
+          bundle="$RUNNER_TEMP/source-$GITHUB_RUN_ID-$GITHUB_RUN_ATTEMPT.sigstore.json"
+          cp "$SOURCE_BUNDLE" "$bundle"
+          python scripts/release_assets.py upload --tag "v$REQUESTED_VERSION" --assets "$SOURCE_ARCHIVE" "$bundle"

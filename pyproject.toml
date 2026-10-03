@@ -4,7 +4,7 @@ build-backend = "hatchling.build"
 
 [project]
 name = "chances"
-version = "2.0.5"
+version = "2.0.6"
 description = "Reproducible scientific randomness with explicit streams and verified receipts"
 keywords = ["randomness", "reproducibility", "scientific", "sampling", "receipts"]
 readme = "README.md"
@@ -76,7 +76,7 @@ ignore = [
     "governance/*", "governance/**", ".github/*", ".github/**",
     "requirements/*", "requirements/**", "governance.yml", "CLAUDE.md", "AGENTS.md",
     "SETUP.md", "AUTONOMIO_PR_GUIDELINE.md", "AUTONOMIO_REPO_SPECIFICS.md",
-    "scripts/create_release.py", "scripts/package_audit.py", "fuzz/*", "fuzz/**",
+    "scripts/create_release.py", "scripts/release_assets.py", "scripts/package_audit.py", "fuzz/*", "fuzz/**",
     "DEVELOPER.md", ".gitignore", ".gitattributes", "setup.py", ".bestpractices.json",
 ]
 

@@ -37,10 +37,10 @@
     },
     {
       "installed": "docs/repository/CHANGELOG.md",
-      "installed_sha256": "96e305b00a4675204ff5b81d28027a3502130bd01b6880af9a0acac785c63df2",
+      "installed_sha256": "5b504a127a3dae01b31c89121656730ab086a72f98280f0a16b8b4e2b3940c9a",
       "route": "/overview/changelog",
       "source": "CHANGELOG.md",
-      "source_sha256": "c0849a4e8e0ae83a21e33ce2f43f9128f1c0ba17f5632236074af9236d4449e2"
+      "source_sha256": "db1502029b5c48563eed82c23f91f565a3a13148ce1cdfbcb6a7182e527c0cb8"
     },
     {
       "installed": "docs/repository/docs/Roadmap.md",
@@ -189,17 +189,17 @@
     },
     {
       "installed": "docs/repository/docs/Developer/Release-Policy.md",
-      "installed_sha256": "678f098c111554a749283f222eedda24f0540d79c36d3341c5eeb8014acb6347",
+      "installed_sha256": "94e7bb579efb7b77957005718abd8cf2168fa65980b58969762275644b9b1d9b",
       "route": "/developer/release-policy",
       "source": "docs/Developer/Release-Policy.md",
-      "source_sha256": "ee80569ad2b67b5b6e53c5985bf37506779dfa5bf12fc3625818ed71c4c20921"
+      "source_sha256": "d9645b542379cfd722335fe2b7646c9fed6ba657d6a48aeaf59db453ff0fc60e"
     },
     {
       "installed": "docs/repository/docs/Developer/Making-Release.md",
-      "installed_sha256": "045c81603c6b3eb68e1fdbb8b782cffe237aa34520bfe3567ca0b91ebcd0a32b",
+      "installed_sha256": "6d836fc5659299b87cc20442bf446742315f3cfa7e42d0948cffb745a40919ea",
       "route": "/developer/making-release",
       "source": "docs/Developer/Making-Release.md",
-      "source_sha256": "f88c46d173bc595ea7f8ecabd297fc804392078bd6659f8cf7ecc9b4f2ace82b"
+      "source_sha256": "1150965ac02840b23025ca949ba2860323efc9a7e0174955dd12bffe5b8ee83d"
     },
     {
       "installed": "docs/repository/docs/Developer/Semantic-Versioning.md",
@@ -238,10 +238,10 @@
     },
     {
       "installed": "docs/repository/SECURITY.md",
-      "installed_sha256": "290ba5cd9c6c513e6366197c8db013ef98d4f82a823533d7e48c5f29203ff1d0",
+      "installed_sha256": "ae699f64b8aa0275437c4745caf2a8d8781d49bb828ee83c1983bd91d9b6bd0d",
       "route": "/developer/security",
       "source": "SECURITY.md",
-      "source_sha256": "a7dc28dcc3f9267b2666523894ef20376135ef5cfac7492fb54dfc78c3bdf380"
+      "source_sha256": "5e67bd8aa5ceeee10af3b13b4c7f254c9a341e8dc1c0ca7b31c6eae8fbd54f25"
     },
     {
       "installed": "docs/repository/SUPPORT.md",
