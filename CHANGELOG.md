@@ -3,6 +3,7 @@
 - Backport bounded brace parsing and security-blocked cache reuse fixes in the documentation toolchain.
 - Cover parent cycles and origin-error revalidation; keep dependency compilation output silent.
 - Map six months of public defects to regression tests; distinguish pending continuity and private-history facts.
+- Keep local backport sources in the source archive even when installed npm links point to them.
 - Retain upstream provenance and licenses; remove the temporary dependency exceptions after exploit regression checks.
 
 # v2.0.7

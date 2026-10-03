@@ -1,11 +1,16 @@
 """Shipped manuals and examples must agree with executable scientific contracts."""
 
 import json
+import os
 import re
 import runpy
+import shutil
 import subprocess
 import sys
+import tarfile
 from pathlib import Path
+
+import pytest
 
 import chances
 
@@ -66,3 +71,31 @@ def test_generated_manuals_are_current():
         text=True,
     )
     assert result.returncode == 0, result.stdout + result.stderr
+
+
+@pytest.mark.skipif(os.name == 'nt', reason='Reproduces POSIX npm directory symlinks')
+def test_sdist_keeps_backports_when_excluded_npm_links_point_at_them(tmp_path):
+    for name in ('pyproject.toml', 'README.md', 'LICENSE'):
+        shutil.copyfile(ROOT / name, tmp_path / name)
+    site = tmp_path / 'docs-site'
+    shutil.copytree(ROOT / 'docs-site/vendor', site / 'vendor')
+    modules = site / 'node_modules'
+    modules.mkdir()
+    for name in ('braces', 'http-cache-semantics'):
+        (modules / name).symlink_to(site / 'vendor' / name, target_is_directory=True)
+    result = subprocess.run(
+        [sys.executable, '-m', 'hatchling', 'build', '-t', 'sdist', '-d', str(tmp_path / 'dist')],
+        cwd=tmp_path, capture_output=True, text=True, timeout=30,
+    )
+    assert result.returncode == 0, result.stdout + result.stderr
+    artifact, = (tmp_path / 'dist').glob('*.tar.gz')
+    with tarfile.open(artifact) as archive:
+        names = archive.getnames()
+        assert not any('/node_modules/' in name for name in names)
+        prefix = names[0].split('/')[0]
+        for source in (site / 'vendor').rglob('*'):
+            if source.is_file():
+                member = archive.extractfile(f'{prefix}/docs-site/{source.relative_to(site)}')
+                assert member is not None
+                with member:
+                    assert member.read() == source.read_bytes()
