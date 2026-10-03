@@ -1,4 +1,4 @@
-"""Publication stays manually approved, token-explicit, and isolated from builds."""
+"""Publication follows validated releases with isolated, explicit-token upload."""
 from __future__ import annotations
 
 import json
@@ -34,9 +34,13 @@ def _run_guard(workflow, job, name, environment, directory):
     )
 
 
-def test_publication_requires_manual_dispatch_and_separate_environment_approvals(workflow):
+def test_publication_follows_successful_release_with_isolated_environments(workflow):
     # PyYAML follows YAML 1.1 and reads the Actions "on" key as True.
-    assert set(workflow[True]) == {'workflow_dispatch'}
+    assert set(workflow[True]) == {'workflow_dispatch', 'workflow_run'}
+    assert workflow[True]['workflow_run'] == {
+        'workflows': ['Approved Release'], 'types': ['completed'], 'branches': ['master'],
+    }
+    assert workflow['jobs']['build_distribution']['needs'] == 'prepare_request'
     assert workflow[True]['workflow_dispatch']['inputs']['tag']['required'] is True
     assert workflow['concurrency']['cancel-in-progress'] is False
     jobs = workflow['jobs']
@@ -45,7 +49,7 @@ def test_publication_requires_manual_dispatch_and_separate_environment_approvals
     assert jobs['publish_to_pypi']['needs'] == 'build_distribution'
     assert jobs['publish_to_pypi']['permissions'] == {}
     checkout = _step(workflow, 'build_distribution', 'Checkout the approved release tag')
-    assert checkout['with']['ref'] == '${{ inputs.tag }}'
+    assert checkout['with']['ref'] == '${{ needs.prepare_request.outputs.tag }}'
     assert checkout['with']['persist-credentials'] is False
 
 

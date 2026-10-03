@@ -1,4 +1,4 @@
-"""Release mutations require exact manual authorization and immutable tag targets."""
+"""Release mutations require verified master authorization and immutable tag targets."""
 from __future__ import annotations
 
 import importlib.util

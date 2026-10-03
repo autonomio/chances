@@ -29,8 +29,9 @@ defines ratchets; [CLAUDE.md](https://github.com/autonomio/chances/blob/master/C
   exception fallback, and unsupported Pyright options cannot masquerade as controls.
 - Initial typing, module, coverage and runtime baselines are measured against
   this adoption, then ratcheted. Strict typing debt is recorded in the debt register.
-- Release creation and PyPI publication require manual dispatch and protected
-  environments; the inherited automatic password publishing path is removed.
+- Release creation and PyPI publication follow successful master verification
+  automatically; token-only upload replaces the inherited password path.
+  Merge review supplies authorization without another deployment reviewer.
 - Random generation is Chances declared purpose. Bounded fixtures are explicit
   fixtures; fabricated research observations and execution evidence remain forbidden.
 
@@ -50,19 +51,19 @@ and the privileged local audit pass: all ten required contexts and review rules
 match, including an empty bypass list. This proves current server settings,
 not execution of the proposed workflows or proof of the scoped organization token.
 
-Protected `release` and `pypi` environments now require operator `bit-mis`, whose
-repository write access was re-verified. They prevent self-review, disable
-administrator bypass, and admit only `master`. Operator-confirmed organization `PYPI_API_TOKEN` replaces the proposed
-OIDC-only upload; the isolated upload job validates the credential before use.
-GitHub build provenance remains attested; PyPI digital attestations require OIDC
-and are explicitly disabled in token mode. The workflows become available after merge.
+Branch-restricted `release` and `pypi` environments admit only `master`, disable
+administrator bypass, and require no additional reviewer as authorized on
+2026-10-03. Operator-confirmed organization `PYPI_API_TOKEN` is validated only
+in the isolated upload job. GitHub provenance remains independently attested;
+PyPI digital attestations are disabled in token mode. The automatic workflow
+chain becomes available after its reviewed change merges.
 
 Sole global CODEOWNER `* @bit-mis` requires the operator
 for every PR after merge. The operator confirmed organization `RULESET_AUDIT_TOKEN`;
 its actual bypass visibility and authoritative CI for each new commit remain
 acceptance prerequisites. Publishing and merge readiness are recorded separately;
 no package release is implied. GitHub enforces the sole code owner through required
-ownership review and enforces `bit-mis` directly in both deployment environments.
+ownership review; deployment does not request another approval.
 
 ## Required evidence
 

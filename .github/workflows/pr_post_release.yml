@@ -1,8 +1,11 @@
 name: Approved Release
 
-# Manual only. The release environment must require operator approval and
-# restrict deployment to master; SETUP.md describes activation.
+# Approved merges supply authorization; environments restrict branches without reviewers.
 on:
+  workflow_run:
+    workflows: ["Verify and build"]
+    types: [completed]
+    branches: [master]
   workflow_dispatch:
     inputs:
       version:
@@ -18,7 +21,34 @@ concurrency:
   cancel-in-progress: false
 
 jobs:
+  prepare_request:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    if: ${{ github.event_name == 'workflow_dispatch' || (github.event.workflow_run.conclusion == 'success' && github.event.workflow_run.head_repository.full_name == github.repository) }}
+    permissions:
+      contents: read
+    outputs:
+      version: ${{ steps.request.outputs.version }}
+      tag: ${{ steps.request.outputs.tag }}
+      ready: ${{ steps.request.outputs.ready }}
+    steps:
+      - name: Checkout protected master identity
+        uses: actions/checkout@93cb6efe18208431cddfb8368fd83d5badbf9bfd  # v5.0.1
+        with:
+          ref: ${{ github.sha }}
+          fetch-depth: 0
+          persist-credentials: false
+      - name: Set up Python
+        uses: actions/setup-python@ece7cb06caefa5fff74198d8649806c4678c61a1  # v6.3.0
+        with:
+          python-version: '3.12'
+      - name: Resolve authenticated request
+        id: request
+        run: python scripts/release_request.py release
+
   post_release:
+    needs: prepare_request
+    if: ${{ needs.prepare_request.outputs.ready == 'true' }}
     name: post_release
     runs-on: ubuntu-latest
     timeout-minutes: 15
@@ -54,7 +84,7 @@ jobs:
 
       - name: Validate requested version and release source
         env:
-          REQUESTED_VERSION: ${{ inputs.version }}
+          REQUESTED_VERSION: ${{ needs.prepare_request.outputs.version }}
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
           set -euo pipefail
@@ -78,7 +108,7 @@ jobs:
       - name: Archive complete approved source
         id: source
         env:
-          REQUESTED_VERSION: ${{ inputs.version }}
+          REQUESTED_VERSION: ${{ needs.prepare_request.outputs.version }}
         run: |
           set -euo pipefail
           archive="$RUNNER_TEMP/chances-$REQUESTED_VERSION-source.tar.gz"
@@ -109,7 +139,7 @@ jobs:
 
       - name: Create the approved tag and release
         env:
-          REQUESTED_VERSION: ${{ inputs.version }}
+          REQUESTED_VERSION: ${{ needs.prepare_request.outputs.version }}
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           GITHUB_REPOSITORY: ${{ github.repository }}
         run: |
@@ -119,13 +149,13 @@ jobs:
           export GIT_CONFIG_COUNT=1
           export GIT_CONFIG_KEY_0=http.https://github.com/.extraheader
           export GIT_CONFIG_VALUE_0="$AUTH"
-          git -c "http.https://github.com/.extraheader=$AUTH" fetch origin master --tags
+          git fetch origin master --tags
           python scripts/create_release.py
 
       - name: Publish immutable source and signature bundle
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          REQUESTED_VERSION: ${{ inputs.version }}
+          REQUESTED_VERSION: ${{ needs.prepare_request.outputs.version }}
           SOURCE_ARCHIVE: ${{ steps.source.outputs.path }}
           SOURCE_BUNDLE: ${{ steps.source_attestation.outputs.bundle-path }}
         run: |

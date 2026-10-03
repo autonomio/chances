@@ -1,5 +1,11 @@
 <!-- Generated from CHANGELOG.md; edit the canonical repository source. -->
 
+# v2.0.7
+
+- Release and publish version changes automatically after protected-master verification, using merge approval as the authorization boundary.
+- Remove additional environment reviewers while retaining branch restrictions, isolated upload credentials, and provenance checks.
+- Configure release Git authentication once to avoid duplicate Authorization headers.
+
 # v2.0.6
 
 - Cancel superseded remaining source checks, bound runner occupancy, and stagger grouped dependency updates.

@@ -43,7 +43,7 @@ they are not evidence of past response times.
 
 ## Verifying Release Artifacts
 
-Protected manual release workflows authenticate complete tracked repository
+Release workflows following verified protected-master merges authenticate complete tracked repository
 source and built distributions through GitHub provenance attestations. Successful
 runs publish the source archive, wheel, sdist, and downloadable Sigstore bundles
 on the GitHub release; the separate PyPI job uploads the same distributions.

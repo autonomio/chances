@@ -1,8 +1,8 @@
 # Release policy
 
 This page owns publication controls. [Making a release](Making-Release.md) owns
-the operator sequence. Protected environments are active; source-signing changes
-become available after merge. Historical 0.1 releases do not gain their protections
+the operator sequence. Merge review authorizes automatic release and publication;
+no additional deployment reviewer is required. Historical 0.1 releases do not gain their protections
 or attestations retroactively.
 
 ## Prerequisites
@@ -18,17 +18,22 @@ is burned; never reuse it. Partial PyPI uploads require a new version.
 | Control | Mechanism |
 | --- | --- |
 | Merge to master | ten required checks and protected review rules |
-| Release creation | manual dispatch, `RELEASE_ENABLED=true`, protected `release` environment |
+| Release creation | successful master `Verify and build`, changed version, `RELEASE_ENABLED=true` |
 | Release identity | exact master SHA, clean worktree, tag from project version |
 | Notes | reviewed changelog section and mechanically appended traceability |
-| Publish enablement | `PYPI_PUBLISH_ENABLED=true` and manual publish dispatch |
+| Publish enablement | successful `Approved Release` and `PYPI_PUBLISH_ENABLED=true` |
 | PyPI upload | organization `PYPI_API_TOKEN`, authenticated as `__token__`, from protected `pypi` environment |
 | Filename availability | pre-build PyPI check rejects already served versions |
 | Consumer artifacts | content audit, metadata validation, deterministic build evidence |
 
-Environment protection must be configured remotely; naming an environment in
-YAML does not itself provide an approval gate. The isolated upload job receives
-`PYPI_API_TOKEN` only after approval and rejects missing or incorrectly prefixed tokens.
+The `release` and `pypi` environments restrict deployment to `master` without
+required reviewers or waiting timers. PR review remains mandatory on master.
+The isolated upload job receives `PYPI_API_TOKEN` and rejects missing or
+incorrectly prefixed tokens. Read-only request jobs validate the successful
+upstream workflow, repository, event, branch, and exact SHA before privileged jobs
+start. Failed or stale upstream runs cannot authorize publication. Automatic runs
+with an unchanged version skip release and publication; manual dispatch remains
+available for explicit recovery.
 Old organization username/password secrets remain unchanged for other repositories.
 Token authentication does not generate PyPI digital attestations; GitHub build
 provenance remains independently attested. No authentication fallback is allowed.
@@ -42,13 +47,12 @@ GitHub build-provenance attestation before tag or release creation. The annotate
 Git tag itself is unsigned; artifact signatures do not sign a Git tag.
 
 The publishing workflow requires the release-tag checkout to equal its `master`
-dispatch SHA. It reconstructs the complete source archive and verifies both byte
+workflow SHA. It reconstructs the complete source archive and verifies both byte
 identity and the release workflow's provenance before building. Successful
 publication attaches wheel, sdist, and their signature bundle to the GitHub release
-before handing those same distributions to the separately approved PyPI job.
+before handing those same distributions to the isolated PyPI upload job.
 Existing release assets are retained only when their bytes match; replacements
-fail. PyPI uploads remain protected separately and can still fail after GitHub
-assets exist. No successful signed 2.0 publication is claimed until its workflow
+fail. PyPI uploads can still fail after GitHub assets exist. No successful signed 2.0 publication is claimed until its workflow
 and consumer verification complete. No SBOM is produced.
 
 ### Retrieve and verify signatures
@@ -89,8 +93,9 @@ comparison cannot authenticate an artifact; keep the full identity constraints.
 A missing control or identity mismatch blocks publication. Inspect the failed
 step before retrying. An interrupted GitHub asset upload can resume with identical
 bytes and a new run-specific signature bundle; differing asset bytes fail. If master
-advances beyond the release commit before publication dispatch, prepare a reviewed
-new version instead of disabling the exact-source guard. If any artifact reached PyPI, advance the version before
+advances beyond the release commit before publication starts, the exact-source
+guard rejects the stale run. The next reviewed version gets its own automatic
+pipeline; never disable the guard. If any artifact reached PyPI, advance the version before
 a full publication retry; do not delete and recreate tags or overwrite artifacts.
 
 ## Read next
