@@ -176,6 +176,7 @@ test('origin errors cannot restore forbidden responses through stale-if-error', 
   ];
   for (const headers of responses) {
     const entry = policy({...headers, 'cache-control': `${headers['cache-control']}, stale-if-error=999999999`});
+    entry._responseTime -= 600000;
     for (const candidate of [entry, CachePolicy.fromObject(entry.toObject())]) {
       assert.equal(candidate.useStaleWhileRevalidate(), false);
       for (const status of [500, 502, 503, 504]) {
@@ -194,4 +195,18 @@ test('origin errors cannot restore forbidden responses through stale-if-error', 
   const mismatch = publicEntry.revalidatedPolicy({...request(), url: 'https://example.test/other'}, {status: 503, headers: {}});
   assert.equal(mismatch.modified, true);
   assert.notEqual(mismatch.policy, publicEntry);
+});
+
+
+test('must-revalidate permits fresh hits but forbids stale reuse through every path', () => {
+  const entry = policy({'cache-control': 'max-age=600, must-revalidate, stale-if-error=999999999, stale-while-revalidate=999999999'});
+  assert.equal(entry.satisfiesWithoutRevalidation(request()), true);
+  assert.ok(entry.evaluateRequest(request()).response);
+  entry._responseTime -= 600000;
+  assert.equal(entry.satisfiesWithoutRevalidation(request({'cache-control': 'max-stale'})), false);
+  assert.equal(entry.evaluateRequest(request()).response, undefined);
+  assert.equal(entry.useStaleWhileRevalidate(), false);
+  const result = entry.revalidatedPolicy(request(), {status: 503, headers: {}});
+  assert.equal(result.modified, true);
+  assert.notEqual(result.policy, entry);
 });

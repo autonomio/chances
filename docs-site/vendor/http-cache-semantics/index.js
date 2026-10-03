@@ -683,7 +683,7 @@ module.exports = class CachePolicy {
      * @returns {boolean} `true` if security directives forbid unvalidated reuse.
      */
     _reuseForbidden() {
-        return !this.storable() || !!this._rescc['must-revalidate'] ||
+        return !this.storable() || !!(this._rescc['must-revalidate'] && this.stale()) ||
             !!this._rescc['no-cache'] || this._resHeaders.vary === '*' ||
             !!(this._isShared && (this._rescc['proxy-revalidate'] ||
                 (this._resHeaders['set-cookie'] && !this._rescc.public)));

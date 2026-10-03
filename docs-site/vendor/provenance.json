@@ -41,7 +41,7 @@
     "local_version": "4.2.0-autonomio.1",
     "patched_sha256": {
       "LICENSE": "ab868ad5a2ef5068560d9cd3b2180ec63c140bb4c5cae1ba779d300a0ac74fa3",
-      "index.js": "2577c48d4dca6cd8f7003cb857f58d13d7a76bf560d3b1a072e2f7cb8c601dc2",
+      "index.js": "6a6e4c699ec39db68e71003f7d4a5457a55809ff551a8a53500bdde30b16211a",
       "package.json": "e86c543a64fd9060ff55d6ba48fa5b24c9c895893dfb27fca61d61efb1a9be9e"
     },
     "advisory": "GHSA-ch52-4w7c-c8xp"
