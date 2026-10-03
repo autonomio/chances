@@ -64,6 +64,7 @@ exclude = [
     "/docs-site/node_modules/**", "/docs-site/.generated/**",
     "/docs-site/.docusaurus/**", "/docs-site/build/**",
     "/docs-site/playwright-report/**", "/docs-site/test-results/**",
+    "/docs-site/audit-evidence/**",
 ]
 
 [tool.pytest.ini_options]
