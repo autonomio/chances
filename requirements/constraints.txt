@@ -8,7 +8,7 @@
 # Chances runtime and CI ranges. Exact Ruff/Pyright pins remain in pyproject.toml.
 
 # Gate toolchain
-pyyaml>=6.0,<7
+pyyaml>=6.0.3,<7
 tomli>=2.0,<3; python_version < '3.11'
 
 # Lint and type.
