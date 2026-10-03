@@ -1,7 +1,6 @@
 # v2.0.6
 
 - Cancel superseded remaining source checks, bound runner occupancy, and stagger grouped dependency updates.
-- Remediate pip and urllib3 advisories in hash-locked development and packaging tooling.
 - Authenticate complete release source and distribution artifacts with publicly downloadable provenance bundles.
 - Require publication provenance to identify the exact approved source commit.
 
