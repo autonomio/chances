@@ -83,3 +83,29 @@ def test_partial_remote_tag_resumes_release_without_tag_mutation(release_source,
                    if command[2:3] != ('--list',))
     publication = next(command for command in commands if command[:3] == ('gh', 'release', 'create'))
     assert '--verify-tag' in publication and publication[publication.index('--repo') + 1] == 'autonomio/chances'
+
+
+@pytest.mark.parametrize(('field', 'value'), [
+    ('name', 'Verify and build'), ('name', 'Foreign workflow'),
+    ('event', 'pull_request'), ('status', 'in_progress'), ('conclusion', 'failure'),
+    ('head_branch', 'feature'), ('head_sha', 'b' * 40),
+    ('head_repository', {'full_name': 'foreign/chances'}),
+])
+def test_automatic_source_requires_completed_matching_master_build(
+    release_source, monkeypatch, tmp_path, field, value,
+):
+    import json
+
+    event = {'name': 'Verify and build', 'event': 'push', 'status': 'completed',
+             'conclusion': 'success', 'head_branch': 'master', 'head_sha': SHA,
+             'head_repository': {'full_name': 'autonomio/chances'}}
+    event[field] = value
+    path = tmp_path / 'event.json'
+    path.write_text(json.dumps({'workflow_run': event}))
+    monkeypatch.setenv('GITHUB_EVENT_NAME', 'workflow_run')
+    monkeypatch.setenv('GITHUB_EVENT_PATH', str(path))
+    if field == 'name' and value == 'Verify and build':
+        assert RELEASE.approved_source('autonomio/chances') == SHA
+    else:
+        with pytest.raises(SystemExit, match='upstream workflow'):
+            RELEASE.approved_source('autonomio/chances')
