@@ -4,7 +4,7 @@ build-backend = "hatchling.build"
 
 [project]
 name = "chances"
-version = "2.0.7"
+version = "2.0.8"
 description = "Reproducible scientific randomness with explicit streams and verified receipts"
 keywords = ["randomness", "reproducibility", "scientific", "sampling", "receipts"]
 readme = "README.md"
@@ -49,6 +49,8 @@ packages = ["chances"]
 exclude = ["/chances/README.md"]
 
 [tool.hatch.build.targets.sdist]
+# Prune excluded npm links before Hatch records visited directory identities.
+skip-excluded-dirs = true
 core-metadata-version = "2.4"
 # Consumer source: package, scientific tests and reproducible documentation.
 # Repository-only enforcement remains in the canonical Git checkout.

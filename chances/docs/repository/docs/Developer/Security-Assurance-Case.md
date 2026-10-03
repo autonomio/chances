@@ -101,23 +101,117 @@ artifact attestations require separate evidence after publication and activation
 records the Passing badge earned on 2026-10-01. `.bestpractices.json` retains
 criterion statuses and source-linked evidence; it distinguishes maintainer
 attestations from measured checks. Silver requires separate evidence.
-The public assessment still records 13%
-completion as of 2026-10-02; that percentage includes unanswered fields and does
-not measure the percentage of implemented security controls.
+The live Silver assessment is 93% as of 2026-10-03. A progress percentage
+includes unanswered criteria and does not measure implemented security controls.
+The signed-release criterion is supported by the published
+[2.0.7 release](https://github.com/autonomio/chances/releases/tag/v2.0.7),
+its complete-source and distribution signature bundles, and consumer verification
+against source `da0e7ba01e5b4f9b6c15afb48c2cfb489c84ac1f`.
+Freshly downloaded PyPI distributions match the signed GitHub assets.
+[Release policy](Release-Policy.md) owns the public verification commands.
 
-The [roadmap](../Roadmap.md) supplies the next-year planning evidence. Maintenance
-continuity still needs verified emergency authority and credentials sufficient
-to resume issues, merges and releases within one week. Current release signing
-requires a completed, publicly verifiable publication; configured workflows are
-not evidence that this has occurred. Reporter-credit history and regression-test
-coverage of actual bug fixes require a separate historical audit. Unknown facts
-remain unknown in the proposal file until supported.
+### Dependency repair
 
-The full documentation dependency audit reports zero advisories on 2026-10-02.
-Separate Dependabot findings against the locked CI toolchain require urllib3
-2.8.0 and pip 26.2.0; dependency monitoring remains Unmet in the proposals until
-they are fixed or their non-exploitability is established. Runtime-only scans
-do not prove that development tools are free of known vulnerabilities.
+The documentation toolchain carries local source backports for the two unpatched
+upstream advisories. Brace parsing and direct AST walkers reject excessive depth
+before recursion and reject cyclic child or parent links. Cache evaluation
+and origin-error revalidation refuse security-blocked responses before
+honoring `max-stale`, stale-while-revalidate or stale-if-error. Upstream licenses, registry
+integrity and original/patched file digests remain in `docs-site/vendor/`.
+These are maintained Autonomio patches, not upstream releases or risk acceptance.
+
+The required documentation gate tests the reported attacks, normal behavior,
+installed consumer resolution and source integrity. `security:audit` verifies
+backport identity and hashes before scanning the full locked tree. A clean
+installation reported zero registry findings on 2026-10-03, with no active
+advisory exceptions. Registry scanners do not establish the safety of local
+forks: the source diffs and exploit regressions supply that evidence. Remove the
+overrides only after upstream replacements pass the same regressions.
+The pip/urllib3 lock repairs are already merged in PRs 48 and 50.
+The scientific wheel carries none of this Node tooling.
+
+### Six-month regression audit
+
+The audit window is 2026-04-03 through 2026-10-03, ending at protected-master
+commit `da0e7ba01e5b4f9b6c15afb48c2cfb489c84ac1f`. Its complete public history
+contains eight merged PRs and 42 non-merge commits. Read every change, including
+build, test and CI subjects; a `fix:` prefix is not the denominator.
+Count distinct project defects, coalesce follow-up repair/test commits for one
+defect, and exclude new capability and prose-only changes. Dependency advisories
+in third-party implementations are assessed in the dependency criterion; this
+table covers Chances-authored product, governance, packaging and documentation
+defects, including defects repaired before the adoption PR was merged.
+
+The public audit identifies 38 defects; 31 have added or expanded automated
+regression cases (81.6%). A pre-existing passing gate alone is not counted.
+Rows without a demonstrated new regression case remain in the denominator.
+This exceeds 50% for public history; confirmation that no private fixes are
+missing is still required before claiming the whole-project criterion.
+
+| Distinct defect | Fix commit(s) | Added or expanded regression case |
+|---|---|---|
+| Missing editable build backend | `19aeab7` | `governance/tests/test_toolchain_locks.py::test_editable_backend_is_available_on_every_ci_target` |
+| Missing Linux keyring transitive locks | `19aeab7` | `governance/tests/test_toolchain_locks.py::test_linux_packaging_lock_contains_keyring_transitive_dependencies` |
+| Publication destination race overwrites | `634e984` | `tests/package/test_publication.py::test_atomic_publish_rejects_destination_created_after_last_check` |
+| Output parent failures escape structured errors | `634e984` | `tests/package/test_publication.py::test_output_parent_file_produces_structured_error_without_mutation` |
+| NUL paths reach native publication | `634e984` | `tests/package/test_publication.py::test_native_c_paths_reject_nul_before_calling_libc` |
+| Path-subclass callbacks cross native boundary | `634e984` | `tests/package/test_publication.py::test_native_publication_rejects_path_subclass_callbacks` |
+| Unavailable native primitive permits unsafe fallback | `634e984` | `tests/package/test_publication.py::test_unavailable_native_function_fails_explicitly` |
+| Unreadable protected budgets disable ratchets | `634e984` | `governance/tests/test_gate_fail_closed.py::test_unreachable_protected_base_fails_setup` |
+| Boolean/non-object budgets pass parsing | `634e984` | `governance/tests/test_gate_fail_closed.py::test_malformed_protected_budget_is_a_setup_failure` |
+| Invalid runtime numbers or profile rows bypass gates | `634e984` | `governance/tests/test_gate_fail_closed.py::test_invalid_runtime_numbers_fail_setup` |
+| Malformed vulnerability exception text accepted | `634e984` | `governance/tests/test_dependency_vulnerabilities.py::test_invalid_reason_cannot_hide_a_known_vulnerability` |
+| Public security-report template exposes private reports | `6d7008b` | `governance/tests/test_ci_contract.py::test_security_reporting_has_only_a_private_contact_route` |
+| Issue-triggered rerun loses PR author identity | `6d7008b` | `governance/tests/test_sweep_matches_gate.py::test_rerun_reads_the_author_from_the_rest_user_login` |
+| Incomplete/error audit JSON fails open | `7949d8a` | `docs-site/tests/audit-report.test.mjs::fails closed on npm audit errors and incomplete reports` |
+| Array/non-object audit collections are accepted | `632b374` | `docs-site/tests/audit-report.test.mjs::array vulnerability reports fail closed` |
+| Publication crash leaves a permanent reservation | `44ec09e` | `tests/package/test_publication.py::test_hard_crash_during_staging_cannot_reserve_destination` |
+| Staging failure escapes the declared error boundary | `44ec09e` | `tests/package/test_execution_boundaries.py::test_staging_failure_is_structured_without_publishing` |
+| Scorecard checkout lacks contents read permission | `9708cac` | No new case established |
+| Workflow defaults grant write permissions | `5570d98` | No new case established |
+| Package and citation versions disagree | `ff226d8` | `governance/tests/test_openssf_workflows.py::test_declared_version_matches_package_and_citation` |
+| Consumer requirements import repository enforcement locks | `681b515` | `governance/tests/test_openssf_workflows.py::test_runtime_requirements_preserve_project_envelope` |
+| Fuzz oracle accepts mutated receipt metadata | `7fdfb65/4a08629` | `governance/tests/test_fuzz_shutdown.py::test_rehashed_receipt_target_detects_false_acceptance` |
+| Atheris watchdog remains armed at shutdown | `7fdfb65` | `governance/tests/test_fuzz_shutdown.py::test_fuzzer_releases_watchdog_without_changing_exit_status` |
+| Fuzz installation allows source builds of transitive dependencies | `7fdfb65` | No new case established |
+| Manifest checks reject repository badge evidence | `bc8a9d8` | No new case established |
+| README example leaves retained evidence in the checkout | `371c241` | `tests/package/test_distribution_artifacts.py::test_readme_example_is_executable` |
+| Superseded verification and browser installation occupy runners | `ca68e55/0b0df4a` | `governance/tests/test_ci_capacity.py::test_source_checks_are_bounded_without_losing_required_gates` |
+| Remaining source jobs lack cancellation and deadlines | `5353d70/0b0df4a` | `governance/tests/test_ci_capacity.py::test_source_checks_are_bounded_without_losing_required_gates` |
+| Empty readiness events allocate a runner | `5353d70/0b0df4a` | `governance/tests/test_ci_capacity.py::test_readiness_skips_empty_suites_before_allocating_a_runner` |
+| Publication does not bind complete source to the approved commit | `0b0df4a` | `governance/tests/test_pypi_publish_contract.py::test_source_provenance_is_checked_before_build_and_pypi_handoff` |
+| Existing release asset bytes can be replaced | `0b0df4a` | `governance/tests/test_release_assets.py::test_upload_compares_existing_bytes_before_any_mutation` |
+| Release controller enters scientific archives | `562ac7e` | No new case established |
+| Audit exceptions are not bound to installed identities | `58d2249` | `docs-site/tests/audit-exceptions.test.mjs::every installed copy must match the locked exception version and identity` |
+| Browser evidence overwrites retained dependency audit | `56337a1` | `docs-site/tests/audit-security.test.mjs::the audit command handles complete fixture JSON` |
+| macOS temporary symlink aliases invalidate CLI audit fixtures | `6f747ef` | No new case established |
+| Generated audit evidence enters source distributions | `aff9595` | No new case established |
+| Duplicate Authorization header breaks Git release fetch | `4b94811` | `governance/tests/test_automatic_release.py::test_release_git_receives_authorization_header_exactly_once` |
+| Version bump before the merge tail is skipped | `fda520c` | `governance/tests/test_automatic_release.py::test_version_bump_before_merge_tail_still_releases` |
+
+Run the mapped Python cases through the required package/governance suites and
+the JavaScript cases through `npm --prefix docs-site run test:unit`.
+Retain the unmapped rows when extending this audit; new tests can improve future
+coverage but must not be presented as historical tests that existed earlier.
+
+### Reporter credit and continuity
+
+The GitHub repository security-advisory API returned no project advisories on
+2026-10-03. This is public-source evidence, not proof that no private report was
+resolved. `SECURITY.md` requires reporter credit except requested anonymity.
+A maintainer must confirm whether any private vulnerability report was resolved
+between 2025-10-03 and 2026-10-03 before selecting N/A or naming public credit.
+Upstream dependency advisory reporters are credited by their upstream advisories;
+they are not represented as reporters of private Chances vulnerabilities.
+
+Repository collaborator inspection on 2026-10-03 confirmed admin access for
+`mikkokotila` and `EnergyGuy3`, and write access for `bit-mis`. The automatic
+release has already proven that repository automation can publish using stored
+organization credentials. Neither observation alone proves emergency legal
+authority, organization recovery, or the ability to replace an unavailable sole
+reviewing authority within one week. Normal review remains with `bit-mis`.
+Document and authorize the continuity procedure in `MAINTAINERS.md` before
+marking this criterion Met; no new routine deployment reviewer is needed.
 
 The initial Scorecard run `36887139175` measured `6.2/10` against merged master
 `ee6ab1725bcc60bff78ad45b561dbb3d0b9632da`. Its findings drove read-only
