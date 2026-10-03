@@ -42,7 +42,7 @@ function main() {
   }
   const report = JSON.parse(result.stdout);
   // Retain original findings, including accepted advisories, in CI evidence.
-  const evidence = path.join(siteRoot, 'test-results', 'npm-audit.json');
+  const evidence = path.join(siteRoot, 'audit-evidence', 'npm-audit.json');
   mkdirSync(path.dirname(evidence), {recursive: true});
   writeFileSync(evidence, result.stdout);
   if (typeof report !== 'object' || report === null || Array.isArray(report)

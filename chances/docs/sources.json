@@ -133,10 +133,10 @@
     },
     {
       "installed": "docs/repository/docs/Developer/Documentation-Adoption.md",
-      "installed_sha256": "a3837d8e03690c9ec20cfa6e09f20dacd281fd87ed8a64799d37ce680104aa63",
+      "installed_sha256": "1ebb253019b06219cc5be16f50188cadcd9568b39bf0ec0f43b66b5d2807b2d6",
       "route": "/developer/documentation-adoption",
       "source": "docs/Developer/Documentation-Adoption.md",
-      "source_sha256": "1cf9875458d63a4fcc3059d5071658e577c630324d8e7ff48de0ea7a28f33464"
+      "source_sha256": "4a85c8b9ecd8b2c10bdff9f3b2180bb02eef98bf255f7b0c6741b90d64ae618a"
     },
     {
       "installed": "docs/repository/docs-site/README.md",

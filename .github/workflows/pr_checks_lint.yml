@@ -62,6 +62,7 @@ jobs:
           path: |
             docs-site/build
             docs-site/test-results
+            docs-site/audit-evidence
           if-no-files-found: ignore
 
       - name: Set up lint venv

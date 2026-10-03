@@ -1,6 +1,6 @@
 import assert from 'node:assert/strict';
 import {spawnSync} from 'node:child_process';
-import {chmodSync, mkdtempSync, rmSync, writeFileSync} from 'node:fs';
+import {chmodSync, copyFileSync, mkdirSync, mkdtempSync, readFileSync, rmSync, writeFileSync} from 'node:fs';
 import os from 'node:os';
 import path from 'node:path';
 import test from 'node:test';
@@ -25,43 +25,77 @@ test('reports an empty audit explicitly without listing fictional findings', () 
     'Docs-site npm audit completed.\nReported vulnerable packages: 0.\n');
 });
 
-const auditScript = fileURLToPath(new URL('../scripts/audit-security.mjs', import.meta.url));
-for (const outcome of [0, 1, 2, 'signal', 'missing', 'array-report', 'development-advisory']) {
+const sourceRoot = fileURLToPath(new URL('..', import.meta.url));
+for (const outcome of [0, 1, 2, 'accepted', 'signal', 'missing', 'array-report', 'null-finding', 'development-advisory']) {
   test(`the audit command handles complete fixture JSON with process outcome ${outcome}`, () => {
     const directory = mkdtempSync(path.join(os.tmpdir(), 'chances-audit-process-'));
     try {
+      const scriptDirectory = path.join(directory, 'scripts');
+      mkdirSync(scriptDirectory);
+      for (const script of ['audit-security.mjs', 'audit-report.mjs', 'audit-exceptions.mjs']) {
+        copyFileSync(path.join(sourceRoot, 'scripts', script), path.join(scriptDirectory, script));
+      }
+      const entries = JSON.parse(readFileSync(path.join(sourceRoot, 'security-exceptions.json'), 'utf8'));
+      writeFileSync(path.join(directory, 'security-exceptions.json'), JSON.stringify(entries));
+      const packages = {};
+      for (const entry of entries) {
+        const location = `node_modules/${entry.package}`;
+        mkdirSync(path.join(directory, location), {recursive: true});
+        writeFileSync(path.join(directory, location, 'package.json'), JSON.stringify({name: entry.package, version: entry.version}));
+        packages[location] = {version: entry.version};
+      }
+      writeFileSync(path.join(directory, 'package-lock.json'), JSON.stringify({packages}));
+      const accepted = {vulnerabilities: Object.fromEntries(entries.map((entry) => [entry.package, {
+        name: entry.package, severity: entry.severity, nodes: [`node_modules/${entry.package}`],
+        via: [{name: entry.package, dependency: entry.package, severity: entry.severity,
+          url: `https://github.com/advisories/${entry.id}`}],
+      }]))};
+      const payload = outcome === 'array-report' ? {vulnerabilities: []}
+        : outcome === 'development-advisory' ? {vulnerabilities: {tool: {severity: 'low'}}}
+          : outcome === 'null-finding' ? {vulnerabilities: {tool: null}}
+            : outcome === 'accepted' ? accepted : {vulnerabilities: {}};
       if (outcome !== 'missing') {
         const finish = outcome === 'signal'
           ? "process.kill(process.pid, 'SIGTERM')"
-          : `process.exit(${['array-report', 'development-advisory'].includes(outcome) ? 0 : outcome})`;
+          : `process.exit(${outcome === 'accepted' ? 1 : typeof outcome === 'number' ? outcome : 0})`;
         const executable = path.join(directory, 'npm');
-        const payload = outcome === 'array-report' ? {vulnerabilities: []}
-          : outcome === 'development-advisory'
-            ? {vulnerabilities: {tool: {severity: 'low'}}} : {vulnerabilities: {}};
         writeFileSync(executable,
           `#!${process.execPath}\nif (process.argv.includes('--omit=dev') || !process.argv.includes('--include=dev')) process.exit(3);\nprocess.stdout.write(${JSON.stringify(JSON.stringify(payload))}, () => { ${finish}; });\n`);
         chmodSync(executable, 0o755);
       }
-      const result = spawnSync(process.execPath, [auditScript], {
+      const result = spawnSync(process.execPath, [path.join(scriptDirectory, 'audit-security.mjs')], {
         encoding: 'utf8', env: {...process.env, PATH: directory},
       });
       assert.equal(result.error, undefined);
-      if (outcome === 0 || outcome === 1) {
+      if (outcome === 0 || outcome === 'accepted') {
         assert.equal(result.status, 0, result.stderr);
         assert.match(result.stdout, /npm audit completed/);
+        if (outcome === 'accepted') {
+          for (const entry of entries) assert.ok(result.stdout.includes(`Accepted known finding until ${entry.expires} 00:00 UTC: ${entry.id}`));
+          assert.match(result.stdout, /2 reported package findings accepted/);
+          assert.doesNotMatch(result.stdout, /zero vulnerabilities|0 vulnerabilities/i);
+        }
       } else if (outcome === 'development-advisory') {
         assert.equal(result.status, 1);
         assert.match(result.stderr, /tool \(low\)/);
-        assert.doesNotMatch(result.stdout, /npm audit completed/);
+      } else if (outcome === 'null-finding') {
+        assert.equal(result.status, 1);
+        assert.match(result.stderr, /invalid vulnerability/);
       } else if (outcome === 'array-report') {
         assert.equal(result.status, 1);
         assert.match(result.stderr, /no vulnerabilities object/);
-        assert.doesNotMatch(result.stdout, /npm audit completed/);
+      } else if (outcome === 1) {
+        assert.equal(result.status, 1);
+        assert.match(result.stderr, /without accounted advisory findings/);
       } else {
         assert.equal(result.status, 1);
         assert.match(result.stderr, /npm audit did not complete normally/);
-        assert.doesNotMatch(result.stdout, /npm audit completed/);
       }
+      if ([0, 1, 'accepted', 'array-report', 'null-finding', 'development-advisory'].includes(outcome)) {
+        const retained = readFileSync(path.join(directory, 'audit-evidence', 'npm-audit.json'), 'utf8');
+        assert.equal(retained, JSON.stringify(payload));
+      }
+      if (![0, 'accepted'].includes(outcome)) assert.doesNotMatch(result.stdout, /npm audit completed/);
     } finally {
       rmSync(directory, {recursive: true, force: true});
     }

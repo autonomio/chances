@@ -56,7 +56,7 @@ tools, and blocks every advisory at every severity unless its complete cause
 graph reaches only exact, reviewed exceptions. Malformed reports, npm errors,
 missing causes, orphan cycles, unknown severities, changed installed or locked
 versions, and expired exceptions fail. The required audit command is unchanged.
-Raw npm findings are retained as `docs-site/test-results/npm-audit.json` in CI;
+Raw npm findings are retained as `docs-site/audit-evidence/npm-audit.json` in CI;
 accepted findings remain visible and are never reported as zero vulnerabilities.
 
 `docs-site/security-exceptions.json` is the exception authority. Each entry binds
