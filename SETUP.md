@@ -105,7 +105,7 @@ timer, administrator bypass disabled, and exact `master` branch restriction.
 The workflow chain becomes automatic after its reviewed change merges:
 `Verify and build` → `Approved Release` → `Publish Package to PyPI`.
 Only successful same-repository master runs with matching source SHA are accepted;
-unchanged versions skip automatic publication. Manual dispatch supports recovery.
+Versions already tagged on older commits skip automatic publication. Manual dispatch supports recovery.
 
 Follow [making a release](docs/Developer/Making-Release.md); publish no artifact
 until the exact merged SHA, tag, version, checks and approval are verified.

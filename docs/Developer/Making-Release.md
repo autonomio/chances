@@ -14,7 +14,7 @@ Activate branch-restricted environments and organization `PYPI_API_TOKEN` using
 1. Bump the project version and newest changelog section in a PR; pass all ten
    required checks and obtain the required bit-mis merge review.
 2. Merge to master. Successful `Verify and build` starts `Approved Release`.
-   The request must identify that exact master SHA and a changed version.
+   The request must identify that exact master SHA and an unreleased version.
 3. The release signs complete source, verifies its identity, creates the immutable
    tag and GitHub release, and attaches the source archive and signature bundle.
 4. Successful `Approved Release` starts `Publish Package to PyPI`. It checks the
@@ -26,7 +26,8 @@ Activate branch-restricted environments and organization `PYPI_API_TOKEN` using
 Expected output is a GitHub release containing authenticated complete source,
 wheel, sdist, and verification bundles, followed by the same wheel and sdist on
 PyPI. No second review or manual release dispatch is part of the normal path.
-Unchanged versions do not cause another automatic publication.
+An existing version tag on an older commit skips automatic publication. Eligibility
+uses immutable tags, so version bumps earlier in a multi-commit merge are recognized.
 
 ## Recovery and failures
 

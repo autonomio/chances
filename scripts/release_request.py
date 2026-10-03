@@ -3,6 +3,7 @@ from __future__ import annotations
 
 import json
 import os
+import re
 import subprocess
 import sys
 from pathlib import Path
@@ -32,15 +33,22 @@ def request(mode: str) -> tuple[str, str, bool]:
     if project['name'] != 'chances':
         raise SystemExit('Release requires the Chances project.')
     version = project['version']
+    if not re.fullmatch(r'\d+\.\d+\.\d+', version):
+        raise SystemExit('Release requires MAJOR.MINOR.PATCH.')
     tag = f'v{version}'
     key, value = ('version', version) if mode == 'release' else ('tag', tag)
     if not automatic and event['inputs'][key] != value:
         raise SystemExit(f'Requested {key} must equal the committed project version.')
     ready = True
-    if automatic and (mode == 'release' or event['workflow_run']['event'] == 'workflow_run'):
-        previous = subprocess.run(['git', 'show', 'HEAD^:pyproject.toml'], check=True,
-                                  capture_output=True, text=True, timeout=30).stdout
-        ready = tomllib.loads(previous)['project']['version'] != version
+    if automatic:
+        response = subprocess.run(['git', 'ls-remote', '--tags', 'origin',
+                                   f'refs/tags/{tag}', f'refs/tags/{tag}^{{}}'],
+                                  check=True, capture_output=True, text=True, timeout=30).stdout
+        references = dict(line.split()[::-1] for line in response.splitlines())
+        target = references.get(f'refs/tags/{tag}^{{}}') or references.get(f'refs/tags/{tag}')
+        if mode == 'publish' and target is None:
+            raise SystemExit('Successful release must have created its immutable tag.')
+        ready = target is None or target == sha
     return version, tag, ready
 
 
@@ -52,7 +60,7 @@ def main() -> None:
     version, tag, ready = request(mode)
     with Path(os.environ['GITHUB_OUTPUT']).open('a') as output:
         output.write(f'version={version}\ntag={tag}\nready={str(ready).lower()}\n')
-    print(f'{mode}: {tag}; version change eligible: {ready}')
+    print(f'{mode}: {tag}; publication eligible: {ready}')
 
 
 if __name__ == '__main__':

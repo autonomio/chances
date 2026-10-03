@@ -20,7 +20,7 @@ is burned; never reuse it. Partial PyPI uploads require a new version.
 | Control | Mechanism |
 | --- | --- |
 | Merge to master | ten required checks and protected review rules |
-| Release creation | successful master `Verify and build`, changed version, `RELEASE_ENABLED=true` |
+| Release creation | successful master `Verify and build`, unreleased version, `RELEASE_ENABLED=true` |
 | Release identity | exact master SHA, clean worktree, tag from project version |
 | Notes | reviewed changelog section and mechanically appended traceability |
 | Publish enablement | successful `Approved Release` and `PYPI_PUBLISH_ENABLED=true` |
@@ -34,7 +34,7 @@ The isolated upload job receives `PYPI_API_TOKEN` and rejects missing or
 incorrectly prefixed tokens. Read-only request jobs validate the successful
 upstream workflow, repository, event, branch, and exact SHA before privileged jobs
 start. Failed or stale upstream runs cannot authorize publication. Automatic runs
-with an unchanged version skip release and publication; manual dispatch remains
+skip a version whose immutable tag belongs to an older commit; manual dispatch remains
 available for explicit recovery.
 Old organization username/password secrets remain unchanged for other repositories.
 Token authentication does not generate PyPI digital attestations; GitHub build

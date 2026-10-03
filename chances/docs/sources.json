@@ -37,10 +37,10 @@
     },
     {
       "installed": "docs/repository/CHANGELOG.md",
-      "installed_sha256": "69c9ca7712ffe2748fa24f5e46d3b19c2e7fe12971ce56e1afa24d71c5ba10c9",
+      "installed_sha256": "442b77a4ece44fbbf520f46e89ab0408f12e0eee8c6ac7a20f66cfdd5d7eb601",
       "route": "/overview/changelog",
       "source": "CHANGELOG.md",
-      "source_sha256": "74f8834c1fc41b557e5f9b88e11823614f7042d9365f01222d600b7f88a1144b"
+      "source_sha256": "4cbd608b948a757f626813d52bf92b3ecfc15a1168d0c76a042b88de425f7093"
     },
     {
       "installed": "docs/repository/docs/Roadmap.md",
@@ -189,17 +189,17 @@
     },
     {
       "installed": "docs/repository/docs/Developer/Release-Policy.md",
-      "installed_sha256": "21f8d97a11fdf8c8c98a3fb50d2b3258672b446718efbf0c1b1335d0964a947a",
+      "installed_sha256": "b1cb60fd83f92b6c40b1400c702198a7cd88ba02d7bbccc7b4e417ad5c6607d2",
       "route": "/developer/release-policy",
       "source": "docs/Developer/Release-Policy.md",
-      "source_sha256": "5e80992ff8ec75a4040534956071978c22d7e868513c7130b889eae4943cac6b"
+      "source_sha256": "cf0735528a870b53704e5748cbbfd1476335bef880b02dbf7519ac8447e47adc"
     },
     {
       "installed": "docs/repository/docs/Developer/Making-Release.md",
-      "installed_sha256": "897d178cddbe38341246ff09816bbb1fcaf38f2978ef4216ccfa45b8def00e73",
+      "installed_sha256": "11eada5ea10827bd84cada1db1c192c13a27dafc4ce2dbe050cf78e3b495b1a8",
       "route": "/developer/making-release",
       "source": "docs/Developer/Making-Release.md",
-      "source_sha256": "152236f7a825ce826aae5dcf951837da52cf9cc5ad21a7938decf95cfb926cad"
+      "source_sha256": "46f233c1dc088e2cee6e7ff31de9a03940a53a17bcd19c1e4cee7c4388a3f0fe"
     },
     {
       "installed": "docs/repository/docs/Developer/Semantic-Versioning.md",
