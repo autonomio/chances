@@ -36,7 +36,9 @@
     "markdown-it": "14.3.1",
     "serialize-javascript": "7.0.5",
     "uuid": "11.1.1",
-    "websocket-driver": "0.7.5"
+    "websocket-driver": "0.7.5",
+    "braces": "file:./vendor/braces",
+    "http-cache-semantics": "file:./vendor/http-cache-semantics"
   },
   "devDependencies": {
     "@axe-core/playwright": "4.12.1",

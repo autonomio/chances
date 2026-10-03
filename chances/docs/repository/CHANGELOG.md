@@ -1,5 +1,10 @@
 <!-- Generated from CHANGELOG.md; edit the canonical repository source. -->
 
+# v2.0.8
+
+- Backport bounded brace parsing and security-blocked cache reuse fixes in the documentation toolchain.
+- Retain upstream provenance and licenses; remove the temporary dependency exceptions after exploit regression checks.
+
 # v2.0.7
 
 - Release and publish unreleased versions automatically after protected-master verification, using merge approval as the authorization boundary.

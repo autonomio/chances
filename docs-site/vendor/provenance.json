@@ -1,0 +1,49 @@
+{
+  "braces": {
+    "upstream_version": "3.0.3",
+    "tarball": "https://registry.npmjs.org/braces/-/braces-3.0.3.tgz",
+    "integrity": "sha512-yQbXgO/OSZVD2IsiLlro+7Hf6Q18EJrKSEsdoMzKePKXct3gvD8oLcOQdIzGupr5Fj+EDe8gO/lxc1BzfMpxvA==",
+    "upstream_sha256": {
+      "package.json": "56f08b888a4f30dc7cf8a7dbb36ffe92b737912ba36abe9d069d32167c957ac7",
+      "index.js": "332ea07c7b006361aad12aa994ca75dc1db8e8382b884909e2f38f10b85c88a4",
+      "LICENSE": "35bdd8a44339719441900fb50fbefc5e2dca1ca662cbaed7a687de842c8b70f2",
+      "lib/constants.js": "c18ac5adb57308f1ce42a28552da3a31f5d83709743ebd9a636336813a744d4b",
+      "lib/stringify.js": "379f22d77bfa1478341ccd49c5e4267464aabcbba03558bab332aac23fc6f23a",
+      "lib/parse.js": "e572166565f15fa6ad9865ae49d678218e32aabfd1b3720f6d0d43d39800d310",
+      "lib/expand.js": "41ccc196ebfa7b7781a634e721eb744e4e7bcb54cba427a7e3d6806a1b9e58f7",
+      "lib/utils.js": "b5a7596aa67730412b3c029ef09e84e6b67b8e445cffd35d1d295549c89066c7",
+      "lib/compile.js": "dc98f22eee3d511785d92a00758d5f0d48efed5f5813bdecc2de430c529b5c9f"
+    },
+    "local_version": "3.0.3-autonomio.1",
+    "patched_sha256": {
+      "LICENSE": "35bdd8a44339719441900fb50fbefc5e2dca1ca662cbaed7a687de842c8b70f2",
+      "index.js": "332ea07c7b006361aad12aa994ca75dc1db8e8382b884909e2f38f10b85c88a4",
+      "lib/compile.js": "9b4186b5bfa6157c14eeeb96a2314ff48863676a4f221f3cb7f060f76b3e2a54",
+      "lib/constants.js": "c18ac5adb57308f1ce42a28552da3a31f5d83709743ebd9a636336813a744d4b",
+      "lib/expand.js": "fe310514b27da0fe40a14ad341fd31a710b5f11623fe1824cfdc4807a39d95e9",
+      "lib/parse.js": "7c35b270e65fa552dcf729fe90660f050f6f15a445da4f0cb99d9ed5e4470dbc",
+      "lib/stringify.js": "5dd18527cf5d9aa2c5d1ea4e6c7c47f89346a55856f9fb0caaa0fe634bce1f4e",
+      "lib/utils.js": "b5a7596aa67730412b3c029ef09e84e6b67b8e445cffd35d1d295549c89066c7",
+      "lib/validate.js": "93f3876413fc5984eb52259728a7e960c4831172f760559407eae17f3782a8dd",
+      "package.json": "f647a55615c45f8db50e9f109521e1d3340c79101a01a49f398a7bd6455599b3"
+    },
+    "advisory": "GHSA-vfj7-8cjw-p6xm"
+  },
+  "http-cache-semantics": {
+    "upstream_version": "4.2.0",
+    "tarball": "https://registry.npmjs.org/http-cache-semantics/-/http-cache-semantics-4.2.0.tgz",
+    "integrity": "sha512-dTxcvPXqPvXBQpq5dUr6mEMJX4oIEFv6bwom3FDwKRDsuIjjJGANqhBuoAn9c1RQJIdAKav33ED65E2ys+87QQ==",
+    "upstream_sha256": {
+      "package.json": "bee0609d5ab09a590afe0e1209d3702b0afb0a3c158492f90902a724d889d22b",
+      "index.js": "01b7d66c854b2fe53ac05c98feb6e0d64722ab8898a778e2d2426a8b468d178f",
+      "LICENSE": "ab868ad5a2ef5068560d9cd3b2180ec63c140bb4c5cae1ba779d300a0ac74fa3"
+    },
+    "local_version": "4.2.0-autonomio.1",
+    "patched_sha256": {
+      "LICENSE": "ab868ad5a2ef5068560d9cd3b2180ec63c140bb4c5cae1ba779d300a0ac74fa3",
+      "index.js": "485f92acbbf31bcba79ece9afaeb9e7798e983913b831aed748c1769b5c798ea",
+      "package.json": "e86c543a64fd9060ff55d6ba48fa5b24c9c895893dfb27fca61d61efb1a9be9e"
+    },
+    "advisory": "GHSA-ch52-4w7c-c8xp"
+  }
+}
