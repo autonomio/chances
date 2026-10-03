@@ -231,10 +231,10 @@
     },
     {
       "installed": "docs/repository/MAINTAINERS.md",
-      "installed_sha256": "e794d460cd81b6324c42f4cbdbcf7a4b3e1ee984f872b96c679b8865e28657e9",
+      "installed_sha256": "b9a38fd09d0a27c191be6259d8f60f425731a7814a5c79a47dfe34217ea85ad5",
       "route": "/developer/maintainers",
       "source": "MAINTAINERS.md",
-      "source_sha256": "013d19c2e228246fa8653a1629c406275eaf1487b248ac2304d55a5beeea9887"
+      "source_sha256": "6f3dad6e8aaf849394b7230e3c7a8aa9a2cbf559267c99cd6ecfdb76cacaeeac"
     },
     {
       "installed": "docs/repository/SECURITY.md",

@@ -27,9 +27,25 @@ Maintainer confirmation of legal authority, organization credential recovery,
 and an authorized replacement-review procedure is pending. This proposal does
 not activate replacement authority or permit bypassing current protections.
 
-Before claiming continuity, document the authorized recovery steps and verify
-that they can restore issue administration, protected change approval and
-publication within that deadline. Preserve `bit-mis` as the normal approving
-authority and automatic release as the normal publication path.
+Proposed recovery sequence, subject to that confirmation:
+
+1. Record the confirmed absence, recovery owner and one-week deadline in a
+   public incident issue; keep credentials and private security reports private.
+2. Verify the recovery owner's repository and organization administration,
+   issue access, and ability to restore the release credentials through the
+   organization secret store. Never copy secret values into the incident.
+3. Restore protected change approval. If `bit-mis` is unavailable, an explicitly
+   authorized emergency succession policy must already permit replacement of
+   the sole code owner. Current rules do not provide that policy: another admin
+   alone cannot satisfy mandatory approval. Establish it through a separate
+   reviewed governance slice while the current authority remains available.
+4. Run the required checks on the recovered branch, obtain the authorized
+   review and merge through branch protection. Verify automatic release,
+   publication and downloadable signatures against the approved source.
+5. Record the restored capabilities and elapsed recovery time in the incident.
+
+Until succession authority and a viable approval-recovery procedure are
+established, the access-continuity criterion remains unknown. Normal approval
+stays with `bit-mis`; release remains automatic.
 See the [assurance case](docs/Developer/Security-Assurance-Case.md) for the
 remaining Silver evidence.
