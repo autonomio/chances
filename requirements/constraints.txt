@@ -21,7 +21,7 @@ tomli>=2.0,<3; python_version < '3.11'
 vulture>=2.14,<3
 
 # Test and coverage
-pytest>=8,<10
+pytest>=9.1.1,<10
 coverage[toml]>=7.6,<8
 
 # Build and packaging
