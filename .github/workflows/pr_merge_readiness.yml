@@ -46,6 +46,8 @@ permissions:
 jobs:
   report_merge_readiness:
     name: pr_merge_readiness
+    # Skip non-PR suites before allocating a shared runner.
+    if: ${{ github.event_name != 'check_suite' || github.event.check_suite.pull_requests[0] != null }}
     runs-on: ubuntu-latest
     timeout-minutes: 5
     permissions:

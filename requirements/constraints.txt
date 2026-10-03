@@ -38,3 +38,5 @@ scipy>=1.15,<2
 
 # Supply chain
 pip-audit>=2.7,<3
+pip>=26.2,<27
+urllib3>=2.8,<3

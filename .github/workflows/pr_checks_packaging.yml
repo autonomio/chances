@@ -17,10 +17,15 @@ on:
 permissions:
   contents: read
 
+concurrency:
+  group: ${{ github.workflow }}-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: true
+
 jobs:
   pr_checks_packaging:
     name: pr_checks_packaging
     runs-on: ubuntu-latest
+    timeout-minutes: 20
 
     steps:
       - name: Checkout
@@ -106,6 +111,7 @@ jobs:
     name: pr_checks_package_install (${{ matrix.python-version }})
     needs: pr_checks_packaging
     runs-on: ubuntu-latest
+    timeout-minutes: 20
     strategy:
       fail-fast: false
       matrix:
