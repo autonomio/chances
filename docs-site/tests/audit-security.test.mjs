@@ -1,6 +1,6 @@
 import assert from 'node:assert/strict';
 import {spawnSync} from 'node:child_process';
-import {chmodSync, copyFileSync, mkdirSync, mkdtempSync, readFileSync, rmSync, writeFileSync} from 'node:fs';
+import {chmodSync, copyFileSync, mkdirSync, mkdtempSync, readFileSync, realpathSync, rmSync, writeFileSync} from 'node:fs';
 import os from 'node:os';
 import path from 'node:path';
 import test from 'node:test';
@@ -28,7 +28,7 @@ test('reports an empty audit explicitly without listing fictional findings', () 
 const sourceRoot = fileURLToPath(new URL('..', import.meta.url));
 for (const outcome of [0, 1, 2, 'accepted', 'signal', 'missing', 'array-report', 'null-finding', 'development-advisory']) {
   test(`the audit command handles complete fixture JSON with process outcome ${outcome}`, () => {
-    const directory = mkdtempSync(path.join(os.tmpdir(), 'chances-audit-process-'));
+    const directory = realpathSync(mkdtempSync(path.join(os.tmpdir(), 'chances-audit-process-')));
     try {
       const scriptDirectory = path.join(directory, 'scripts');
       mkdirSync(scriptDirectory);
