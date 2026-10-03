@@ -5,6 +5,7 @@ import {realpathSync, readFileSync} from 'node:fs';
 import {spawnSync} from 'node:child_process';
 import {fileURLToPath} from 'node:url';
 import test from 'node:test';
+import {verifySecurityBackports} from '../scripts/verify-security-backports.mjs';
 
 const siteRoot = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 const require = createRequire(path.join(siteRoot, 'package.json'));
@@ -20,6 +21,10 @@ function policy(headers, shared = true) {
   result._responseTime -= 60000;
   return result;
 }
+
+test('reviewed backport hashes and identity match the installed source', () => {
+  verifySecurityBackports();
+});
 
 test('every installed consumer resolves the reviewed local backports', () => {
   const lock = JSON.parse(readFileSync(path.join(siteRoot, 'package-lock.json'), 'utf8'));

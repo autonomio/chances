@@ -9,7 +9,7 @@
     "prepare-docs": "node ./scripts/assemble-docs.mjs",
     "lint": "node ./scripts/lint-markdown.mjs",
     "check:external-links": "node ./scripts/check-external-links.mjs",
-    "security:audit": "node ./scripts/audit-security.mjs",
+    "security:audit": "node ./scripts/verify-security-backports.mjs && node ./scripts/audit-security.mjs",
     "build": "npm run prepare-docs && docusaurus build",
     "verify:build": "node ./scripts/verify-build.mjs",
     "test:unit": "node --test ./tests/*.test.mjs",
@@ -37,13 +37,15 @@
     "serialize-javascript": "7.0.5",
     "uuid": "11.1.1",
     "websocket-driver": "0.7.5",
-    "braces": "file:./vendor/braces",
-    "http-cache-semantics": "file:./vendor/http-cache-semantics"
+    "braces": "$braces",
+    "http-cache-semantics": "$http-cache-semantics"
   },
   "devDependencies": {
     "@axe-core/playwright": "4.12.1",
     "@playwright/test": "1.61.1",
-    "markdownlint-cli2": "0.18.1"
+    "markdownlint-cli2": "0.18.1",
+    "braces": "file:./vendor/braces",
+    "http-cache-semantics": "file:./vendor/http-cache-semantics"
   },
   "license": "MIT"
 }
