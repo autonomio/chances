@@ -8,8 +8,8 @@
 # Chances runtime and CI ranges. Exact Ruff/Pyright pins remain in pyproject.toml.
 
 # Gate toolchain
-pyyaml>=6.0,<7
-tomli>=2.0,<3; python_version < '3.11'
+pyyaml>=6.0.3,<7
+tomli>=2.4.1,<3; python_version < '3.11'
 
 # Lint and type.
 #
@@ -18,25 +18,25 @@ tomli>=2.0,<3; python_version < '3.11'
 # second place a bump has to find -- and the mechanical way to write one is
 # wrong as often as not: `pyright>=1.1` reads like a floor while admitting every
 # release in the only series pyright has ever published.
-vulture>=2.14,<3
+vulture>=2.16,<3
 
 # Test and coverage
-pytest>=8,<10
-coverage[toml]>=7.6,<8
+pytest>=9.1.1,<10
+coverage[toml]>=7.16.2,<8
 
 # Build and packaging
-build>=1,<2
-hatchling>=1.27,<2
-twine>=5,<7
-check-manifest>=0.50,<1
-pyroma>=4,<6
-hypothesis>=6.100,<7
+build>=1.6.1,<2
+hatchling>=1.32.4,<2
+twine>=7.0.0,<8
+check-manifest>=0.51,<1
+pyroma>=5.0.1,<6
+hypothesis>=6.168.3,<7
 
 # Scientific runtime
-numpy>=2.0,<3
-scipy>=1.15,<2
+numpy>=2.2.6,<3
+scipy>=1.15.3,<2
 
 # Supply chain
-pip-audit>=2.7,<3
-pip>=26.2,<27
+pip-audit>=2.10.1,<3
+pip>=26.2.1,<27
 urllib3>=2.8,<3
