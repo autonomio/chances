@@ -4,7 +4,7 @@ build-backend = "hatchling.build"
 
 [project]
 name = "chances"
-version = "2.0.5"
+version = "2.0.6"
 description = "Reproducible scientific randomness with explicit streams and verified receipts"
 keywords = ["randomness", "reproducibility", "scientific", "sampling", "receipts"]
 readme = "README.md"
@@ -64,6 +64,7 @@ exclude = [
     "/docs-site/node_modules/**", "/docs-site/.generated/**",
     "/docs-site/.docusaurus/**", "/docs-site/build/**",
     "/docs-site/playwright-report/**", "/docs-site/test-results/**",
+    "/docs-site/audit-evidence/**",
 ]
 
 [tool.pytest.ini_options]

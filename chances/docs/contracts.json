@@ -24,7 +24,7 @@
     "distributions": 132,
     "operations": 19
   },
-  "documentation_sources_sha256": "ab17cbe45fae198cdff483604e0ad76f87bc134eb7ea149672ba146f941ede0f",
+  "documentation_sources_sha256": "b14a1f086be6c1b2d96300d081cbc6515523ab17cea7de1bdc8b7ce4c2823510",
   "navigation": {
     "documentation_hub": "docs/repository/docs/README.md",
     "documentation_sources": "docs/sources.json",
@@ -36,7 +36,7 @@
     "paths_relative_to": "Path(chances.__file__).parent",
     "specifications": "docs/recipes.md"
   },
-  "package_version": "2.0.5",
+  "package_version": "2.0.6",
   "randomness": {
     "default_engine": "pcg64dxsm",
     "derivation": "sha256-seed-stream-v1",

@@ -26,7 +26,9 @@ npm --prefix docs-site run check
 The check lints maintained Markdown, runs scaffold unit tests, checks external
 links, assembles sources, builds the site, verifies route/search/sitemap/robots
 invariants and asset budgets, and exercises browser behavior and accessibility.
-Failures block this CI job. No deployment occurs.
+Failures block this CI job. The full-tree audit retains raw findings and displays
+exact, expiring maintainer exceptions under [the adoption policy](../docs/Developer/Documentation-Adoption.md).
+No deployment occurs.
 
 ## Preview
 
