@@ -1,3 +1,8 @@
+# v2.0.5
+
+- Accept exactly two reviewed documentation-tooling advisories through November 1 UTC; fail at November 2 00:00 UTC and retain the full dependency audit.
+- Remediate pip and urllib3 advisories in hash-locked CI tooling without runtime exceptions.
+
 # v2.0.4
 
 - Document the next-year roadmap and explicit security-assurance arguments.

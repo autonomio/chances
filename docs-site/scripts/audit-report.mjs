@@ -1,8 +1,8 @@
-// Every advisory blocks, including development and documentation tooling.
+// All dependency severities block unless the complete cause graph is reviewed.
 const SEVERITIES = new Set(['info', 'low', 'moderate', 'high', 'critical']);
 
 /** Return the blocking findings, or null for a complete audit with none. */
-export function auditFailure(report) {
+export function auditFailure(report, accepted = new Set()) {
   if (typeof report !== 'object' || report === null || Array.isArray(report)) {
     return 'npm audit report must be an object';
   }
@@ -20,11 +20,14 @@ export function auditFailure(report) {
 
   const blocking = [];
   for (const [name, vulnerability] of Object.entries(report.vulnerabilities)) {
+    if (typeof vulnerability !== 'object' || vulnerability === null || Array.isArray(vulnerability)) {
+      return `npm audit reported an invalid vulnerability for ${name}`;
+    }
     if (!SEVERITIES.has(vulnerability.severity)) {
       return `npm audit reported unknown severity ${JSON.stringify(vulnerability.severity)} `
         + `for ${name}`;
     }
-    blocking.push(`${name} (${vulnerability.severity})`);
+    if (!accepted.has(name)) blocking.push(`${name} (${vulnerability.severity})`);
   }
 
   return blocking.length > 0

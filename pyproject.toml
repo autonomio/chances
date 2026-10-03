@@ -4,7 +4,7 @@ build-backend = "hatchling.build"
 
 [project]
 name = "chances"
-version = "2.0.4"
+version = "2.0.5"
 description = "Reproducible scientific randomness with explicit streams and verified receipts"
 keywords = ["randomness", "reproducibility", "scientific", "sampling", "receipts"]
 readme = "README.md"

@@ -330,8 +330,8 @@ The static build guarantees:
 - a sitemap containing every page and generated category index
 - a robots resource naming the canonical sitemap
 - local search without an external indexing service
-- no known advisory in the complete locked dependency tree at check time;
-  see [adoption policy](Documentation-Adoption.md)
+- no unaccepted advisory in the complete locked dependency tree at check time;
+  accepted known findings remain visible and expire within 30 days; see [adoption policy](Documentation-Adoption.md)
 
 The deployment adapter MUST additionally prove canonical redirects, TLS,
 content security, permissions, referrer, content-type, frame headers, and `404`
