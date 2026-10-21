@@ -39,7 +39,7 @@ Documentation is release-ready only when it is:
 The system has three layers.
 
 | Layer | Owns | Must not own |
-|---|---|---|
+| --- | --- | --- |
 | Shared scaffold | five-section architecture, page contracts, source-to-route invariants, rendering, visual tokens, interaction behavior, generic gates | product identity, claims, examples, routes, package inventory, or deployment account |
 | Product profile | identity, tagline, repository URL, site origin, base path, source inventory, routes, product narrative, dependencies, risk boundary | copies of shared rendering logic or weakened acceptance rules |
 | Deployment adapter | hosting configuration, redirects, headers, preview and rollback | documentation content or alternate route authority |
@@ -90,7 +90,7 @@ Author a claim once. Secondary pages summarize and link to its canonical home.
 The site presents five top-level sections.
 
 | Section | Responsibility |
-|---|---|
+| --- | --- |
 | Overview | product boundary, system story, task routing, and roadmap |
 | Guides | end-to-end jobs and operational workflows |
 | Reference | interfaces, schemas, defaults, outputs, and edge cases |
@@ -190,7 +190,7 @@ content and metadata; it does not fork the shared component rules.
 ### Color tokens
 
 | Token | Light | Dark | Role |
-|---|---|---|---|
+| --- | --- | --- | --- |
 | `--autonomio-paper` | `#F8F8F8` | `#121212` | page and navigation background |
 | `--autonomio-paper-2` | `#F3F3F3` | `#231F20` | active, code, and secondary surface |
 | `--autonomio-ink-deep` | `#121212` | `#F8F8F8` | headings and strongest text |
@@ -209,7 +209,7 @@ content and metadata; it does not fork the shared component rules.
 ### Typography and geometry
 
 | Element | Contract |
-|---|---|
+| --- | --- |
 | Body | self-hosted IBM Plex Sans, `17px`, `1.55` line height |
 | Monospace | self-hosted IBM Plex Mono, `14.5px`, `1.65` line height |
 | Reading column | `680px` maximum |
@@ -260,7 +260,7 @@ tables scroll horizontally and remain keyboard-focusable with a visible outline.
 Use the narrowest authoritative source.
 
 | Claim | Authority |
-|---|---|
+| --- | --- |
 | import or export | package `__init__.py` and an import smoke test |
 | callable arguments or defaults | current function or class signature |
 | schema or configuration field | parser, validator, and shipped example |
@@ -300,7 +300,7 @@ Examples satisfy the level they imply:
 ## Assembly and configuration
 
 | Surface | Responsibility |
-|---|---|
+| --- | --- |
 | `product-docs.json` | product identity, source branch, and deployment coordinates |
 | `docs-map.json` | five sections, maintained sources, destinations, and routes |
 | `assemble-docs.mjs` | validation, front matter, link rewriting, MDX normalization, categories, robots |
@@ -342,7 +342,7 @@ behavior. These controls cannot be portable without choosing a host.
 ## Verification matrix
 
 | Concern | Mechanism |
-|---|---|
+| --- | --- |
 | profile and one-to-one routing | assembler validation |
 | local links | Docusaurus broken-link failure |
 | external links | `check-external-links.mjs` |

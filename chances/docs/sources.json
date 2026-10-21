@@ -126,10 +126,10 @@
     },
     {
       "installed": "docs/repository/docs/Developer/Documentation-System.md",
-      "installed_sha256": "92faa052858c355d0ca8900335274bbceff7830288d49c04e89ff123cb9e6f59",
+      "installed_sha256": "753eee4c54a99a9a0e236db083a2e9f4c7d2952e7b7506967cbfc4ce6934d71b",
       "route": "/developer/documentation-system",
       "source": "docs/Developer/Documentation-System.md",
-      "source_sha256": "fc6d98120afb08a08aedf7c02d21b87e5af01f337b5f5919aa22a78f67602cdb"
+      "source_sha256": "00f2320f4ccfaaa670fde7d93e0a7653cf6f0e9bab93435adf5148ee77f8554a"
     },
     {
       "installed": "docs/repository/docs/Developer/Documentation-Adoption.md",
@@ -210,10 +210,10 @@
     },
     {
       "installed": "docs/repository/docs/Developer/Security-Assurance-Case.md",
-      "installed_sha256": "a6bf3bcd8e5affe2bd5f6247aba15d62f62ad09a66c4e43e8fc20cf6202d0a9b",
+      "installed_sha256": "24f4667a218e1219c8be67471aef5025eb4643c5548a92b700066a3041594f35",
       "route": "/developer/security-assurance-case",
       "source": "docs/Developer/Security-Assurance-Case.md",
-      "source_sha256": "b79014771b663825253c199297604f6f7f1345985209d71d2d17c39781b8b64e"
+      "source_sha256": "31ebfdf79c85e9b86ce27181dab1cf92d3cd10ea9eebc80c8bf58f4fdbed214f"
     },
     {
       "installed": "docs/repository/CONTRIBUTING.md",

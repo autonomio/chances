@@ -149,7 +149,7 @@ This exceeds 50% for public history; confirmation that no private fixes are
 missing is still required before claiming the whole-project criterion.
 
 | Distinct defect | Fix commit(s) | Added or expanded regression case |
-|---|---|---|
+| --- | --- | --- |
 | Missing editable build backend | `19aeab7` | `governance/tests/test_toolchain_locks.py::test_editable_backend_is_available_on_every_ci_target` |
 | Missing Linux keyring transitive locks | `19aeab7` | `governance/tests/test_toolchain_locks.py::test_linux_packaging_lock_contains_keyring_transitive_dependencies` |
 | Publication destination race overwrites | `634e984` | `tests/package/test_publication.py::test_atomic_publish_rejects_destination_created_after_last_check` |
