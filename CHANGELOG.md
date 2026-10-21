@@ -1,3 +1,7 @@
+# v2.0.9
+
+- Stop automatic Copilot code review on every push; reviews remain available on request.
+
 # v2.0.8
 
 - Backport bounded brace parsing and security-blocked cache reuse fixes in the documentation toolchain.
