@@ -36,7 +36,7 @@ Eleven laws. Ten are workflow gates on every PR; the eleventh is branch protecti
 
 10. **Live branch protection on `master` matches `.github/rulesets/main.json`.** Changing branch protection out-of-band (in the GitHub UI) blocks the next PR until the snapshot is updated in a PR of its own. *(pr_checks_ruleset)*
 
-11. **No direct push to `master`. No force-push. No branch deletion.** Branch must be up-to-date with `master` before merge. One approving human review and code-owner review required; Copilot review automatically requested; all review threads resolved. *(branch protection, server-side)*
+11. **No direct push to `master`. No force-push. No branch deletion.** Branch must be up-to-date with `master` before merge. One approving human review and code-owner review required; Copilot review available on request; all review threads resolved. *(branch protection, server-side)*
 
 Beyond the gates, `audit_main_ruleset` re-checks the live ruleset on every push to `master` with a privileged token — including `bypass_actors`, which the PR-time ruleset gate (`pr_checks_ruleset`) cannot observe. It is a post-merge alarm, not a merge gate, so it carries no law of its own.
 
