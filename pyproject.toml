@@ -68,6 +68,12 @@ exclude = [
     "/docs-site/playwright-report/**", "/docs-site/test-results/**",
     "/docs-site/audit-evidence/**",
 ]
+# The vendored deepmerge runtime builds are force-tracked past the
+# repository-wide dist/ ignore; force-include keeps them in the sdist so the
+# security backport ships with documentation tooling.
+[tool.hatch.build.targets.sdist.force-include]
+"docs-site/vendor/deepmerge/dist/cjs.js" = "docs-site/vendor/deepmerge/dist/cjs.js"
+"docs-site/vendor/deepmerge/dist/umd.js" = "docs-site/vendor/deepmerge/dist/umd.js"
 
 [tool.pytest.ini_options]
 testpaths = ["tests/package"]
