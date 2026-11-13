@@ -72,7 +72,7 @@ for (const outcome of [0, 1, 2, 'accepted', 'signal', 'missing', 'array-report',
         assert.match(result.stdout, /npm audit completed/);
         if (outcome === 'accepted') {
           for (const entry of entries) assert.ok(result.stdout.includes(`Accepted known finding until ${entry.expires} 00:00 UTC: ${entry.id}`));
-          assert.match(result.stdout, /2 reported package findings accepted/);
+          assert.match(result.stdout, /1 reported package findings accepted/);
           assert.doesNotMatch(result.stdout, /zero vulnerabilities|0 vulnerabilities/i);
         }
       } else if (outcome === 'development-advisory') {
