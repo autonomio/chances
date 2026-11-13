@@ -1,3 +1,7 @@
+# v2.0.10
+
+- Refresh docs-site dependencies past npm audit CVEs; accept unfixable deepmerge low via a 30-day reviewed exception.
+
 # v2.0.9
 
 - Stop automatic Copilot code review on every push; reviews remain available on request.

@@ -37,10 +37,10 @@
     },
     {
       "installed": "docs/repository/CHANGELOG.md",
-      "installed_sha256": "53d4c575fc67046aeff9590cad44e9a6875bc46f49eca011c45d2f21afb46ad8",
+      "installed_sha256": "edc2d20af8836a56d8ec35eea3e01364603f3dba346733121e79b952cc172fbb",
       "route": "/overview/changelog",
       "source": "CHANGELOG.md",
-      "source_sha256": "dc11a19ec93ef58d06adcf14be43a5900ac497a63d884b6d8687b2035f2c6213"
+      "source_sha256": "e6ea2f277b7f725bf4e931e6fef9360a560f02e4e0cb50ab507b73b5d6f82a44"
     },
     {
       "installed": "docs/repository/docs/Roadmap.md",
