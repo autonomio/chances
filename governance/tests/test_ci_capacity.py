@@ -33,15 +33,9 @@ def test_source_checks_are_bounded_without_losing_required_gates():
     ]
 
 
-def test_dependency_updates_retain_security_handling_without_weekly_bursts():
-    updates = yaml.safe_load((ROOT / '.github/dependabot.yml').read_text())['updates']
-    assert len({item['schedule']['day'] for item in updates}) == len(updates)
-    for item in updates:
-        assert item['open-pull-requests-limit'] == 1
-        assert {group['applies-to'] for group in item['groups'].values()} == {
-            'security-updates', 'version-updates',
-        }
-        assert 'ignore' not in item
+def test_dependency_automation_is_absent():
+    assert not (ROOT / '.github/dependabot.yml').exists()
+    assert not (ROOT / '.github/dependabot.yaml').exists()
 
 
 def test_readiness_skips_empty_suites_before_allocating_a_runner():
