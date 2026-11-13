@@ -1,6 +1,6 @@
 # v2.0.10
 
-- Refresh docs-site dependencies past npm audit CVEs; accept unfixable deepmerge low via a 30-day reviewed exception.
+- Refresh docs-site dependencies past npm audit CVEs; repair the unfixable deepmerge low with a vendored prototype-poisoning backport and keep live advisory exceptions empty.
 
 # v2.0.9
 
