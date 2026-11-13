@@ -65,17 +65,11 @@
     },
     "local_version": "4.3.1-autonomio.1",
     "patched_sha256": {
-      ".editorconfig": "73cc38e40b41f1eea6fd2d98d0ade5324f1ad564c3f111ebd0040b4286d2c25c",
-      ".eslintcache": "7690c5da38095c17a8c3ce73f3ebdc7bf7d7797c618a9c919c79a6b5e0024012",
-      "changelog.md": "360f6a3465a3e82f7bc1428cf1dc0cf5e6935a83b97345d172d27a4d8703321e",
-      "dist/cjs.js": "2a50b645cb15120d580eb9b19039b80924cc8c53eae53745798611aab39ff007",
-      "dist/umd.js": "34d94d7850c266c4e4e4cd6418bea7bea933a8347842ac9220d228b91f45fc48",
+      "index.js": "b10e5cfab7003e71288b1d5e2025f62b0209498b48ba1911d36dbbcd36b86e4e",
       "index.d.ts": "146ba4b99c5feb82663e17a671bf9f53bb39c704cd76345d6c5a801c26372f44",
-      "index.js": "e447c21a37fd12507cf7e917070706ea5e8c87b3392053870f922b737ae27d11",
-      "license.txt": "6cfc4687cb2f2d86f4a77e6b526290d3878e5e512f3fec2f4cb36a9cb36f798b",
       "package.json": "8a9fa7b687fedf573b3c1c4a6265a207c242e8838e6cbfb4ab6a3aa43ed09592",
-      "readme.md": "202430923abee498512b2f9cbab686a1e7d64759314a503ca0d5aaa29007fc0f",
-      "rollup.config.js": "abba48beb11daa282e69134e4928ec32737ae6f6d192dd5f00a6e660e032bb25"
+      "license.txt": "6cfc4687cb2f2d86f4a77e6b526290d3878e5e512f3fec2f4cb36a9cb36f798b",
+      "readme.md": "202430923abee498512b2f9cbab686a1e7d64759314a503ca0d5aaa29007fc0f"
     },
     "advisory": "GHSA-gcqx-w48m-w2h4"
   }

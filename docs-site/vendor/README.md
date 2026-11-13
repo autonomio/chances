@@ -11,7 +11,7 @@ locked install carries no build-only packages.
 |---|---|---|---|
 | braces | 3.0.3 | 3.0.3-autonomio.1 | Bound parser and direct-AST depth to 100; reject cyclic child/parent links or oversized ASTs before recursive walkers |
 | http-cache-semantics | 4.2.0 | 4.2.0-autonomio.1 | Refuse security-blocked cache reuse before considering max-stale, stale-while-revalidate or stale-if-error |
-| deepmerge | 4.3.1 | 4.3.1-autonomio.1 | Refuse `__proto__` keys from both merge operands so results keep `Object.prototype`; entry forwards to the self-contained patched `dist/cjs.js` |
+| deepmerge | 4.3.1 | 4.3.1-autonomio.1 | Self-contained `index.js` (upstream `dist/cjs.js` content) refuses `__proto__` keys from both merge operands so results keep `Object.prototype`; flat layout, no `dist/` segment |
 
 `provenance.json` records the original registry URL and integrity, upstream
 file digests, and every local file digest. Original MIT and BSD-2-Clause licenses
