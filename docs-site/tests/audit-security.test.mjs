@@ -36,6 +36,11 @@ for (const outcome of [0, 1, 2, 'accepted', 'signal', 'missing', 'array-report',
         copyFileSync(path.join(sourceRoot, 'scripts', script), path.join(scriptDirectory, script));
       }
       const entries = JSON.parse(readFileSync(path.join(sourceRoot, 'tests', 'fixtures', 'reviewed-exceptions.json'), 'utf8'));
+      const now = Date.now();
+      for (const entry of entries) {
+        entry.approved_on = new Date(now).toISOString().slice(0, 10);
+        entry.expires = new Date(now + 30 * 86400000).toISOString().slice(0, 10);
+      }
       writeFileSync(path.join(directory, 'security-exceptions.json'), JSON.stringify(entries));
       const packages = {};
       for (const entry of entries) {
@@ -72,7 +77,7 @@ for (const outcome of [0, 1, 2, 'accepted', 'signal', 'missing', 'array-report',
         assert.match(result.stdout, /npm audit completed/);
         if (outcome === 'accepted') {
           for (const entry of entries) assert.ok(result.stdout.includes(`Accepted known finding until ${entry.expires} 00:00 UTC: ${entry.id}`));
-          assert.match(result.stdout, /2 reported package findings accepted/);
+          assert.match(result.stdout, /1 reported package findings accepted/);
           assert.doesNotMatch(result.stdout, /zero vulnerabilities|0 vulnerabilities/i);
         }
       } else if (outcome === 'development-advisory') {

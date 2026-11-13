@@ -4,7 +4,7 @@ build-backend = "hatchling.build"
 
 [project]
 name = "chances"
-version = "2.0.9"
+version = "2.0.10"
 description = "Reproducible scientific randomness with explicit streams and verified receipts"
 keywords = ["randomness", "reproducibility", "scientific", "sampling", "receipts"]
 readme = "README.md"
@@ -68,6 +68,9 @@ exclude = [
     "/docs-site/playwright-report/**", "/docs-site/test-results/**",
     "/docs-site/audit-evidence/**",
 ]
+# The vendored deepmerge backport ships flat (no dist/ segment) so the sdist
+# package audit stays green; all tracked vendor files ride the /docs-site
+# include above.
 
 [tool.pytest.ini_options]
 testpaths = ["tests/package"]

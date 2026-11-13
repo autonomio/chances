@@ -12,6 +12,7 @@ const siteRoot = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..'
 const require = createRequire(path.join(siteRoot, 'package.json'));
 const braces = require('braces');
 const CachePolicy = require('http-cache-semantics');
+const deepmerge = require('deepmerge');
 
 function request(headers = {}) {
   return {url: 'https://example.test/private', method: 'GET', headers: {host: 'example.test', ...headers}};
@@ -34,7 +35,7 @@ test('modified source, identity and unreviewed files fail backport verification'
   cpSync(path.join(siteRoot, 'package.json'), path.join(root, 'package.json'));
   cpSync(path.join(siteRoot, 'package-lock.json'), path.join(root, 'package-lock.json'));
   mkdirSync(path.join(root, 'node_modules'));
-  for (const name of ['braces', 'http-cache-semantics']) {
+  for (const name of ['braces', 'http-cache-semantics', 'deepmerge']) {
     symlinkSync(path.join(root, 'vendor', name), path.join(root, 'node_modules', name), 'dir');
   }
   verifySecurityBackports(root);
@@ -54,7 +55,7 @@ test('modified source, identity and unreviewed files fail backport verification'
 
 test('every installed consumer resolves the reviewed local backports', () => {
   const lock = JSON.parse(readFileSync(path.join(siteRoot, 'package-lock.json'), 'utf8'));
-  for (const name of ['braces', 'http-cache-semantics']) {
+  for (const name of ['braces', 'http-cache-semantics', 'deepmerge']) {
     const expected = realpathSync(path.join(siteRoot, 'vendor', name, 'index.js'));
     assert.equal(realpathSync(require.resolve(name)), expected);
     let consumers = 0;
@@ -197,6 +198,32 @@ test('origin errors cannot restore forbidden responses through stale-if-error', 
   assert.notEqual(mismatch.policy, publicEntry);
 });
 
+
+test('prototype keys in merge operands cannot poison returned objects', () => {
+  const target = JSON.parse('{"__proto__": {"a": 1}, "keep": {"x": 1}}');
+  const source = JSON.parse('{"__proto__": {"polluted": true}, "keep": {"y": 2}}');
+  for (const result of [deepmerge(target, source), deepmerge.all([target, source])]) {
+    assert.equal(Object.getPrototypeOf(result), Object.prototype);
+    assert.equal(result.polluted, undefined);
+    assert.equal({}.polluted, undefined);
+    assert.deepEqual(result.keep, {x: 1, y: 2});
+  }
+  const nested = deepmerge({a: JSON.parse('{"__proto__": {"polluted": true}}')}, {b: 1});
+  assert.equal(Object.getPrototypeOf(nested.a), Object.prototype);
+  assert.equal(nested.a.polluted, undefined);
+  assert.equal(deepmerge({}, JSON.parse('{"__proto__": {"polluted": true}}')).polluted, undefined);
+});
+
+test('ordinary deep merges, arrays and clones remain compatible', () => {
+  assert.deepEqual(deepmerge({a: {b: 1}}, {a: {c: 2}, d: [1]}), {a: {b: 1, c: 2}, d: [1]});
+  assert.deepEqual(deepmerge({list: [1, 2]}, {list: [3]}), {list: [1, 2, 3]});
+  assert.deepEqual(deepmerge.all([{a: 1}, {b: 2}, {c: 3}]), {a: 1, b: 2, c: 3});
+  const source = {nested: {value: 1}};
+  const cloned = deepmerge({}, source);
+  assert.deepEqual(cloned, source);
+  assert.notEqual(cloned.nested, source.nested);
+  assert.deepEqual(deepmerge({list: [1]}, {list: [2]}, {arrayMerge: (target, source) => [...target, ...source, 'custom']}), {list: [1, 2, 'custom']});
+});
 
 test('must-revalidate permits fresh hits but forbids stale reuse through every path', () => {
   const entry = policy({'cache-control': 'max-age=600, must-revalidate, stale-if-error=999999999, stale-while-revalidate=999999999'});

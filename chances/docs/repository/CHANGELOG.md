@@ -1,5 +1,9 @@
 <!-- Generated from CHANGELOG.md; edit the canonical repository source. -->
 
+# v2.0.10
+
+- Refresh docs-site dependencies past npm audit CVEs; repair the unfixable deepmerge low with a vendored prototype-poisoning backport and keep live advisory exceptions empty.
+
 # v2.0.9
 
 - Stop automatic Copilot code review on every push; reviews remain available on request.
